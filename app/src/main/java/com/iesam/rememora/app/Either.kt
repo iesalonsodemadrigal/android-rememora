@@ -1,10 +1,10 @@
-package com.ibrakor.ejercicioformulario02.app
+package com.iesam.rememora.app
 sealed class Either<out L, out R> {
 
     data class Left<out T>(val value: T) : Either<T, Nothing>() {
         override fun isRight(): Boolean = false
         override fun isLeft(): Boolean = true
-        override fun get(): Nothing = throw NoSuchElementException("com.example.ejercicioformulario02.app.Either.Right.value on Left")
+        override fun get(): Nothing = throw NoSuchElementException("com.iesam.rememora.app.Either.Right.value on Left")
     }
 
     data class Right<out T>(val value: T) : Either<Nothing, T>() {

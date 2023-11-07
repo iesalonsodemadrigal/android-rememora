@@ -1,4 +1,4 @@
-package com.ibrakor.avilaentapaspractica.app.serialization
+package com.iesam.rememora.app.data.serialization
 
 interface JsonSerialization {
     fun <T> toJson(obj: T, typeClass: Class<T>): String

@@ -1,4 +1,4 @@
-package com.ibrakor.avilaentapaspractica.app.serialization
+package com.iesam.rememora.app.data.serialization
 
 import com.google.gson.Gson
 
