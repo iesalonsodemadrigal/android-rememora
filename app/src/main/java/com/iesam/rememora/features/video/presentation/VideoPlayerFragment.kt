@@ -1,5 +1,7 @@
 package com.iesam.rememora.features.video.presentation
 
-class VideoPlayerFragment {
+import androidx.fragment.app.Fragment
+
+class VideoPlayerFragment : Fragment() {
 
 }
