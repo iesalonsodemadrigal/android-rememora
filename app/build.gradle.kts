@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.iesam.rememora"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.iesam.rememora"
