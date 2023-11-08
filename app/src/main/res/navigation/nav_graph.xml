@@ -4,20 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph">
 
+
     <fragment
         android:id="@+id/fragment_imagen"
         android:name="com.iesam.rememora.features.images.presentation.ImagePlayerFragment"
         tools:layaout="">
-
-        <action
-            android:id="@+id/action_from_fragment_imagen_to_fragment_video"
-            app:destination="@id/fragment_video" />
-        <action
-            android:id="@+id/action_from_fragment_imagen_to_fragment_music"
-            app:destination="@id/fragment_music" />
-        <action
-            android:id="@+id/action_from_fragment_imagen_to_fragment_audio"
-            app:destination="@id/fragment_audio" />
 
     </fragment>
 
@@ -26,16 +17,6 @@
         android:name="com.iesam.rememora.features.video.presentation.VideoPlayerFragment"
         tools:layaout="" >
 
-        <action
-            android:id="@+id/action_from_fragment_video_to_fragment_imagen"
-            app:destination="@id/fragment_imagen" />
-        <action
-            android:id="@+id/action_from_fragment_video_to_fragment_music"
-            app:destination="@id/fragment_music" />
-        <action
-            android:id="@+id/action_from_fragment_video_to_fragment_audio"
-            app:destination="@id/fragment_audio" />
-
     </fragment>
 
     <fragment
@@ -43,32 +24,12 @@
         android:name="com.iesam.rememora.features.music.presentation.MusicaPlayerFragment"
         tools:layaout="" >
 
-        <action
-            android:id="@+id/action_from_fragment_music_to_fragment_imagen"
-            app:destination="@id/fragment_imagen" />
-        <action
-            android:id="@+id/action_from_fragment_music_to_fragment_video"
-            app:destination="@id/fragment_video" />
-        <action
-            android:id="@+id/action_from_fragment_music_to_fragment_audio"
-            app:destination="@id/fragment_audio" />
-
     </fragment>
 
     <fragment
         android:id="@+id/fragment_audio"
         android:name="com.iesam.rememora.features.audio.presentation.AudioPlayerFragment"
         tools:layaout="" >
-
-        <action
-            android:id="@+id/action_from_fragment_audio_to_fragment_imagen"
-            app:destination="@id/fragment_imagen" />
-        <action
-            android:id="@+id/action_from_fragment_audio_to_fragment_video"
-            app:destination="@id/fragment_video" />
-        <action
-            android:id="@+id/action_from_fragment_audio_to_fragment_music"
-            app:destination="@id/fragment_music" />
 
     </fragment>
 
