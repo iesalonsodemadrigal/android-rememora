@@ -3,6 +3,7 @@ package com.iesam.rememora.features.home.presentation
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.iesam.rememora.R
 import com.iesam.rememora.databinding.ActivityHomeBinding
 
@@ -21,7 +22,7 @@ class HomeActivity : AppCompatActivity() {
     private fun setupView(){
         binding.apply {
             actionImage.setOnClickListener{
-                it.findNavController().navigate(R.id.fragment_imagen)
+                it.findNavController().navigate(R.id.fragment_home)
             }
             actionVideo.setOnClickListener {
                 it.findNavController().navigate(R.id.fragment_video)

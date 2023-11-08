@@ -5,4 +5,6 @@
     <string name="label_buttom_video">VIDEOS</string>
     <string name="label_buttom_audio">AUDIOS</string>
     <string name="label_buttom_music">MUSICA</string>
+
+    <string name="label_title">REMEMORA</string>
 </resources>

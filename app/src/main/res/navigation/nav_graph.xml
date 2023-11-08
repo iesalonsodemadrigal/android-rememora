@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/fragment_home"
         android:name="com.iesam.rememora.features.home.presentation.HomeFragment"
-        tools:layaout="@layout/fragment_home">
+        tools:layout="@layout/fragment_home">
 
     </fragment>
 
