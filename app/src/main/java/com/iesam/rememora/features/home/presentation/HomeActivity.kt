@@ -17,6 +17,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupView()
     }
+
     private fun setupView(){
         binding.apply {
             actionImage.setOnClickListener{
@@ -33,4 +34,5 @@ class HomeActivity : AppCompatActivity() {
             }
         }
     }
+
 }
