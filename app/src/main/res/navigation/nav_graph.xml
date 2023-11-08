@@ -5,6 +5,22 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/fragment_home">
 
+    <action
+        android:id="@+id/action_global_image_fragment"
+        app:destination="@id/fragment_imagen" />
+
+    <action
+        android:id="@+id/action_global_video_fragment"
+        app:destination="@id/fragment_video" />
+
+    <action
+        android:id="@+id/action_global_music_fragment"
+        app:destination="@id/fragment_music" />
+
+    <action
+        android:id="@+id/action_global_audio_fragment"
+        app:destination="@id/fragment_audio" />
+
     <fragment
         android:id="@+id/fragment_home"
         android:name="com.iesam.rememora.features.home.presentation.HomeFragment"
@@ -15,7 +31,7 @@
     <fragment
         android:id="@+id/fragment_imagen"
         android:name="com.iesam.rememora.features.images.presentation.ImagePlayerFragment"
-        tools:layaout="">
+        tools:layout="" >
 
     </fragment>
 

@@ -2,6 +2,7 @@ package com.iesam.rememora.features.home.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.iesam.rememora.R
@@ -22,16 +23,17 @@ class HomeActivity : AppCompatActivity() {
     private fun setupView(){
         binding.apply {
             actionImage.setOnClickListener{
-                it.findNavController().navigate(R.id.fragment_home)
+                Navigation.findNavController(this@HomeActivity, R.id.fragment_container).navigate(R.id.fragment_imagen)
             }
+
             actionVideo.setOnClickListener {
-                it.findNavController().navigate(R.id.fragment_video)
+                Navigation.findNavController(this@HomeActivity, R.id.fragment_container).navigate(R.id.fragment_video)
             }
             actionMusica.setOnClickListener {
-                it.findNavController().navigate(R.id.fragment_music)
+                Navigation.findNavController(this@HomeActivity, R.id.fragment_container).navigate(R.id.fragment_music)
             }
             actionAudio.setOnClickListener {
-                it.findNavController().navigate(R.id.action_audio)
+                Navigation.findNavController(this@HomeActivity, R.id.fragment_container).navigate(R.id.fragment_audio)
             }
         }
     }
