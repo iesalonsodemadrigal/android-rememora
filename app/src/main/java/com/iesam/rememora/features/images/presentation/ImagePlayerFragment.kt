@@ -1,4 +1,6 @@
 package com.iesam.rememora.features.images.presentation
 
-class ImagePlayerFragment {
+import androidx.fragment.app.Fragment
+
+class ImagePlayerFragment : Fragment() {
 }

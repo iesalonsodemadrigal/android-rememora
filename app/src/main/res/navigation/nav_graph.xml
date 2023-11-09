@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment_home">
+
+    <action
+        android:id="@+id/action_global_image_fragment"
+        app:destination="@id/fragment_imagen" />
+
+    <action
+        android:id="@+id/action_global_video_fragment"
+        app:destination="@id/fragment_video" />
+
+    <action
+        android:id="@+id/action_global_music_fragment"
+        app:destination="@id/fragment_music" />
+
+    <action
+        android:id="@+id/action_global_audio_fragment"
+        app:destination="@id/fragment_audio" />
+
+    <fragment
+        android:id="@+id/fragment_home"
+        android:name="com.iesam.rememora.features.home.presentation.HomeFragment"
+        tools:layout="@layout/fragment_home">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_imagen"
+        android:name="com.iesam.rememora.features.images.presentation.ImagePlayerFragment"
+        tools:layout="" >
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_video"
+        android:name="com.iesam.rememora.features.video.presentation.VideoPlayerFragment"
+        tools:layaout="" >
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_music"
+        android:name="com.iesam.rememora.features.music.presentation.MusicaPlayerFragment"
+        tools:layaout="" >
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_audio"
+        android:name="com.iesam.rememora.features.audio.presentation.AudioPlayerFragment"
+        tools:layaout="" >
+
+    </fragment>
+
+</navigation>

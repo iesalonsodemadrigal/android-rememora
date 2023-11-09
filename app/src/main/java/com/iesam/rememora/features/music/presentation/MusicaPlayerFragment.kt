@@ -1,4 +1,6 @@
 package com.iesam.rememora.features.music.presentation
 
-class MusicaPlayerFragment {
+import androidx.fragment.app.Fragment
+
+class MusicaPlayerFragment : Fragment() {
 }
