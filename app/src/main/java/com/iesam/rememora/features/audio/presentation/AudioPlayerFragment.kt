@@ -1,4 +1,6 @@
 package com.iesam.rememora.features.audio.presentation
 
-class AudioPlayerFragment {
+import androidx.fragment.app.Fragment
+
+class AudioPlayerFragment : Fragment() {
 }
