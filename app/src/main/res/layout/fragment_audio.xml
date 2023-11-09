@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/audio_layout"
+            android:layout_width="@dimen/width_image"
+            android:layout_height="@dimen/height_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/menu_bottom"
+            android:scaleType="center"/>
+
+        <LinearLayout
+            android:id="@+id/menu_bottom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:paddingVertical="50dp">
+
+            <Button
+                android:id="@+id/back_button"
+                android:layout_width="@dimen/layout_width_menu_bottom"
+                android:layout_height="@dimen/layout_height_menu_bottom"
+                tools:text="ATRAS"
+                android:textSize="@dimen/size_title_buttom_menu"
+                android:layout_marginHorizontal="@dimen/size_padding_horizontal_menu_bottom"/>
+
+            <Button
+                android:id="@+id/repeat_button"
+                android:layout_width="@dimen/layout_width_menu_bottom"
+                android:layout_height="@dimen/layout_height_menu_bottom"
+                tools:text="REPETIR"
+                android:textSize="@dimen/size_title_buttom_menu"
+                android:layout_marginHorizontal="@dimen/size_padding_horizontal_menu_bottom"/>
+            <Button
+                android:id="@+id/next_button"
+                android:layout_width="@dimen/layout_width_menu_bottom"
+                android:layout_height="@dimen/layout_height_menu_bottom"
+                tools:text="SIGUIENTE"
+                android:textSize="@dimen/size_title_buttom_menu"
+                android:layout_marginHorizontal="@dimen/size_padding_horizontal_menu_bottom"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
