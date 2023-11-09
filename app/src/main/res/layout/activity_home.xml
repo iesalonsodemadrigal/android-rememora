@@ -51,11 +51,21 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/action_ayuda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/label_buttom_ayuda"
+        android:layout_margin="@dimen/margin_bottom_ayuda"
+        android:textSize="@dimen/size_title_buttom_menu"/>
+
 
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/action_ayuda"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/layout_menu"
         app:layout_constraintEnd_toEndOf="parent"

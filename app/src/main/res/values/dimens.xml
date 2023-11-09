@@ -9,4 +9,5 @@
     <dimen name="width_buttom_menu">300dp</dimen>
 
     <dimen name="margin_vertical_bottom">40dp</dimen>
+    <dimen name="margin_bottom_ayuda">10dp</dimen>
 </resources>

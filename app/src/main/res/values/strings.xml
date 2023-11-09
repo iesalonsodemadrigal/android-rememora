@@ -7,4 +7,6 @@
     <string name="label_buttom_music">MUSICA</string>
 
     <string name="label_title">REMEMORA</string>
+
+    <string name="label_buttom_ayuda">?</string>
 </resources>
