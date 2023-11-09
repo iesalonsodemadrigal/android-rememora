@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/label_title"
         android:textColor="@color/black"
-        android:textSize="50sp"/>
+        android:textSize="@dimen/size_title_fragment_home"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

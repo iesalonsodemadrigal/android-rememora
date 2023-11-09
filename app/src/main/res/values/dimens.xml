@@ -4,6 +4,8 @@
     <dimen name="size_padding_vertical_menu">70dp</dimen>
 
     <dimen name="size_title_buttom_menu">35sp</dimen>
+    <dimen name="size_title_fragment_home">50sp</dimen>
+
     <dimen name="width_buttom_menu">300dp</dimen>
 
     <dimen name="margin_vertical_bottom">40dp</dimen>
