@@ -6,6 +6,12 @@
     <string name="label_buttom_audio">AUDIOS</string>
     <string name="label_buttom_music">MUSICA</string>
 
+
+    <string name="label_buttom_next">SIGUIENTE</string>
+    <string name="label_buttom_back">ATRAS</string>
+    <string name="label_buttom_repeat">REPETIR</string>
+
+
     <string name="label_title">REMEMORA</string>
 
     <string name="label_buttom_ayuda">?</string>
