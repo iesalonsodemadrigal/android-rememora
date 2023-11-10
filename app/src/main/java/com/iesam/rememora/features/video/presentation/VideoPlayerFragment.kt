@@ -50,14 +50,13 @@ class VideoPlayerFragment : Fragment(){
                 nextVideo()
             }
             mediaControls.repeatButton.setOnClickListener{
-                firstVideo()
+                replay()
             }
         }
     }
 
-    private fun firstVideo() {
-        posVideo = 0
-        videoSet(posVideo)
+    private fun replay() {
+        video.seekTo(0)
     }
 
     private fun backVideo() {
