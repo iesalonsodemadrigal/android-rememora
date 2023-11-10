@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragment_home">
+    app:startDestination="@id/fragment_audio">
 
     <action
         android:id="@+id/action_global_image_fragment"
@@ -52,7 +52,7 @@
     <fragment
         android:id="@+id/fragment_audio"
         android:name="com.iesam.rememora.features.audio.presentation.AudioPlayerFragment"
-        tools:layaout="" >
+        tools:layout="@layout/fragment_audio" >
 
     </fragment>
 

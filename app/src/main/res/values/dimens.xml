@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <dimen name="spacing_vertical">32dp</dimen>
+    <dimen name="spacing_horizontal">16dp</dimen>
+    <dimen name="spacing_horizontal_media_player">32dp</dimen>
+
     <dimen name="size_padding_horizontal_menu">40dp</dimen>
     <dimen name="size_padding_vertical_menu">70dp</dimen>
 
