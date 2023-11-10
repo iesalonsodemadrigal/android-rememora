@@ -11,10 +11,10 @@
     <dimen name="margin_vertical_bottom">40dp</dimen>
     <dimen name="margin_bottom_ayuda">10dp</dimen>
 
-    <dimen name="size_padding_horizontal_menu_bottom">65dp</dimen>
-    <dimen name="layout_width_menu_bottom">300dp</dimen>
+    <dimen name="size_padding_horizontal_menu_bottom">25dp</dimen>
+    <dimen name="layout_width_menu_bottom">250dp</dimen>
     <dimen name="layout_height_menu_bottom">100dp</dimen>
 
-    <dimen name="width_image">1066dp</dimen>
-    <dimen name="height_image">600dp</dimen>
+    <dimen name="width_image">768dp</dimen>
+    <dimen name="height_image">432dp</dimen>
 </resources>
