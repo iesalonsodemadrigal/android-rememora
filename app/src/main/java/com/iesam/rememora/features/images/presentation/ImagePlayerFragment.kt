@@ -14,10 +14,10 @@ class ImagePlayerFragment : Fragment() {
 
     private var numImage=0
 
-    private val imagen1=R.drawable.ic_launcher_background
-    private val imagen2=R.drawable.ic_launcher_foreground
-    private val imagen3=R.drawable.ic_launcher_background
-    private val imagen4=R.drawable.ic_launcher_foreground
+    private val imagen1=R.drawable.rememora1
+    private val imagen2=R.drawable.rememora2
+    private val imagen3=R.drawable.rememora3
+    private val imagen4=R.drawable.rememora4
 
     private val images: MutableList<Int> = mutableListOf(imagen1,imagen2,imagen3,imagen4)
 
@@ -48,24 +48,25 @@ class ImagePlayerFragment : Fragment() {
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        refresImage(images[numImage])
+    }
+
     private fun firstImage() {
         numImage=0
         refresImage(images[numImage])
     }
 
     private fun backImage() {
-        if (numImage<0){
-            numImage=(images.size-1)
-        }else{
+        if (numImage>0){
             numImage--
         }
         refresImage(images[numImage])
     }
 
     private fun nextImage() {
-        if (numImage>=(images.size-1)){
-            numImage=0
-        }else{
+        if (numImage<(images.size-1)){
             numImage++
         }
         refresImage(images[numImage])

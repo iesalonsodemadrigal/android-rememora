@@ -16,10 +16,10 @@
             android:layout_width="@dimen/width_image"
             android:layout_height="@dimen/height_image"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/menu_bottom"
-            android:scaleType="center"/>
+            android:layout_marginStart="75dp"
+            tools:src="@drawable/rememora4"/>
 
         <LinearLayout
             android:id="@+id/menu_bottom"
@@ -34,7 +34,7 @@
                 android:id="@+id/back_button"
                 android:layout_width="@dimen/layout_width_menu_bottom"
                 android:layout_height="@dimen/layout_height_menu_bottom"
-                tools:text="ATRAS"
+                android:text="@string/label_buttom_back"
                 android:textSize="@dimen/size_title_buttom_menu"
                 android:layout_marginHorizontal="@dimen/size_padding_horizontal_menu_bottom"/>
 
@@ -42,14 +42,14 @@
                 android:id="@+id/repeat_button"
                 android:layout_width="@dimen/layout_width_menu_bottom"
                 android:layout_height="@dimen/layout_height_menu_bottom"
-                tools:text="REPETIR"
+                android:text="@string/label_buttom_repeat"
                 android:textSize="@dimen/size_title_buttom_menu"
                 android:layout_marginHorizontal="@dimen/size_padding_horizontal_menu_bottom"/>
             <Button
                 android:id="@+id/next_button"
                 android:layout_width="@dimen/layout_width_menu_bottom"
                 android:layout_height="@dimen/layout_height_menu_bottom"
-                tools:text="SIGUIENTE"
+                android:text="@string/label_buttom_next"
                 android:textSize="@dimen/size_title_buttom_menu"
                 android:layout_marginHorizontal="@dimen/size_padding_horizontal_menu_bottom"/>
 
