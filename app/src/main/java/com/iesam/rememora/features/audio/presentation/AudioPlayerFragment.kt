@@ -45,29 +45,36 @@ class AudioPlayerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupMediaPlayer()
+
+    }
+
+    private fun setupMediaPlayer() {
         mediaPlayer = MediaPlayer.create(requireContext(), audioResources[currentIndex])
         changeAudio()
-
-        binding.seekBar.setOnSeekBarChangeListener(object :
-            android.widget.SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(
-                seekBar: android.widget.SeekBar?,
-                progress: Int,
-                fromUser: Boolean
-            ) {
-                if (fromUser) {
-                    mediaPlayer?.seekTo(progress)
+        binding.apply {
+            seekBar.max = mediaPlayer?.duration ?: 0
+            seekBar.setOnSeekBarChangeListener(object :
+                android.widget.SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(
+                    seekBar: android.widget.SeekBar?,
+                    progress: Int,
+                    fromUser: Boolean
+                ) {
+                    if (fromUser) {
+                        mediaPlayer?.seekTo(progress)
+                    }
                 }
-            }
 
-            override fun onStartTrackingTouch(seekBar: android.widget.SeekBar?) {
-                handler.removeCallbacks(updateSeekBar)
-            }
+                override fun onStartTrackingTouch(seekBar: android.widget.SeekBar?) {
+                    handler.removeCallbacks(updateSeekBar)
+                }
 
-            override fun onStopTrackingTouch(seekBar: android.widget.SeekBar?) {
-                handler.post(updateSeekBar)
-            }
-        })
+                override fun onStopTrackingTouch(seekBar: android.widget.SeekBar?) {
+                    handler.post(updateSeekBar)
+                }
+            })
+        }
 
         mediaPlayer?.setOnCompletionListener {
             stopAudio()
@@ -86,7 +93,7 @@ class AudioPlayerFragment : Fragment() {
             backButton.setOnClickListener {
                 playPreviousAudio()
             }
-            seekBar.max = mediaPlayer?.duration ?: 0
+
         }
     }
 
