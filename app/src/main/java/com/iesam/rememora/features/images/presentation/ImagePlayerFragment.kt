@@ -36,13 +36,13 @@ class ImagePlayerFragment : Fragment() {
 
     private fun setupView() {
         binding.apply {
-            backButton.setOnClickListener{
+            mediaControls.backButton.setOnClickListener{
                 backImage()
             }
-            nextButton.setOnClickListener{
+            mediaControls.nextButton.setOnClickListener{
                 nextImage()
             }
-            repeatButton.setOnClickListener{
+            mediaControls.repeatButton.setOnClickListener{
                 firstImage()
             }
         }

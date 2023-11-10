@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <dimen name="spacing_vertical">32dp</dimen>
+    <dimen name="spacing_horizontal">16dp</dimen>
+
     <dimen name="size_padding_horizontal_menu">40dp</dimen>
     <dimen name="size_padding_vertical_menu">70dp</dimen>
 
@@ -15,6 +19,6 @@
     <dimen name="layout_width_menu_bottom">250dp</dimen>
     <dimen name="layout_height_menu_bottom">100dp</dimen>
 
-    <dimen name="width_image">768dp</dimen>
-    <dimen name="height_image">432dp</dimen>
+    <dimen name="margin_horizontal_fragmet_image">100dp</dimen>
+    <dimen name="margin_top_fragment_image">70dp</dimen>
 </resources>
