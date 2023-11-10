@@ -83,14 +83,14 @@ class AudioPlayerFragment : Fragment() {
 
 
     private fun setupView() {
-        binding.apply {
-            mediaControls.nextButton.setOnClickListener {
+        binding.mediaControls.apply {
+            nextButton.setOnClickListener {
                 playNextAudio()
             }
-            mediaControls.repeatButton.setOnClickListener {
+            repeatButton.setOnClickListener {
                 repeatAudio()
             }
-            mediaControls.backButton.setOnClickListener {
+            backButton.setOnClickListener {
                 playPreviousAudio()
             }
 
