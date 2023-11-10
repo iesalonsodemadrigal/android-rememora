@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
@@ -18,12 +18,36 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/menu_bottom"
-            android:scaleType="center"/>
+            app:layout_constraintBottom_toTopOf="@id/menu_bottom">
 
-        <LinearLayout
+            <TextView
+                android:id="@+id/audio_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="Audio1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/seekBar"
+                android:textSize="@dimen/size_title_buttom_menu">
+
+            </TextView>
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/menu_bottom"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,30 +55,40 @@
             android:paddingVertical="50dp">
 
             <Button
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 android:id="@+id/back_button"
                 android:layout_width="@dimen/layout_width_menu_bottom"
                 android:layout_height="@dimen/layout_height_menu_bottom"
-                tools:text="ATRAS"
+                android:text="@string/label_buttom_back"
                 android:textSize="@dimen/size_title_buttom_menu"
                 android:layout_marginHorizontal="@dimen/size_padding_horizontal_menu_bottom"/>
 
             <Button
+                app:layout_constraintStart_toEndOf="@id/back_button"
+                app:layout_constraintEnd_toStartOf="@id/next_button"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:id="@+id/repeat_button"
                 android:layout_width="@dimen/layout_width_menu_bottom"
                 android:layout_height="@dimen/layout_height_menu_bottom"
-                tools:text="REPETIR"
+                android:text="@string/label_buttom_repeat"
                 android:textSize="@dimen/size_title_buttom_menu"
                 android:layout_marginHorizontal="@dimen/size_padding_horizontal_menu_bottom"/>
             <Button
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:id="@+id/next_button"
                 android:layout_width="@dimen/layout_width_menu_bottom"
                 android:layout_height="@dimen/layout_height_menu_bottom"
-                tools:text="SIGUIENTE"
+                android:text="@string/label_buttom_next"
                 android:textSize="@dimen/size_title_buttom_menu"
                 android:layout_marginHorizontal="@dimen/size_padding_horizontal_menu_bottom"/>
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
