@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppSmallToolbar" parent="ThemeOverlay.Material3.Toolbar.Surface" >
+        <item name="titleCentered">true</item>
+        <item name="titleTextColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="AppElevatedCard" parent="Widget.Material3.CardView.Elevated" >
 
     </style>
 
-    <style name="AppElevatedCard" parent="MaterialCard.Elevated" >
+    <style name="AppFilledCard" parent="Widget.Material3.CardView.Filled" >
 
     </style>
 
-    <style name="AppFilledCard" parent="MaterialCard.Filled" >
+    <style name="AppOutlinedCard" parent="Widget.Material3.CardView.Outlined" >
 
     </style>
 
-    <style name="AppOutlinedCard" parent="MaterialCard.Outlined" >
+    <style name="AppTitleCard" parent="TextAppearance.Material3.TitleLarge" >
 
     </style>
 
-    <style name="AppTitleCard" parent="Title.Large" >
+    <style name="AppBodyCard" parent="TextAppearance.Material3.BodyLarge" >
 
     </style>
 
-    <style name="AppBodyCard" parent="Body.Large" >
+    <style name="AppElevatedButton" parent="Widget.Material3.Button.ElevatedButton" >
 
     </style>
 
-    <style name="AppElevatedButton" parent="MaterialButton.Elevated" >
-
-    </style>
-
-    <style name="AppFilledButton" parent="MaterialButton.Filled" >
+    <style name="AppFilledButton" parent="Widget.Material3.Button.IconButton.Filled" >
 
     </style>
 </resources>
