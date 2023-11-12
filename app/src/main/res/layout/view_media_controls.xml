@@ -9,7 +9,7 @@
     <Button
         android:id="@+id/back_button"
         android:layout_marginVertical="@dimen/spacing_vertical"
-        android:layout_marginHorizontal="@dimen/spacing_horizontal"
+        android:layout_marginHorizontal="@dimen/spacing_vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="@dimen/layout_width_menu_bottom"

@@ -52,7 +52,7 @@
     <fragment
         android:id="@+id/fragment_audio"
         android:name="com.iesam.rememora.features.audio.presentation.AudioPlayerFragment"
-        tools:layaout="" >
+        tools:layout="@layout/fragment_audio" >
 
     </fragment>
 
