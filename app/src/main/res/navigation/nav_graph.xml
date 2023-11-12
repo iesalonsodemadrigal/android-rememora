@@ -31,7 +31,7 @@
     <fragment
         android:id="@+id/fragment_imagen"
         android:name="com.iesam.rememora.features.images.presentation.ImagePlayerFragment"
-        tools:layout="" >
+        tools:layout="@layout/fragment_images">
 
     </fragment>
 
@@ -52,7 +52,7 @@
     <fragment
         android:id="@+id/fragment_audio"
         android:name="com.iesam.rememora.features.audio.presentation.AudioPlayerFragment"
-        tools:layaout="" >
+        tools:layout="@layout/fragment_audio" >
 
     </fragment>
 
