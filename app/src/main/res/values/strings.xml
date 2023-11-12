@@ -15,4 +15,8 @@
     <string name="label_title">REMEMORA</string>
 
     <string name="label_buttom_ayuda">?</string>
+
+    <string name="label_buttom_next">SIGUIENTE</string>
+    <string name="label_buttom_back">ATRAS</string>
+    <string name="label_buttom_repeat">REPETIR</string>
 </resources>
