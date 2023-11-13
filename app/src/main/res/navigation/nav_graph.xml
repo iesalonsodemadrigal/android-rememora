@@ -44,7 +44,7 @@
 
     <fragment
         android:id="@+id/fragment_music"
-        android:name="com.iesam.rememora.features.music.presentation.MusicaPlayerFragment"
+        android:name="com.iesam.rememora.features.music.presentation.MusicPlayerFragment"
         tools:layaout="" >
 
     </fragment>
