@@ -11,12 +11,12 @@ assignees: ''
 
 ## 👩‍💻 Implementación
 
-## ✂️ Subtareas
-
 ## 🛠️ Recursos
 
 ## 🎨 Interfaz de Usuario 
 
 ## 🆘 Ayuda
+
+## ✂️ Subtareas 
 
 ## ✅ Definición de hecho (DoD)
