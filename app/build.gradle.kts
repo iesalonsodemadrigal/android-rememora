@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("androidx.navigation.safeargs.kotlin")
-    id("com.google.gms.google-services")
+    id("com.google.gms.google-services") version "4.4.0" apply false
     //Hilt
     kotlin("kapt")
     id("com.google.dagger.hilt.android")

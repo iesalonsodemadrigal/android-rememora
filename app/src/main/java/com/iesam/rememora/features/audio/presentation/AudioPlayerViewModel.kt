@@ -27,11 +27,12 @@ class AudioPlayerViewModel (private val useCase: GetAudiosUseCase) : ViewModel()
     }
 
     private fun responseError(error : ErrorApp){
+        Log.d("sof", "ERROR")
         _uiState.postValue(UiState(errorApp = error))
     }
 
     private fun responseSucess (listAudios : List<Audio>){
-        Log.d("dev", "Lista de audios")
+        Log.d("sof", "Lista de audios")
         _uiState.postValue(UiState(audios = listAudios))
     }
 

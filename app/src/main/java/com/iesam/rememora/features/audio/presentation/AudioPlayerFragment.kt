@@ -65,7 +65,6 @@ class AudioPlayerFragment : Fragment() {
             backButton.setOnClickListener {
                 playPreviousAudio()
             }
-
         }
     }
     private fun playNextAudio() {
@@ -155,7 +154,6 @@ class AudioPlayerFragment : Fragment() {
                     showError(it.errorApp)
                 }else{
                     it.audios?.apply {
-                        Log.d("dev", "LISTA DE AUDIOS")
                     }
                 }
             }
