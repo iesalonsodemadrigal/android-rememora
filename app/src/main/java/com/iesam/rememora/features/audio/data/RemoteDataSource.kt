@@ -11,13 +11,14 @@ import kotlinx.coroutines.tasks.await
 
 class RemoteDataSource () : AudiosRepository{
     override suspend fun getAudios(): Either<ErrorApp, List<Audio>> {
+        val dataBase : FirebaseDatabase = FirebaseDatabase.getInstance();
         return try {
-            val dataSnapshot = FirebaseDatabase.getInstance()
+            val dataSnapshot = dataBase
                 .getReference("users/user_1/audio/playlist1")
                 .get()
                 .await()
             dataSnapshot.children.map { itemDataSnapshot ->
-                itemDataSnapshot.getValue(AudioBdRemoteModel::class.java)!!.toDomain()
+                itemDataSnapshot.getValue(Audio::class.java)!!
             }.right()
         } catch (exception: Exception) {
             //FirebaseCrashlytics.getInstance().recordException(exception)

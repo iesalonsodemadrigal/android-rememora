@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <RelativeLayout
         android:id="@+id/audio_layout"
         android:layout_width="0dp"
@@ -22,22 +21,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_above="@id/seekBar"
             android:textSize="@dimen/size_title_buttom_menu"
-            tools:text="Audio1">
+            android:layout_above="@id/playerView"
+            tools:text="Audio1" />
 
-        </TextView>
-
-        <SeekBar
-            android:id="@+id/seekBar"
-            android:layout_centerInParent="true"
-            android:layout_marginVertical="@dimen/spacing_vertical"
-            android:layout_marginHorizontal="@dimen/spacing_horizontal_media_player"
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/playerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="200dp"
+            android:layout_margin="10dp"
+            android:layout_centerInParent="true"/>
 
     </RelativeLayout>
-
 
    <include layout="@layout/view_media_controls"
        android:layout_width="0dp"
