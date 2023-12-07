@@ -1,0 +1,43 @@
+package com.iesam.rememora.features.audio.presentation
+
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.iesam.rememora.app.domain.ErrorApp
+import com.iesam.rememora.features.audio.domain.Audio
+import com.iesam.rememora.features.audio.domain.GetAudiosUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
+class AudioPlayerViewModel (private val useCase: GetAudiosUseCase) : ViewModel() {
+
+    private val _uiState = MutableLiveData<UiState>()
+    val uiState : LiveData<UiState> get() = _uiState
+
+    fun getListAudios () {
+        _uiState.value = UiState(isLoading = true)
+        viewModelScope.launch(Dispatchers.IO){
+            useCase().fold(
+                {responseError(it)},
+                {responseSucess(it)}
+            )
+        }
+    }
+
+    private fun responseError(error : ErrorApp){
+        _uiState.postValue(UiState(errorApp = error))
+    }
+
+    private fun responseSucess (listAudios : List<Audio>){
+        Log.d("dev", "Lista de audios")
+        _uiState.postValue(UiState(audios = listAudios))
+    }
+
+    data class UiState(
+        val errorApp: ErrorApp? = null,
+        val isLoading : Boolean = false,
+        val audios : List<Audio>? = null
+    )
+}
