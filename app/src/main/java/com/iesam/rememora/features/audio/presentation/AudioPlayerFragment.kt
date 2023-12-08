@@ -48,6 +48,9 @@ class AudioPlayerFragment : Fragment() {
             nextButton.setOnClickListener{
                 playNextSong()
             }
+            repeatButton.setOnClickListener{
+                prepareAndPlaySong(audiosList[audioIndex].source!!)
+            }
         }
     }
     private fun playPreviousSong() {
