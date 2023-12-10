@@ -9,8 +9,9 @@ import com.iesam.rememora.app.right
 import com.iesam.rememora.features.images.domain.Image
 import com.iesam.rememora.features.images.domain.ImageRepository
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
-class ImageRemoteDataSource() : ImageRepository {
+class ImageRemoteDataSource @Inject constructor() : ImageRepository {
     override suspend fun getImages(): Either<ErrorApp, List<Image>> {
         val dataBase: FirebaseDatabase = FirebaseDatabase.getInstance()
 

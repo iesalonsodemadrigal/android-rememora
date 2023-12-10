@@ -6,24 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
-import com.iesam.rememora.R
 import com.iesam.rememora.app.domain.ErrorApp
 import com.iesam.rememora.databinding.FragmentImagesBinding
-import com.iesam.rememora.features.images.data.ImageRemoteDataSource
-import com.iesam.rememora.features.images.domain.GetImagesUseCase
 import com.iesam.rememora.features.images.domain.Image
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ImagePlayerFragment : Fragment() {
     private var _binding: FragmentImagesBinding? = null
+
     private val binding get() = _binding!!
-    private val viewModel: ImagePlayerViewModel by lazy {
-        ImagePlayerViewModel(
-            GetImagesUseCase(ImageRemoteDataSource())
-        )
-    }
+
+    private val viewModel by viewModels<ImagePlayerViewModel>()
+
     private var images: List<Image> = listOf()
+
     private var numImage = 0
 
     override fun onCreateView(
@@ -66,7 +66,6 @@ class ImagePlayerFragment : Fragment() {
                 } else {
                     it.images?.apply {
                         images = this
-                        binding.image.setImageResource(R.drawable.rememora1)
                         refreshImage()
                     }
                 }
