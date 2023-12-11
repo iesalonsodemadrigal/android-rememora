@@ -25,9 +25,7 @@ class ImageRemoteDataSource @Inject constructor() : ImageRepository {
             }
             images.map { image ->
                 if (!image.source.isNullOrEmpty() && image.source?.get(0) == 'g') {
-                    convertUrlImage(image.source!!) { newUrl ->
-                        image.source = newUrl
-                    }
+                    image.source = convertUrlImage(image.source!!)
                 }
             }
             images.right()
@@ -36,10 +34,9 @@ class ImageRemoteDataSource @Inject constructor() : ImageRepository {
         }
     }
 
-    private fun convertUrlImage(url: String, callback: (String) -> Unit) {
+    private suspend fun convertUrlImage(url: String):String {
         val storage = FirebaseStorage.getInstance().getReferenceFromUrl(url)
-        storage.downloadUrl.addOnSuccessListener { uri ->
-            callback(uri.toString())
-        }
+        val uri = storage.downloadUrl.await()
+        return uri.toString()
     }
 }
