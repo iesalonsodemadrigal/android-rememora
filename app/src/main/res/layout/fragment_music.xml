@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:gravity="center"
         android:id="@+id/music_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -22,20 +23,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_above="@id/seekBar"
+            android:layout_above="@id/music_view"
             android:textSize="@dimen/size_title_buttom_menu"
             tools:text="Music1"
             app:drawableTopCompat="@drawable/ic_music">
 
         </TextView>
 
-        <SeekBar
-            android:id="@+id/seekBar"
-            android:layout_centerInParent="true"
-            android:layout_marginVertical="@dimen/spacing_vertical"
-            android:layout_marginHorizontal="@dimen/spacing_horizontal_media_player"
+        <com.google.android.exoplayer2.ui.StyledPlayerView
+            android:id="@+id/music_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            app:use_controller="true"
+            android:layout_height="200dp" />
 
     </RelativeLayout>
 

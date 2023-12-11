@@ -1,36 +1,29 @@
 package com.iesam.rememora.features.music.presentation
 
-import android.media.MediaPlayer
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.iesam.rememora.R
+import androidx.lifecycle.Observer
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.SimpleExoPlayer
 import com.iesam.rememora.databinding.FragmentMusicBinding
+import com.iesam.rememora.features.music.data.MusicDataRepository
+import com.iesam.rememora.features.music.data.MusicRemoteDataSource
+import com.iesam.rememora.features.music.domain.GetMusicListUseCase
+import com.iesam.rememora.features.music.domain.Music
 
 class MusicPlayerFragment : Fragment() {
     private var _binding: FragmentMusicBinding? = null
     private val binding get() = _binding!!
-
-    private var mediaPlayer: MediaPlayer? = null
-    private val handler = Handler(Looper.getMainLooper())
-    private var isPlaying = false
-    private val updateSeekBar = object : Runnable {
-        override fun run() {
-            updateSeekBar()
-        }
+    private val viewModel: MusicPlayerViewModel by lazy {
+        MusicPlayerViewModel(GetMusicListUseCase(MusicDataRepository(MusicRemoteDataSource())))
     }
-
-    private val MusicResources = listOf(
-        R.raw.la_casa_por_el_tejado,
-        R.raw.me_equivocaria_otra_vez,
-        R.raw.por_la_boca_vive_el_pez,
-        R.raw.soldadito_marinero
-    )
+    private var exoPlayer: SimpleExoPlayer? = null
     private var currentIndex = 0
+    private var musicList: List<Music> = mutableListOf()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,126 +32,85 @@ class MusicPlayerFragment : Fragment() {
     ): View {
         _binding = FragmentMusicBinding.inflate(inflater, container, false)
         setupView()
+        initializePlayer()
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupMediaPlayer()
-
+    private fun initializePlayer() {
+        exoPlayer = SimpleExoPlayer.Builder(requireContext())
+            .build()
+            .also { exoPlayer ->
+                binding.musicView.player = exoPlayer
+            }
     }
-
-    private fun setupMediaPlayer() {
-        mediaPlayer = MediaPlayer.create(requireContext(), MusicResources[currentIndex])
-        changeMusic()
-        binding.apply {
-            seekBar.max = mediaPlayer?.duration ?: 0
-            seekBar.setOnSeekBarChangeListener(object :
-                android.widget.SeekBar.OnSeekBarChangeListener {
-                override fun onProgressChanged(
-                    seekBar: android.widget.SeekBar?,
-                    progress: Int,
-                    fromUser: Boolean
-                ) {
-                    if (fromUser) {
-                        mediaPlayer?.seekTo(progress)
-                    }
-                }
-
-                override fun onStartTrackingTouch(seekBar: android.widget.SeekBar?) {
-                    handler.removeCallbacks(updateSeekBar)
-                }
-
-                override fun onStopTrackingTouch(seekBar: android.widget.SeekBar?) {
-                    handler.post(updateSeekBar)
-                }
-            })
-        }
-
-        mediaPlayer?.setOnCompletionListener {
-            stopMusic()
-        }
-    }
-
 
     private fun setupView() {
         binding.mediaControls.apply {
+
             nextButton.setOnClickListener {
                 playNextMusic()
             }
             repeatButton.setOnClickListener {
-                repeatMusic()
+                playMusic()
             }
             backButton.setOnClickListener {
                 playPreviousMusic()
             }
-
         }
-    }
 
-    private fun playOrPauseMusic() {
-        if (isPlaying) {
-            mediaPlayer?.pause()
-        } else {
-            mediaPlayer?.start()
-            handler.post(updateSeekBar)
-        }
-        isPlaying = !isPlaying
-    }
-
-    private fun repeatMusic() {
-        stopMusic()
-        playOrPauseMusic()
-    }
-
-    private fun stopMusic() {
-        mediaPlayer?.stop()
-        mediaPlayer?.prepare()
-        mediaPlayer?.seekTo(0)
-        isPlaying = false
     }
 
     private fun playNextMusic() {
-        if (currentIndex < MusicResources.size - 1) {
+        if (currentIndex < musicList.size - 1) {
             currentIndex++
-            changeMusic()
+            playMusic()
         }
     }
 
     private fun playPreviousMusic() {
         if (currentIndex > 0) {
             currentIndex--
-            changeMusic()
+            playMusic()
         }
     }
 
-    private fun changeMusic() {
-        stopMusic()
-        mediaPlayer = MediaPlayer.create(requireContext(), MusicResources[currentIndex])
-        binding.seekBar.max = mediaPlayer?.duration ?: 0
-        playOrPauseMusic()
-        changeMusicName()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupObserver()
+        viewModel.loadMusicList()
     }
 
-    private fun updateSeekBar() {
-        binding.seekBar.progress = mediaPlayer?.currentPosition ?: 0
-        handler.postDelayed(updateSeekBar, 10)
+
+    private fun setupObserver() {
+        val observer = Observer<MusicPlayerViewModel.UiState> {
+            it.musicList?.let {
+                musicList = it
+                playMusic()
+            }
+        }
+        viewModel.uiState.observe(viewLifecycleOwner, observer)
+    }
+
+    private fun playMusic() {
+        if (currentIndex < musicList.size) {
+            val currentMusic = musicList[currentIndex]
+            val mediaItem = MediaItem.fromUri(currentMusic.source!!)
+
+            exoPlayer?.setMediaItem(mediaItem)
+            exoPlayer?.prepare()
+            exoPlayer?.play()
+
+            changeMusicName()
+        }
     }
 
     private fun changeMusicName() {
-        val MusicName = resources.getResourceEntryName(MusicResources[currentIndex])
-        binding.musicName.text = MusicName
-    }
-
-    private fun stopMediaPlayer() {
-        mediaPlayer?.release()
-        mediaPlayer = null
-        handler.removeCallbacks(updateSeekBar)
+        binding.musicName.text = musicList[currentIndex].title
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        stopMediaPlayer()
         _binding = null
     }
 }
