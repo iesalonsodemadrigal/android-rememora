@@ -2,7 +2,6 @@ package com.iesam.rememora.app.presentation.views
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import com.google.android.exoplayer2.MediaItem
@@ -14,6 +13,7 @@ import com.iesam.rememora.databinding.ViewMediaBinding
 class MediaPlayerView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : FrameLayout(context, attrs) {
+
     private val binding = ViewMediaBinding.inflate(LayoutInflater.from(context), this, true)
     private var exoPlayer: SimpleExoPlayer? = null
     private var urlMediaList: List<String> = mutableListOf()
@@ -38,10 +38,10 @@ class MediaPlayerView @JvmOverloads constructor(
     }
 
     private fun playMusic() {
+        checkList()
         if (currentIndex < urlMediaList.size) {
             val currentMusic = urlMediaList[currentIndex]
             val mediaItem = MediaItem.fromUri(currentMusic)
-
             exoPlayer?.setMediaItem(mediaItem)
             exoPlayer?.prepare()
             exoPlayer?.play()
@@ -51,44 +51,36 @@ class MediaPlayerView @JvmOverloads constructor(
     }
 
     private fun setupView() {
-        Log.d("@DEV", "setupview")
-
+        checkList()
         binding.apply {
-            isClickable = true
-            setOnClickListener {
-                Log.d("@DEV", "view")
-
-            }
             backButton.setOnClickListener {
-                playPreviousMusic()
+                playPreviousMedia()
             }
             nextButton.setOnClickListener {
-                playNextMusic()
+                playNextMedia()
             }
             playPauseButton.setOnClickListener {
-                isClickable = true
-                isEnabled = true
-                Log.d("@DEV", "pause")
-                togglePlayPause()
+                playOrPauseMedia()
             }
         }
     }
 
-    private fun playNextMusic() {
-        if (currentIndex < urlMediaList.size - 1) {
-            currentIndex++
-            playMusic()
-        }
+    private fun checkList() {
+        binding.backButton.isEnabled = currentIndex > 0
+        binding.nextButton.isEnabled = currentIndex < urlMediaList.size - 1
     }
 
-    private fun playPreviousMusic() {
-        if (currentIndex > 0) {
-            currentIndex--
-            playMusic()
-        }
+    private fun playNextMedia() {
+        currentIndex++
+        playMusic()
     }
 
-    private fun togglePlayPause() {
+    private fun playPreviousMedia() {
+        currentIndex--
+        playMusic()
+    }
+
+    private fun playOrPauseMedia() {
         exoPlayer?.let {
             if (it.isPlaying) {
                 it.pause()
@@ -99,8 +91,6 @@ class MediaPlayerView @JvmOverloads constructor(
 
             }
         }
-
-
     }
 
 
