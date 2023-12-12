@@ -24,7 +24,7 @@ class MediaPlayerView @JvmOverloads constructor(
         setupView()
     }
 
-    fun setupMediaPlayer(exoPlayerView: StyledPlayerView, mediaList: List<String>) {
+    fun render(exoPlayerView: StyledPlayerView, mediaList: List<String>) {
         initializePlayer(exoPlayerView)
         urlMediaList = mediaList
         playMusic()

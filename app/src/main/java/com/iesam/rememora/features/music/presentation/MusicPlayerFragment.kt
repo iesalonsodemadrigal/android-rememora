@@ -40,7 +40,7 @@ class MusicPlayerFragment : Fragment() {
                 val urlList: List<String> = it.map {
                     it.source ?: ""
                 }
-                binding.mediaPlayer.setupMediaPlayer(binding.musicView, urlList)
+                binding.mediaPlayer.render(binding.musicView, urlList)
 
             }
         }
