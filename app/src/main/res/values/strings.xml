@@ -9,6 +9,8 @@
 
     <string name="label_buttom_next">SIGUIENTE</string>
     <string name="label_buttom_back">ATRAS</string>
+    <string name="label_buttom_play">REPRODUCIR</string>
+    <string name="label_buttom_pause">PAUSAR</string>
     <string name="label_buttom_repeat">REPETIR</string>
 
 

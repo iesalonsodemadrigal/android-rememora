@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/media_controls">
+        app:layout_constraintBottom_toTopOf="@id/media_player">
 
 
         <TextView
@@ -39,12 +39,14 @@
     </RelativeLayout>
 
 
-    <include layout="@layout/view_media_controls"
+    <com.iesam.rememora.app.presentation.views.MediaPlayerView
+        android:id="@+id/media_player"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/media_controls" />
+        app:layout_constraintBottom_toBottomOf="parent">
+
+    </com.iesam.rememora.app.presentation.views.MediaPlayerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

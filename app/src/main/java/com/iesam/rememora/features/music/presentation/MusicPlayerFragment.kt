@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.iesam.rememora.databinding.FragmentMusicBinding
 import com.iesam.rememora.features.music.data.MusicDataRepository
@@ -32,47 +31,27 @@ class MusicPlayerFragment : Fragment() {
     ): View {
         _binding = FragmentMusicBinding.inflate(inflater, container, false)
         setupView()
-        initializePlayer()
         return binding.root
     }
 
-    private fun initializePlayer() {
-        exoPlayer = SimpleExoPlayer.Builder(requireContext())
-            .build()
-            .also { exoPlayer ->
-                binding.musicView.player = exoPlayer
-            }
-    }
-
     private fun setupView() {
-        binding.mediaControls.apply {
-
-            nextButton.setOnClickListener {
-                playNextMusic()
-            }
-            repeatButton.setOnClickListener {
-                playMusic()
-            }
-            backButton.setOnClickListener {
-                playPreviousMusic()
-            }
-        }
 
     }
+
+    fun initializePlayer() {
+        exoPlayer = SimpleExoPlayer.Builder(requireContext()).build()
+        binding.musicView.player = exoPlayer
+    }
+
 
     private fun playNextMusic() {
         if (currentIndex < musicList.size - 1) {
             currentIndex++
-            playMusic()
+
         }
     }
 
-    private fun playPreviousMusic() {
-        if (currentIndex > 0) {
-            currentIndex--
-            playMusic()
-        }
-    }
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -85,25 +64,17 @@ class MusicPlayerFragment : Fragment() {
     private fun setupObserver() {
         val observer = Observer<MusicPlayerViewModel.UiState> {
             it.musicList?.let {
-                musicList = it
-                playMusic()
+                val urlList: List<String> = it.map {
+                    it.source ?: ""
+                }
+                binding.mediaPlayer.setupMediaPlayer(binding.musicView, urlList)
+
             }
         }
         viewModel.uiState.observe(viewLifecycleOwner, observer)
     }
 
-    private fun playMusic() {
-        if (currentIndex < musicList.size) {
-            val currentMusic = musicList[currentIndex]
-            val mediaItem = MediaItem.fromUri(currentMusic.source!!)
 
-            exoPlayer?.setMediaItem(mediaItem)
-            exoPlayer?.prepare()
-            exoPlayer?.play()
-
-            changeMusicName()
-        }
-    }
 
     private fun changeMusicName() {
         binding.musicName.text = musicList[currentIndex].title
