@@ -1,5 +1,4 @@
 package com.iesam.rememora.features.music.presentation
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -40,7 +39,7 @@ class MusicPlayerFragment : Fragment() {
                 val urlList: List<String> = it.map {
                     it.source!!
                 }
-                binding.mediaPlayer.render(binding.musicView, urlList)
+                binding.mediaPlayer.render(urlList, binding.musicView)
             }
         }
         viewModel.uiState.observe(viewLifecycleOwner, observer)

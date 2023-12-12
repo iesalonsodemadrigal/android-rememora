@@ -30,11 +30,11 @@
 
         </TextView>
 
-        <com.google.android.exoplayer2.ui.StyledPlayerView
+        <androidx.media3.ui.PlayerView
+            app:artwork_display_mode="fit"
             android:id="@+id/music_view"
             android:layout_width="match_parent"
-            app:use_controller="true"
-            android:layout_height="200dp" />
+            android:layout_height="wrap_content" />
 
     </RelativeLayout>
 
