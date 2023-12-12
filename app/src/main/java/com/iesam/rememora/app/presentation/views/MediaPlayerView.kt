@@ -21,14 +21,13 @@ class MediaPlayerView @JvmOverloads constructor(
 
 
     init {
-        inflate(this.context, R.layout.view_media, this)
         setupView()
     }
 
     fun setupMediaPlayer(exoPlayerView: StyledPlayerView, mediaList: List<String>) {
         initializePlayer(exoPlayerView)
         urlMediaList = mediaList
-        //playMusic()
+        playMusic()
 
 
     }
@@ -93,8 +92,11 @@ class MediaPlayerView @JvmOverloads constructor(
         exoPlayer?.let {
             if (it.isPlaying) {
                 it.pause()
+                binding.playPauseButton.text = context.getString(R.string.label_buttom_play)
             } else {
                 it.play()
+                binding.playPauseButton.text = context.getString(R.string.label_buttom_pause)
+
             }
         }
 
