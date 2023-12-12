@@ -19,6 +19,9 @@
     <dimen name="layout_width_menu_bottom">250dp</dimen>
     <dimen name="layout_height_menu_bottom">100dp</dimen>
 
+    <dimen name="width_image">768dp</dimen>
+    <dimen name="height_image">432dp</dimen>
+
     <dimen name="margin_horizontal_fragmet_image">50dp</dimen>
     <dimen name="margin_top_fragment_image">35dp</dimen>
 
