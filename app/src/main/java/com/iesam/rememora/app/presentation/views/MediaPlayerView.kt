@@ -5,8 +5,8 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.ui.PlayerView
 import com.iesam.rememora.R
 import com.iesam.rememora.databinding.ViewMediaBinding
 
@@ -22,11 +22,24 @@ class MediaPlayerView @JvmOverloads constructor(
 
     init {
         exoPlayer = ExoPlayer.Builder(context).build()
+        binding.mediaView.player = exoPlayer
         setupView()
     }
 
     private fun setupView() {
         checkList()
+        exoPlayer.addListener(object : Player.Listener {
+            override fun onPlaybackStateChanged(state: Int) {
+                when (state) {
+                    Player.STATE_ENDED -> {
+                        // El contenido ha llegado al final, realiza acciones necesarias
+                        binding.playPauseButton.text = context.getString(R.string.label_buttom_play)
+                        exoPlayer.seekTo(0)
+                        exoPlayer.stop()
+                    }
+                }
+            }
+        })
         binding.apply {
             backButton.setOnClickListener {
                 playPreviousMedia()
@@ -40,32 +53,6 @@ class MediaPlayerView @JvmOverloads constructor(
         }
     }
 
-    private fun checkList() {
-        binding.backButton.isEnabled = currentPosition > 0
-        binding.nextButton.isEnabled = currentPosition < urlMediaList.size - 1
-    }
-
-    fun render(mediaList: List<String>, playerView: PlayerView) {
-        urlMediaList = mediaList
-        playerView.player = exoPlayer
-        playMusic()
-
-
-    }
-
-
-    private fun playMusic() {
-        checkList()
-        if (currentPosition < urlMediaList.size) {
-            val currentMusic = urlMediaList[currentPosition]
-            val mediaItem = MediaItem.fromUri(currentMusic)
-            exoPlayer.setMediaItem(mediaItem)
-            exoPlayer.prepare()
-            exoPlayer.play()
-
-
-        }
-    }
 
 
     private fun playNextMedia() {
@@ -91,4 +78,26 @@ class MediaPlayerView @JvmOverloads constructor(
         }
     }
 
+    private fun playMusic() {
+        checkList()
+        if (currentPosition < urlMediaList.size) {
+            val currentMusic = urlMediaList[currentPosition]
+            val mediaItem = MediaItem.fromUri(currentMusic)
+            exoPlayer.setMediaItem(mediaItem)
+            exoPlayer.prepare()
+            exoPlayer.play()
+
+
+        }
+    }
+
+    private fun checkList() {
+        binding.backButton.isEnabled = currentPosition > 0
+        binding.nextButton.isEnabled = currentPosition < urlMediaList.size - 1
+    }
+
+    fun render(mediaList: List<String>) {
+        urlMediaList = mediaList
+        playMusic()
+    }
 }
