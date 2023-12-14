@@ -22,7 +22,6 @@ class MusicRemoteDataSource() {
             dataSnapshot.children.map {
                 it.getValue(MusicDBModel::class.java)!!
             }.map { music ->
-                //Cambiar sintaxis para no cambiar a var la variable source de MusicDB
                 music.source =
                     fireBaseStorage.getReferenceFromUrl(music.source!!).downloadUrl.await()
                         .toString()
