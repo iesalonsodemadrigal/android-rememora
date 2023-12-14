@@ -32,10 +32,10 @@ class MediaPlayerView @JvmOverloads constructor(
             override fun onPlaybackStateChanged(state: Int) {
                 when (state) {
                     Player.STATE_ENDED -> {
-                        // El contenido ha llegado al final, realiza acciones necesarias
                         binding.playPauseButton.text = context.getString(R.string.label_buttom_play)
+                        playMusic()
+                        exoPlayer.pause()
                         exoPlayer.seekTo(0)
-                        exoPlayer.stop()
                     }
                 }
             }
@@ -52,8 +52,6 @@ class MediaPlayerView @JvmOverloads constructor(
             }
         }
     }
-
-
 
     private fun playNextMedia() {
         currentPosition++
@@ -86,8 +84,7 @@ class MediaPlayerView @JvmOverloads constructor(
             exoPlayer.setMediaItem(mediaItem)
             exoPlayer.prepare()
             exoPlayer.play()
-
-
+            binding.playPauseButton.text = context.getString(R.string.label_buttom_pause)
         }
     }
 
@@ -99,5 +96,10 @@ class MediaPlayerView @JvmOverloads constructor(
     fun render(mediaList: List<String>) {
         urlMediaList = mediaList
         playMusic()
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        exoPlayer.release()
     }
 }
