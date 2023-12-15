@@ -15,4 +15,9 @@
     <string name="label_title">REMEMORA</string>
 
     <string name="label_buttom_ayuda">?</string>
+
+    <string name="label_buttom_login">Identificate con Google</string>
+    <string name="label_buttom_cancel">Cancelar</string>
+    <string name="label_buttom_logout">Cerrar sesión</string>
+    <string name="label_buttom_delete_account">Eliminar sesión</string>
 </resources>
