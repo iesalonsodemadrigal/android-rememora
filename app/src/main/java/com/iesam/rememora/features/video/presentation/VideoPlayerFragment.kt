@@ -8,16 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.VideoView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.iesam.rememora.R
 import com.iesam.rememora.databinding.FragmentVideosBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class VideoPlayerFragment : Fragment(){
+@AndroidEntryPoint
+class VideoPlayerFragment : Fragment() {
 
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var video: VideoView
 
     private val videos = intArrayOf(R.raw.video1, R.raw.video2, R.raw.video3)
     private var posVideo = 0
+    private val viewModel by viewModels<VideoPlayerViewModel>()
 
     private var _binding: FragmentVideosBinding? = null
     private val binding get() = _binding!!
@@ -43,13 +47,13 @@ class VideoPlayerFragment : Fragment(){
 
     private fun setupView() {
         binding.apply {
-            mediaControls.backButton.setOnClickListener{
+            mediaControls.backButton.setOnClickListener {
                 backVideo()
             }
-            mediaControls.nextButton.setOnClickListener{
+            mediaControls.nextButton.setOnClickListener {
                 nextVideo()
             }
-            mediaControls.repeatButton.setOnClickListener{
+            mediaControls.repeatButton.setOnClickListener {
                 replay()
             }
         }
@@ -60,21 +64,21 @@ class VideoPlayerFragment : Fragment(){
     }
 
     private fun backVideo() {
-        if (posVideo > 0){
+        if (posVideo > 0) {
             posVideo--
         }
         videoSet(posVideo)
     }
 
     private fun nextVideo() {
-        if (posVideo < (videos.size - 1)){
+        if (posVideo < (videos.size - 1)) {
             posVideo++
         }
         videoSet(posVideo)
     }
 
-    private fun videoSet(pos : Int){
-        binding.video.setVideoURI((Uri.parse("android.resource://"+requireActivity().packageName+"/"+videos[pos])))
+    private fun videoSet(pos: Int) {
+        binding.video.setVideoURI((Uri.parse("android.resource://" + requireActivity().packageName + "/" + videos[pos])))
     }
 
     override fun onDestroyView() {
