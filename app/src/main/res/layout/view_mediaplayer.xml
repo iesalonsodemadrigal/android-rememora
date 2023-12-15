@@ -14,8 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bottomButtonContainer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:artwork_display_mode="fit" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginVertical="@dimen/spacing_vertical"
@@ -39,10 +38,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/back_button"
             app:layout_constraintEnd_toStartOf="@id/next_button"
-            android:layout_width="@dimen/layout_width_menu_bottom"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/layout_height_menu_bottom"
+            style="@style/MediaButtonStyle"
             android:text="@string/label_buttom_pause"
-            android:textSize="@dimen/size_title_buttom_menu"
             tools:text="REPRODUCIR" />
 
         <Button

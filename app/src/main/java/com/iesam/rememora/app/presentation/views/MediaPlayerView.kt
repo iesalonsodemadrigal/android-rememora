@@ -8,13 +8,13 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import com.iesam.rememora.R
-import com.iesam.rememora.databinding.ViewMediaBinding
+import com.iesam.rememora.databinding.ViewMediaplayerBinding
 
 class MediaPlayerView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : FrameLayout(context, attrs) {
 
-    private val binding = ViewMediaBinding.inflate(LayoutInflater.from(context), this, true)
+    private val binding = ViewMediaplayerBinding.inflate(LayoutInflater.from(context), this, true)
     private var urlMediaList: List<String> = mutableListOf()
     private var currentPosition = 0
 
