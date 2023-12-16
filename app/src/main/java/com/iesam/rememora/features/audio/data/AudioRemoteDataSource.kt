@@ -13,10 +13,10 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class AudioRemoteDataSource @Inject constructor () {
-     suspend fun getAudios(): Either<ErrorApp, List<Audio>> {
-        val dataBase : FirebaseDatabase = FirebaseDatabase.getInstance()
-        val storage = FirebaseStorage.getInstance()
 
+    private val dataBase : FirebaseDatabase = FirebaseDatabase.getInstance()
+    private val storage = FirebaseStorage.getInstance()
+     suspend fun getAudios(): Either<ErrorApp, List<Audio>> {
         return try {
             val dataSnapshot = dataBase
                 .getReference("users/user_1/audio/playlist2")
