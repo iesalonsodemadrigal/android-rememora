@@ -7,8 +7,6 @@ import com.iesam.rememora.app.domain.ErrorApp
 import com.iesam.rememora.app.left
 import com.iesam.rememora.app.right
 import com.iesam.rememora.features.audio.domain.Audio
-import com.iesam.rememora.features.audio.domain.AudioDbModel
-import com.iesam.rememora.features.audio.domain.toModel
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 

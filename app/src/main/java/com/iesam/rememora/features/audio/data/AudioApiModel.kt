@@ -1,6 +1,7 @@
-package com.iesam.rememora.features.audio.domain
+package com.iesam.rememora.features.audio.data
 
 import com.google.gson.annotations.SerializedName
+import com.iesam.rememora.features.audio.domain.Audio
 
 data class AudioDbModel (
     @SerializedName("description") val description: String? = null,
