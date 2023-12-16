@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.iesam.rememora.app.domain.ErrorApp
 import com.iesam.rememora.features.audio.domain.Audio
 import com.iesam.rememora.features.audio.domain.GetAudiosUseCase
-import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

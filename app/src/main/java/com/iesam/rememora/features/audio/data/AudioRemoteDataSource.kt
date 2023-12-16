@@ -29,7 +29,6 @@ class AudioRemoteDataSource @Inject constructor () {
                 audio.toModel()
             }.right()
         } catch (exception: Exception) {
-            //FirebaseCrashlytics.getInstance().recordException(exception)
             ErrorApp.DataError.left()
         }
     }
