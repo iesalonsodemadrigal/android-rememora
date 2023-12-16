@@ -7,29 +7,30 @@ import com.iesam.rememora.app.domain.ErrorApp
 import com.iesam.rememora.app.left
 import com.iesam.rememora.app.right
 import com.iesam.rememora.features.audio.domain.Audio
-import com.iesam.rememora.features.audio.domain.AudiosRepository
+import com.iesam.rememora.features.audio.domain.AudioDbModel
+import com.iesam.rememora.features.audio.domain.toModel
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
-class RemoteDataSource () : AudiosRepository{
-    override suspend fun getAudios(): Either<ErrorApp, List<Audio>> {
+class AudioRemoteDataSource @Inject constructor () {
+     suspend fun getAudios(): Either<ErrorApp, List<Audio>> {
         val dataBase : FirebaseDatabase = FirebaseDatabase.getInstance()
         val storage = FirebaseStorage.getInstance()
 
-        try {
+        return try {
             val dataSnapshot = dataBase
                 .getReference("users/user_1/audio/playlist2")
                 .get()
                 .await()
-            val values = dataSnapshot.children.map {
-                it.getValue(Audio::class.java)!!
-            }
-            values.map {
-                it.source = storage.getReferenceFromUrl(it.source!!).downloadUrl.await().toString()
-            }
-            return values.right()
+            dataSnapshot.children.map {
+                it.getValue(AudioDbModel::class.java)!!
+            }.map { audio ->
+                audio.source = storage.getReferenceFromUrl(audio.source!!).downloadUrl.await().toString()
+                audio.toModel()
+            }.right()
         } catch (exception: Exception) {
             //FirebaseCrashlytics.getInstance().recordException(exception)
-            return ErrorApp.DataError.left()
+            ErrorApp.DataError.left()
         }
     }
 }

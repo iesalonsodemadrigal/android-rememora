@@ -6,23 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.iesam.rememora.app.domain.ErrorApp
 import com.iesam.rememora.databinding.FragmentAudioBinding
-import com.iesam.rememora.features.audio.data.RemoteDataSource
 import com.iesam.rememora.features.audio.domain.Audio
-import com.iesam.rememora.features.audio.domain.GetAudiosUseCase
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AudioPlayerFragment : Fragment() {
     private var _binding: FragmentAudioBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: AudioPlayerViewModel by lazy {
-        AudioPlayerViewModel(
-            GetAudiosUseCase(RemoteDataSource())
-        )
-    }
+    private val viewModel by viewModels<AudioPlayerViewModel>()
 
     private var audiosList : List<Audio> = listOf( )
 
