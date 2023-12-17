@@ -31,7 +31,6 @@ class HomeActivity : AppCompatActivity() {
                 Navigation.findNavController(this@HomeActivity, R.id.fragment_container)
                     .navigate(R.id.fragment_imagen)
             }
-
             actionVideo.setOnClickListener {
                 Navigation.findNavController(this@HomeActivity, R.id.fragment_container)
                     .navigate(R.id.fragment_video)
@@ -57,7 +56,7 @@ class HomeActivity : AppCompatActivity() {
             } else {
                 if (it.errorApp != null) {
                 } else {
-                    if (it.account) {
+                    if (!it.account) {
                         Navigation.findNavController(this@HomeActivity, R.id.fragment_container)
                             .navigate(R.id.fragment_login)
                     }
