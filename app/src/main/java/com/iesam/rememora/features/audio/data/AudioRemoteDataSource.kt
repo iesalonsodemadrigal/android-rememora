@@ -10,20 +10,17 @@ import com.iesam.rememora.features.audio.domain.Audio
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class AudioRemoteDataSource @Inject constructor () {
-
-    private val dataBase : FirebaseDatabase = FirebaseDatabase.getInstance()
-    private val storage = FirebaseStorage.getInstance()
+class AudioRemoteDataSource @Inject constructor (private val firebaseDataBase : FirebaseDatabase, private val firebaseStorage: FirebaseStorage) {
      suspend fun getAudios(): Either<ErrorApp, List<Audio>> {
         return try {
-            val dataSnapshot = dataBase
-                .getReference("users/user_1/audio/playlist2")
+            val dataSnapshot = firebaseDataBase
+                .getReference("users/user_1/audio/playlist3")
                 .get()
                 .await()
             dataSnapshot.children.map {
                 it.getValue(AudioDbModel::class.java)!!
             }.map { audio ->
-                audio.source = storage.getReferenceFromUrl(audio.source!!).downloadUrl.await().toString()
+                audio.source = firebaseStorage.getReferenceFromUrl(audio.source!!).downloadUrl.await().toString()
                 audio.toModel()
             }.right()
         } catch (exception: Exception) {
