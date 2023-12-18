@@ -10,8 +10,10 @@ import com.iesam.rememora.features.video.domain.Video
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class VideoRemoteDataSource @Inject constructor(private val database: FirebaseDatabase,
-        private val storage: FirebaseStorage) {
+class VideoRemoteDataSource @Inject constructor(
+    private val database: FirebaseDatabase,
+    private val storage: FirebaseStorage
+) {
     suspend fun getVideos(): Either<ErrorApp, List<Video>> {
         return try {
             val snapshot = database
