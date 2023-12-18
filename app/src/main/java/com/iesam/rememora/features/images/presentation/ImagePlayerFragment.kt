@@ -5,24 +5,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment
-import com.iesam.rememora.R
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
+import com.iesam.rememora.app.domain.ErrorApp
 import com.iesam.rememora.databinding.FragmentImagesBinding
+import com.iesam.rememora.features.images.domain.Image
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ImagePlayerFragment : Fragment() {
-
-    private var numImage=0
-
-    private val imagen1=R.drawable.rememora1
-    private val imagen2=R.drawable.rememora2
-    private val imagen3=R.drawable.rememora3
-    private val imagen4=R.drawable.rememora4
-
-    private val images: MutableList<Int> = mutableListOf(imagen1,imagen2,imagen3,imagen4)
-
     private var _binding: FragmentImagesBinding? = null
+
     private val binding get() = _binding!!
+
+    private val viewModel by viewModels<ImagePlayerViewModel>()
+
+    private var images: List<Image> = listOf()
+
+    private var numImage = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,13 +38,13 @@ class ImagePlayerFragment : Fragment() {
 
     private fun setupView() {
         binding.apply {
-            mediaControls.backButton.setOnClickListener{
+            mediaControls.backButton.setOnClickListener {
                 backImage()
             }
-            mediaControls.nextButton.setOnClickListener{
+            mediaControls.nextButton.setOnClickListener {
                 nextImage()
             }
-            mediaControls.repeatButton.setOnClickListener{
+            mediaControls.repeatButton.setOnClickListener {
                 firstImage()
             }
         }
@@ -50,30 +52,54 @@ class ImagePlayerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        refresImage(images[numImage])
+        setupObserver()
+        viewModel.getImages()
+    }
+
+    private fun setupObserver() {
+        val observer = Observer<ImagePlayerViewModel.UiState> {
+            if (it.isLoading) {
+
+            } else {
+                if (it.errorApp != null) {
+                    showError(it.errorApp)
+                } else {
+                    it.images?.apply {
+                        images = this
+                        refreshImage()
+                    }
+                }
+            }
+        }
+        viewModel.uiState.observe(viewLifecycleOwner, observer)
     }
 
     private fun firstImage() {
-        numImage=0
-        refresImage(images[numImage])
+        numImage = 0
+        refreshImage()
     }
 
     private fun backImage() {
-        if (numImage>0){
+        if (numImage > 0) {
             numImage--
         }
-        refresImage(images[numImage])
+        refreshImage()
     }
 
     private fun nextImage() {
-        if (numImage<(images.size-1)){
+        if (numImage < (images.size - 1)) {
             numImage++
         }
-        refresImage(images[numImage])
+        refreshImage()
     }
 
-    private fun refresImage(@DrawableRes image:Int){
-        binding.image.setImageResource(image)
+    private fun showError(error: ErrorApp) {
+    }
+
+    private fun refreshImage() {
+        Glide.with(this)
+            .load(images[numImage].source)
+            .into(binding.image)
     }
 
     override fun onDestroyView() {

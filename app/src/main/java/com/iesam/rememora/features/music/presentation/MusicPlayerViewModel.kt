@@ -13,12 +13,6 @@ import kotlinx.coroutines.launch
 class MusicPlayerViewModel(private val getMusicListUseCase: GetMusicListUseCase) : ViewModel() {
     private val _uiState = MutableLiveData<UiState>()
     val uiState: LiveData<UiState> = _uiState
-
-    data class UiState(
-        val musicList: List<Music>? = null,
-        val errorApp: ErrorApp? = null
-    )
-
     fun loadMusicList() {
         viewModelScope.launch(Dispatchers.IO) {
             getMusicListUseCase.invoke().fold(
@@ -34,4 +28,9 @@ class MusicPlayerViewModel(private val getMusicListUseCase: GetMusicListUseCase)
     private fun responseSucces(it: List<Music>) {
         _uiState.postValue(UiState(musicList = it))
     }
+
+    data class UiState(
+        val musicList: List<Music>? = null,
+        val errorApp: ErrorApp? = null
+    )
 }

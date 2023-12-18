@@ -16,13 +16,12 @@ class MusicRemoteDataSource() {
     suspend fun obtainMusicList(): Either<ErrorApp, List<Music>> {
         return try {
             val dataSnapshot = fireBaseDB
-                .getReference("users/user_1/music/playlist2")
+                .getReference("users/user_1/videos/videos_1")
                 .get()
                 .await()
             dataSnapshot.children.map {
                 it.getValue(MusicDBModel::class.java)!!
             }.map { music ->
-                //Cambiar sintaxis para no cambiar a var la variable source de MusicDB
                 music.source =
                     fireBaseStorage.getReferenceFromUrl(music.source!!).downloadUrl.await()
                         .toString()

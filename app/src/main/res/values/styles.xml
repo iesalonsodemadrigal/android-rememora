@@ -21,15 +21,20 @@
 
     </style>
 
-    <style name="AppBodyCard" parent="TextAppearance.Material3.BodyLarge" >
+    <style name="AppBodyCard" parent="TextAppearance.Material3.BodyLarge">
 
     </style>
 
-    <style name="AppElevatedButton" parent="Widget.Material3.Button.ElevatedButton" >
+    <style name="AppElevatedButton" parent="Widget.Material3.Button.ElevatedButton">
 
     </style>
 
-    <style name="AppFilledButton" parent="Widget.Material3.Button.IconButton.Filled" >
+    <style name="MediaButtonStyle" parent="TextAppearance.Material3.DisplaySmall">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+
+    <style name="AppFilledButton" parent="Widget.Material3.Button.IconButton.Filled">
 
     </style>
 
