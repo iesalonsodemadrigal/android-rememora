@@ -4,18 +4,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.iesam.rememora.databinding.FragmentMusicBinding
-import com.iesam.rememora.features.music.data.MusicDataRepository
-import com.iesam.rememora.features.music.data.MusicRemoteDataSource
-import com.iesam.rememora.features.music.domain.GetMusicListUseCase
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MusicPlayerFragment : Fragment() {
     private var _binding: FragmentMusicBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: MusicPlayerViewModel by lazy {
-        MusicPlayerViewModel(GetMusicListUseCase(MusicDataRepository(MusicRemoteDataSource())))
-    }
+    private val viewModel by viewModels<MusicPlayerViewModel>()
 
 
     override fun onCreateView(
@@ -26,6 +24,7 @@ class MusicPlayerFragment : Fragment() {
         _binding = FragmentMusicBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupObserver()
@@ -34,10 +33,10 @@ class MusicPlayerFragment : Fragment() {
 
 
     private fun setupObserver() {
-        val observer = Observer<MusicPlayerViewModel.UiState> {
-            it.musicList?.let {
-                val urlList: List<String> = it.map {
-                    it.source!!
+        val observer = Observer<MusicPlayerViewModel.UiState> { it ->
+            it.musicList?.let { musicList ->
+                val urlList: List<String> = musicList.mapNotNull {
+                    it.source
                 }
                 binding.mediaPlayer.render(urlList)
             }
