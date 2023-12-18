@@ -10,9 +10,11 @@ import com.iesam.rememora.features.music.domain.Music
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class MusicRemoteDataSource @Inject constructor() {
-    private val fireBaseDB = FirebaseDatabase.getInstance()
-    private val fireBaseStorage = FirebaseStorage.getInstance()
+class MusicRemoteDataSource @Inject constructor(
+    private val fireBaseDB: FirebaseDatabase,
+    private val fireBaseStorage: FirebaseStorage
+) {
+
     suspend fun obtainMusicList(): Either<ErrorApp, List<Music>> {
         return try {
             val dataSnapshot = fireBaseDB

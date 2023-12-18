@@ -35,8 +35,8 @@ class MusicPlayerFragment : Fragment() {
     private fun setupObserver() {
         val observer = Observer<MusicPlayerViewModel.UiState> { it ->
             it.musicList?.let { musicList ->
-                val urlList: List<String> = musicList.mapNotNull {
-                    it.source
+                val urlList: List<String> = musicList.map {
+                    it.source!!
                 }
                 binding.mediaPlayer.render(urlList)
             }
