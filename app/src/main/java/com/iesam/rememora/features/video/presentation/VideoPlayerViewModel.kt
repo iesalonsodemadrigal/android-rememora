@@ -7,10 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.iesam.rememora.app.domain.ErrorApp
 import com.iesam.rememora.features.video.domain.GetVideosUseCase
 import com.iesam.rememora.features.video.domain.Video
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class VideoPlayerViewModel(private val getVideosUseCase: GetVideosUseCase) : ViewModel() {
+@HiltViewModel
+class VideoPlayerViewModel @Inject constructor(private val getVideosUseCase: GetVideosUseCase) :
+    ViewModel() {
     private val _uiState = MutableLiveData<UiState>()
     val uiState: LiveData<UiState> = _uiState
 

@@ -8,8 +8,9 @@ import com.iesam.rememora.app.left
 import com.iesam.rememora.app.right
 import com.iesam.rememora.features.video.domain.Video
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
-class VideoRemoteDataSource {
+class VideoRemoteDataSource @Inject constructor() {
     private val database = FirebaseDatabase.getInstance()
     private val storage = FirebaseStorage.getInstance()
     suspend fun getVideos(): Either<ErrorApp, List<Video>> {
@@ -26,7 +27,7 @@ class VideoRemoteDataSource {
                 video.toModel()
             }.right()
         } catch (exception: Exception) {
-            return ErrorApp.UnknownError.left()
+            return ErrorApp.NetworkError.left()
         }
     }
 
