@@ -9,4 +9,5 @@ data class MusicDBModel(
     val title: String? = null
 )
 
-fun MusicDBModel.toModel(): Music = Music(this.description, this.source, this.title)
+fun MusicDBModel.toModel(): Music =
+    Music(this.id.toString(), this.description, this.source, this.title)
