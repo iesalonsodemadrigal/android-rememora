@@ -30,7 +30,7 @@ class MusicRemoteDataSource @Inject constructor(
                 music.toModel()
             }.right()
         } catch (exception: Exception) {
-            ErrorApp.NetworkError.left()
+            ErrorApp.InternetError.left()
         }
     }
 }
