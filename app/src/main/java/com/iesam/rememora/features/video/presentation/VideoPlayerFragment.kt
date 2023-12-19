@@ -1,24 +1,18 @@
 package com.iesam.rememora.features.video.presentation
 
-import android.media.MediaPlayer
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.VideoView
 import androidx.fragment.app.Fragment
-import com.iesam.rememora.R
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.iesam.rememora.databinding.FragmentVideosBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class VideoPlayerFragment : Fragment(){
-
-    private lateinit var mediaPlayer: MediaPlayer
-    private lateinit var video: VideoView
-
-    private val videos = intArrayOf(R.raw.video1, R.raw.video2, R.raw.video3)
-    private var posVideo = 0
-
+@AndroidEntryPoint
+class VideoPlayerFragment : Fragment() {
+    private val viewModel by viewModels<VideoPlayerViewModel>()
     private var _binding: FragmentVideosBinding? = null
     private val binding get() = _binding!!
 
@@ -26,60 +20,35 @@ class VideoPlayerFragment : Fragment(){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentVideosBinding.inflate(inflater, container, false)
-        setupView()
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mediaPlayer = MediaPlayer()
-        video = view.findViewById(R.id.video)
-        videoSet(posVideo)
-        video.start()
+        setupObserver()
+        viewModel.getVideos()
     }
 
-    private fun setupView() {
-        binding.apply {
-            mediaControls.backButton.setOnClickListener{
-                backVideo()
-            }
-            mediaControls.nextButton.setOnClickListener{
-                nextVideo()
-            }
-            mediaControls.repeatButton.setOnClickListener{
-                replay()
+    private fun setupObserver() {
+        val observer = Observer<VideoPlayerViewModel.UiState> { it ->
+            if (!it.isLoading) {
+                if (it.errorApp == null) {
+                    it.videos?.let { videos ->
+                        val videoList: List<String> = videos.map {
+                            it.source!!
+                        }
+                        binding.mediaPlayer.render(videoList)
+                    }
+                }
             }
         }
-    }
-
-    private fun replay() {
-        video.seekTo(0)
-    }
-
-    private fun backVideo() {
-        if (posVideo > 0){
-            posVideo--
-        }
-        videoSet(posVideo)
-    }
-
-    private fun nextVideo() {
-        if (posVideo < (videos.size - 1)){
-            posVideo++
-        }
-        videoSet(posVideo)
-    }
-
-    private fun videoSet(pos : Int){
-        binding.video.setVideoURI((Uri.parse("android.resource://"+requireActivity().packageName+"/"+videos[pos])))
+        viewModel.uiState.observe(viewLifecycleOwner, observer)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        mediaPlayer.release()
         _binding = null
     }
 
