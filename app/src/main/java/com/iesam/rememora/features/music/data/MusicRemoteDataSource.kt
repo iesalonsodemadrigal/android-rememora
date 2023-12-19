@@ -1,6 +1,5 @@
 package com.iesam.rememora.features.music.data
 
-import android.util.Log
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.iesam.rememora.app.Either
@@ -9,14 +8,17 @@ import com.iesam.rememora.app.left
 import com.iesam.rememora.app.right
 import com.iesam.rememora.features.music.domain.Music
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
-class MusicRemoteDataSource() {
-    private val fireBaseDB = FirebaseDatabase.getInstance()
-    private val fireBaseStorage = FirebaseStorage.getInstance()
+class MusicRemoteDataSource @Inject constructor(
+    private val fireBaseDB: FirebaseDatabase,
+    private val fireBaseStorage: FirebaseStorage
+) {
+
     suspend fun obtainMusicList(): Either<ErrorApp, List<Music>> {
         return try {
             val dataSnapshot = fireBaseDB
-                .getReference("users/user_1/videos/videos_1")
+                .getReference("users/user_1/music/playlist3")
                 .get()
                 .await()
             dataSnapshot.children.map {
@@ -28,9 +30,7 @@ class MusicRemoteDataSource() {
                 music.toModel()
             }.right()
         } catch (exception: Exception) {
-            Log.d("@DEV", exception.message!!)
-            //FirebaseCrashlytics.getInstance().recordException(exception)
-            ErrorApp.UnknownError.left()
+            ErrorApp.InternetError.left()
         }
     }
 }

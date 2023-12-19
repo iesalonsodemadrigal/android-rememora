@@ -7,16 +7,20 @@ import androidx.lifecycle.viewModelScope
 import com.iesam.rememora.app.domain.ErrorApp
 import com.iesam.rememora.features.music.domain.GetMusicListUseCase
 import com.iesam.rememora.features.music.domain.Music
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MusicPlayerViewModel(private val getMusicListUseCase: GetMusicListUseCase) : ViewModel() {
+@HiltViewModel
+class MusicPlayerViewModel @Inject constructor(private val getMusicListUseCase: GetMusicListUseCase) :
+    ViewModel() {
     private val _uiState = MutableLiveData<UiState>()
     val uiState: LiveData<UiState> = _uiState
     fun loadMusicList() {
         viewModelScope.launch(Dispatchers.IO) {
             getMusicListUseCase.invoke().fold(
-                { responseError(it) }, { responseSucces(it) }
+                { responseError(it) }, { responseSuccess(it) }
             )
         }
     }
@@ -25,7 +29,7 @@ class MusicPlayerViewModel(private val getMusicListUseCase: GetMusicListUseCase)
         _uiState.postValue(UiState(errorApp = it))
     }
 
-    private fun responseSucces(it: List<Music>) {
+    private fun responseSuccess(it: List<Music>) {
         _uiState.postValue(UiState(musicList = it))
     }
 
