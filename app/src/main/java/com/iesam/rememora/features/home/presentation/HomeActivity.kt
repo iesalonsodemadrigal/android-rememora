@@ -56,7 +56,7 @@ class HomeActivity : AppCompatActivity() {
             } else {
                 if (it.errorApp != null) {
                 } else {
-                    if (!it.account) {
+                    if (it.account == null) {
                         Navigation.findNavController(this@HomeActivity, R.id.fragment_container)
                             .navigate(R.id.fragment_login)
                     }
