@@ -8,8 +8,8 @@ import javax.inject.Inject
 
 class VideoDataRepository @Inject constructor(private val remoteDataSource: VideoRemoteDataSource) :
     VideoRepository {
-    override suspend fun getVideos(): Either<ErrorApp, List<Video>> {
-        return remoteDataSource.getVideos()
+    override suspend fun getVideos(uid: String): Either<ErrorApp, List<Video>> {
+        return remoteDataSource.getVideos(uid)
     }
 
 }

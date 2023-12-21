@@ -14,7 +14,7 @@ class AudioRemoteDataSource @Inject constructor (private val firebaseDataBase : 
      suspend fun getAudios(uid: String): Either<ErrorApp, List<Audio>> {
          return try {
              val dataSnapshot = firebaseDataBase
-                 .getReference("users/${uid}/audio/playlist3")
+                 .getReference("users/${uid}/audio/playlist1")
                  .get()
                  .await()
              dataSnapshot.children.map {
