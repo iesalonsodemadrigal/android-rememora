@@ -1,8 +1,8 @@
-package com.iesam.rememora.features.music.domain
+package com.iesam.rememora.features.video.domain
 
-data class Music(
-    val id: String? = null,
+data class Video(
     val description: String? = null,
+    val id: String? = null,
     val source: String? = null,
     val title: String? = null
 )
