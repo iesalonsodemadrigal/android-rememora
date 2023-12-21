@@ -7,7 +7,7 @@ import com.iesam.rememora.features.audio.domain.AudiosRepository
 import javax.inject.Inject
 
 class AudioDataRepository @Inject constructor (private val remoteDataSource: AudioRemoteDataSource) : AudiosRepository {
-    override suspend fun getAudios(): Either<ErrorApp, List<Audio>> {
-        return remoteDataSource.getAudios()
+    override suspend fun getAudios(uid: String): Either<ErrorApp, List<Audio>> {
+        return remoteDataSource.getAudios(uid)
     }
 }
