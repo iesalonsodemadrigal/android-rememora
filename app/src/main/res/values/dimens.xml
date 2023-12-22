@@ -21,8 +21,12 @@
 
     <dimen name="width_image">768dp</dimen>
     <dimen name="height_image">432dp</dimen>
+    <dimen name="height_error_image">250dp</dimen>
+    <dimen name="width_error_image">250dp</dimen>
 
     <dimen name="margin_horizontal_fragmet_image">50dp</dimen>
+    <dimen name="margin_horizontal_error">30dp</dimen>
+    <dimen name="margin_vertical_error">15dp</dimen>
     <dimen name="margin_top_fragment_image">35dp</dimen>
 
 </resources>
