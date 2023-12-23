@@ -29,11 +29,13 @@ class LogoutFragment : Fragment() {
     }
 
     private fun setupView() {
-        binding.buttonLogout.setOnClickListener {
-            viewModel.logout()
-        }
-        binding.buttonDeleteAccount.setOnClickListener {
-            viewModel.deleteAccount()
+        binding.apply {
+            buttonLogout.setOnClickListener {
+                viewModel.logout()
+            }
+            buttonDeleteAccount.setOnClickListener {
+                viewModel.deleteAccount()
+            }
         }
     }
 

@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.auth.FirebaseUser
 import com.iesam.rememora.app.domain.ErrorApp
+import com.iesam.rememora.core.account.domain.Account
 import com.iesam.rememora.features.home.domain.IsAccountUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +18,7 @@ class HomeViewModel @Inject constructor(private val isAccountUseCase: IsAccountU
     private val _uiState = MutableLiveData<UiState>()
     val uiState: LiveData<UiState> get() = _uiState
 
-    fun isAccount() {
+    fun getAccount() {
         _uiState.value = UiState(isLoading = true)
         viewModelScope.launch(Dispatchers.IO) {
             isAccountUseCase().fold(
@@ -32,13 +32,13 @@ class HomeViewModel @Inject constructor(private val isAccountUseCase: IsAccountU
         _uiState.postValue(UiState(errorApp = error))
     }
 
-    private fun responseSuccess(account: FirebaseUser?) {
+    private fun responseSuccess(account: Account?) {
         _uiState.postValue(UiState(account = account))
     }
 
     data class UiState(
         val errorApp: ErrorApp? = null,
         val isLoading: Boolean = false,
-        val account: FirebaseUser? = null
+        val account: Account? = null
     )
 }

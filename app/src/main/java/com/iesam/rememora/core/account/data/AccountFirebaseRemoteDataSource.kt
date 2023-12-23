@@ -8,11 +8,12 @@ import com.iesam.rememora.app.Either
 import com.iesam.rememora.app.domain.ErrorApp
 import com.iesam.rememora.app.left
 import com.iesam.rememora.app.right
+import com.iesam.rememora.core.account.domain.Account
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class FirebaseRemoteDataSource @Inject constructor(
+class AccountFirebaseRemoteDataSource @Inject constructor(
     @ApplicationContext private val context: Context,
     private val auth: FirebaseAuth,
     private val authUi: AuthUI
@@ -36,12 +37,14 @@ class FirebaseRemoteDataSource @Inject constructor(
         }
     }
 
-    fun isAccount(): Either<ErrorApp, FirebaseUser?> {
+    fun getAccount(): Either<ErrorApp, Account?> {
         return try {
-            val account = auth.currentUser
+            val account = auth.currentUser?.toModel()
             account.right()
         } catch (e: Error) {
             ErrorApp.UnknownError.left()
         }
     }
+
+    fun FirebaseUser.toModel() = Account(this.uid, this.displayName, this.email, this.photoUrl)
 }
