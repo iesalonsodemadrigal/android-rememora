@@ -11,10 +11,10 @@ class GetAudiosUseCase @Inject constructor(
     private val accountRepository: AccountRepository
 ) {
     suspend operator fun invoke(): Either<ErrorApp, List<Audio>> {
-        val user = accountRepository.isAccount()
+        val user = accountRepository.getAccount()
         return user.map { userDb ->
             return if (userDb != null) {
-                repository.getAudios(userDb.uid)
+                repository.getAudios(userDb.id!!)
             } else {
                 ErrorApp.UnknownError.left()
             }

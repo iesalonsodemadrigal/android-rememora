@@ -11,10 +11,10 @@ class GetImagesUseCase @Inject constructor(
     private val accountRepository: AccountRepository
 ) {
     suspend operator fun invoke(): Either<ErrorApp, List<Image>> {
-        val user = accountRepository.isAccount()
+        val user = accountRepository.getAccount()
         return user.map { userDb ->
             return if (userDb != null) {
-                repository.getImages(userDb.uid)
+                repository.getImages(userDb.id!!)
             } else {
                 ErrorApp.UnknownError.left()
             }

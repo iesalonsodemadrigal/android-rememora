@@ -11,10 +11,10 @@ class GetVideosUseCase @Inject constructor(
     private val accountRepository: AccountRepository
 ) {
     suspend operator fun invoke(): Either<ErrorApp, List<Video>> {
-        val user = accountRepository.isAccount()
+        val user = accountRepository.getAccount()
         return user.map { userDb ->
             return if (userDb != null) {
-                videoRepository.getVideos(userDb.uid)
+                videoRepository.getVideos(userDb.id!!)
             } else {
                 ErrorApp.UnknownError.left()
             }
