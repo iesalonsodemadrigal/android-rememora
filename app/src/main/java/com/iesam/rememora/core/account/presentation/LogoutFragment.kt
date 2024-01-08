@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.iesam.rememora.app.domain.ErrorApp
+import com.iesam.rememora.app.extensions.hide
+import com.iesam.rememora.app.extensions.show
 import com.iesam.rememora.databinding.FragmentLogoutBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -51,11 +53,14 @@ class LogoutFragment : Fragment() {
     private fun setupObserver() {
         val observer = Observer<LogoutViewModel.UiState> {
             if (it.isLoading) {
+                binding.loading.root.show()
             } else {
                 if (it.errorApp != null) {
+                    binding.loading.root.hide()
                     showError(it.errorApp)
                 } else {
                     if (it.isOk) {
+                        binding.loading.root.hide()
                         init()
                     }
                 }
