@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import com.iesam.rememora.app.extensions.hide
+import com.iesam.rememora.app.extensions.show
 import com.iesam.rememora.databinding.ViewErrorBinding
 
 class ErrorView @JvmOverloads constructor(
@@ -14,6 +15,18 @@ class ErrorView @JvmOverloads constructor(
 
     init {
         hide()
+    }
+
+    fun render(errorUiModel: ErrorUiModel) {
+        show()
+        binding.apply {
+            imageError.setImageResource(errorUiModel.getImage())
+            labelTitleError.setText(errorUiModel.getTitle())
+            labelDescriptionError.setText(errorUiModel.getDescription())
+            actionRetry.setOnClickListener {
+                errorUiModel.onClickRetry()
+            }
+        }
     }
 
 }

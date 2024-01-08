@@ -6,12 +6,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginTop="100dp"
+        android:id="@+id/error_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="match_parent"
-        android:layout_marginHorizontal="@dimen/margin_horizontal_error"
+        android:layout_marginEnd="@dimen/margin_horizontal_error"
         android:layout_height="wrap_content">
 
         <ImageView
@@ -25,6 +26,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/AppTitleError"
+            android:textSize="50sp"
             android:layout_marginVertical="@dimen/margin_vertical_error"
             android:id="@+id/label_title_error"
             tools:text="Hola"
@@ -40,26 +42,31 @@
         <com.google.android.material.textview.MaterialTextView
             style="@style/AppDescriptionError"
             android:id="@+id/label_description_error"
+            android:textSize="25sp"
             android:layout_marginTop="@dimen/margin_vertical_error"
             tools:text="Descripcion"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/label_title_error"
-            app:layout_constraintStart_toStartOf="@id/label_title_error">
+            app:layout_constraintStart_toStartOf="@id/label_title_error"
+            app:layout_constraintEnd_toEndOf="parent">
 
         </com.google.android.material.textview.MaterialTextView>
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/AppFilledButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="Retry">
-
-        </com.google.android.material.button.MaterialButton>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/action_retry"
+        style="@style/AppFilledButton"
+        android:text="@string/title_button_error"
+        android:textSize="40sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/error_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+    </com.google.android.material.button.MaterialButton>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

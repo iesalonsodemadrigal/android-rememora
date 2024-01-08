@@ -20,17 +20,28 @@ class MusicRemoteDataSource @Inject constructor(
             val dataSnapshot = fireBaseDB
                 .getReference("users/user_1/music/playlist3")
                 .get()
-                .await()
-            dataSnapshot.children.map {
-                it.getValue(MusicDBModel::class.java)!!
-            }.map { music ->
-                music.source =
-                    fireBaseStorage.getReferenceFromUrl(music.source!!).downloadUrl.await()
-                        .toString()
-                music.toModel()
-            }.right()
+
+            if (dataSnapshot.isSuccessful) {
+                val musicList = dataSnapshot.result?.children?.map {
+                    it.getValue(MusicDBModel::class.java)!!
+                }?.map { music ->
+
+                    music.source =
+                        fireBaseStorage.getReferenceFromUrl(music.source!!)
+                            .downloadUrl.await().toString()
+                    music.toModel()
+
+                }
+
+                musicList?.right() ?: ErrorApp.ServerError.left()
+            } else {
+                // Handle the case when the dataSnapshot retrieval is not successful
+                ErrorApp.ServerError.left()
+            }
         } catch (exception: Exception) {
-            ErrorApp.InternetError.left()
+            // Handle other exceptions, e.g., Firebase database operation exception
+            ErrorApp.ServerError.left()
         }
     }
+
 }
