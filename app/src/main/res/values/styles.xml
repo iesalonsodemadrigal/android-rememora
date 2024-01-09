@@ -43,6 +43,6 @@
     </style>
 
     <style name="AppDescriptionError" parent="TextAppearance.Material3.BodyMedium">
-        <item name="android:textAlignment">center</item>
+        <item name="android:textAlignment">viewStart</item>
     </style>
 </resources>

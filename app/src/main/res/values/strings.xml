@@ -19,6 +19,7 @@
     <string name="label_buttom_ayuda">?</string>
 
     <!-- Errores -->
+    <string name="content_description_error">Una imagen representando que hay un error</string>
     <string name="title_button_error">Reintentar</string>
     <string name="title_data_error">Error en la obtención de datos</string>
     <string name="description_data_error">Lo sentimos, hemos tenido dificultades al intentar recuperar la información en este momento. Por favor, inténtalo de nuevo más tarde. Si el problema persiste, contacta con nuestro soporte técnico para obtener ayuda</string>

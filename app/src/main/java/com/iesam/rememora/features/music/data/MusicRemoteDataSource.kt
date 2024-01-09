@@ -8,6 +8,9 @@ import com.iesam.rememora.app.left
 import com.iesam.rememora.app.right
 import com.iesam.rememora.features.music.domain.Music
 import kotlinx.coroutines.tasks.await
+import java.net.ConnectException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class MusicRemoteDataSource @Inject constructor(
@@ -20,28 +23,23 @@ class MusicRemoteDataSource @Inject constructor(
             val dataSnapshot = fireBaseDB
                 .getReference("users/user_1/music/playlist3")
                 .get()
-
-            if (dataSnapshot.isSuccessful) {
-                val musicList = dataSnapshot.result?.children?.map {
-                    it.getValue(MusicDBModel::class.java)!!
-                }?.map { music ->
-
-                    music.source =
-                        fireBaseStorage.getReferenceFromUrl(music.source!!)
-                            .downloadUrl.await().toString()
-                    music.toModel()
-
-                }
-
-                musicList?.right() ?: ErrorApp.ServerError.left()
-            } else {
-                // Handle the case when the dataSnapshot retrieval is not successful
-                ErrorApp.ServerError.left()
-            }
+                .await()
+            dataSnapshot.children.map {
+                it.getValue(MusicDBModel::class.java)!!
+            }.map { music ->
+                music.source =
+                    fireBaseStorage.getReferenceFromUrl(music.source!!).downloadUrl.await()
+                        .toString()
+                music.toModel()
+            }.right()
+        } catch (ex: ConnectException) {
+            ErrorApp.InternetError.left()
+        } catch (ex: UnknownHostException) {
+            ErrorApp.InternetError.left()
+        } catch (ex: SocketTimeoutException) {
+            ErrorApp.InternetError.left()
         } catch (exception: Exception) {
-            // Handle other exceptions, e.g., Firebase database operation exception
             ErrorApp.ServerError.left()
         }
     }
-
 }

@@ -8,6 +8,9 @@ import com.iesam.rememora.app.left
 import com.iesam.rememora.app.right
 import com.iesam.rememora.features.audio.domain.Audio
 import kotlinx.coroutines.tasks.await
+import java.net.ConnectException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class AudioRemoteDataSource @Inject constructor (private val firebaseDataBase : FirebaseDatabase, private val firebaseStorage: FirebaseStorage) {
@@ -20,11 +23,19 @@ class AudioRemoteDataSource @Inject constructor (private val firebaseDataBase : 
             dataSnapshot.children.map {
                 it.getValue(AudioDbModel::class.java)!!
             }.map { audio ->
-                audio.source = firebaseStorage.getReferenceFromUrl(audio.source!!).downloadUrl.await().toString()
+                audio.source =
+                    firebaseStorage.getReferenceFromUrl(audio.source!!).downloadUrl.await()
+                        .toString()
                 audio.toModel()
             }.right()
+        } catch (ex: ConnectException) {
+            ErrorApp.InternetError.left()
+        } catch (ex: UnknownHostException) {
+            ErrorApp.InternetError.left()
+        } catch (ex: SocketTimeoutException) {
+            ErrorApp.InternetError.left()
         } catch (exception: Exception) {
-            ErrorApp.DataError.left()
+            ErrorApp.ServerError.left()
         }
     }
 }

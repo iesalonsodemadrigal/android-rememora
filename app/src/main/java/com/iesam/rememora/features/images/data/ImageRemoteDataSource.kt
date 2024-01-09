@@ -9,6 +9,9 @@ import com.iesam.rememora.app.right
 import com.iesam.rememora.features.images.domain.Image
 import com.iesam.rememora.features.images.domain.ImageRepository
 import kotlinx.coroutines.tasks.await
+import java.net.ConnectException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class ImageRemoteDataSource @Inject constructor() : ImageRepository {
@@ -29,8 +32,14 @@ class ImageRemoteDataSource @Inject constructor() : ImageRepository {
                 }
             }
             images.right()
-        } catch (ex: Exception) {
-            ErrorApp.UnknownError.left()
+        } catch (ex: ConnectException) {
+            ErrorApp.InternetError.left()
+        } catch (ex: UnknownHostException) {
+            ErrorApp.InternetError.left()
+        } catch (ex: SocketTimeoutException) {
+            ErrorApp.InternetError.left()
+        } catch (exception: Exception) {
+            ErrorApp.ServerError.left()
         }
     }
 
