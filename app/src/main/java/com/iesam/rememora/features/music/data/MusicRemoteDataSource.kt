@@ -15,10 +15,10 @@ class MusicRemoteDataSource @Inject constructor(
     private val fireBaseStorage: FirebaseStorage
 ) {
 
-    suspend fun obtainMusicList(): Either<ErrorApp, List<Music>> {
+    suspend fun obtainMusicList(uid: String): Either<ErrorApp, List<Music>> {
         return try {
             val dataSnapshot = fireBaseDB
-                .getReference("users/user_1/music/playlist3")
+                .getReference("users/${uid}/music/playlist1")
                 .get()
                 .await()
             dataSnapshot.children.map {

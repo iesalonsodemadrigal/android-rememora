@@ -4,5 +4,5 @@ import com.iesam.rememora.app.Either
 import com.iesam.rememora.app.domain.ErrorApp
 
 interface VideoRepository {
-    suspend fun getVideos(): Either<ErrorApp, List<Video>>
+    suspend fun getVideos(uid: String): Either<ErrorApp, List<Video>>
 }
