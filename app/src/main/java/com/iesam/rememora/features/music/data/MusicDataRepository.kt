@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class MusicDataRepository @Inject constructor(private val remoteDataSource: MusicRemoteDataSource) :
     MusicRepostory {
-    override suspend fun obtainMusicList(): Either<ErrorApp, List<Music>> {
-        return remoteDataSource.obtainMusicList()
+    override suspend fun obtainMusicList(uid: String): Either<ErrorApp, List<Music>> {
+        return remoteDataSource.obtainMusicList(uid)
     }
 }

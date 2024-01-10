@@ -29,4 +29,7 @@
     <dimen name="margin_vertical_error">15dp</dimen>
     <dimen name="margin_top_fragment_image">35dp</dimen>
 
+    <dimen name="margin_horizontal_login_button">100dp</dimen>
+    <dimen name="margin_vertical_login_button">30dp</dimen>
+
 </resources>

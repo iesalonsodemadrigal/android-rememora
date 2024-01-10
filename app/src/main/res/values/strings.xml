@@ -27,4 +27,10 @@
     <string name="description_internet_error">Lo siento, parece que estas experimentando problemas de conexión. Por favor, verifica tu conexión a Internet y vuelve a intentarlo.</string>
     <string name="title_unknown_error">Error inesperado</string>
     <string name="description_unknown_error">¡Ups! Algo salió mal y encontramos un error inesperado. Lamentamos las molestias. Nuestro equipo está trabajando para solucionar este problema. Por favor, inténtalo de nuevo más tarde. Si el problema persiste, ponte en contacto con nuestro soporte técnico para obtener ayuda.</string>
+
+    <string name="label_button_login">Identificate con Google</string>
+    <string name="label_button_cancel">Cancelar</string>
+    <string name="label_button_logout">Cerrar sesión</string>
+    <string name="label_button_delete_account">Eliminar cuenta</string>
+    <string name="label_login">Para poder disfrutar de Rememora necesitamos que te identifiques con tu cuenta de Google. Solo guardaremos tu email para que puedas gestionar tu contenido.</string>
 </resources>

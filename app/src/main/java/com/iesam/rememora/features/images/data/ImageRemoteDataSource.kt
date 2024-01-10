@@ -7,31 +7,29 @@ import com.iesam.rememora.app.domain.ErrorApp
 import com.iesam.rememora.app.left
 import com.iesam.rememora.app.right
 import com.iesam.rememora.features.images.domain.Image
-import com.iesam.rememora.features.images.domain.ImageRepository
 import kotlinx.coroutines.tasks.await
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.inject.Inject
 
-class ImageRemoteDataSource @Inject constructor() : ImageRepository {
-    override suspend fun getImages(): Either<ErrorApp, List<Image>> {
-        val dataBase: FirebaseDatabase = FirebaseDatabase.getInstance()
+class ImageRemoteDataSource @Inject constructor(private val dataBase: FirebaseDatabase) {
+    suspend fun getImages(uid: String): Either<ErrorApp, List<Image>> {
 
         return try {
             val dataSnapshot = dataBase
-                .getReference("users/user_1/photos/album_1")
+                .getReference("users/${uid}/photos/album_1")
                 .get()
                 .await()
-            val images = dataSnapshot.children.map {
-                it.getValue(Image::class.java)!!
+            val imagesDb = dataSnapshot.children.map {
+                it.getValue(ImageDbModel::class.java)!!
             }
-            images.map { image ->
+            imagesDb.map { image ->
                 if (!image.source.isNullOrEmpty() && image.source?.get(0) == 'g') {
                     image.source = convertUrlImage(image.source!!)
                 }
-            }
-            images.right()
+                image.toModel()
+            }.right()
         } catch (ex: ConnectException) {
             ErrorApp.InternetError.left()
         } catch (ex: UnknownHostException) {
