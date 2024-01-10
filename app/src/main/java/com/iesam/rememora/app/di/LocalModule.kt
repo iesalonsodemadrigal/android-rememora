@@ -2,7 +2,7 @@ package com.iesam.rememora.app.di
 
 import android.content.Context
 import androidx.room.Room
-import com.iesam.rememora.app.data.AppDatabase
+import com.iesam.rememora.app.data.local.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

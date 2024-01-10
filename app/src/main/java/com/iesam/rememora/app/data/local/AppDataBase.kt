@@ -1,4 +1,4 @@
-package com.iesam.rememora.app.data
+package com.iesam.rememora.app.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
