@@ -54,13 +54,12 @@ class HomeActivity : AppCompatActivity() {
         val observer = Observer<HomeViewModel.UiState> {
             if (it.isLoading) {
             } else {
-                if (it.errorApp != null) {
-                } else {
-                    if (it.account == null) {
-                        Navigation.findNavController(this@HomeActivity, R.id.fragment_container)
-                            .navigate(R.id.fragment_login)
-                    }
-                }
+            }
+            it.errorApp?.let {
+            }
+            it.account?.let {
+                Navigation.findNavController(this@HomeActivity, R.id.fragment_container)
+                    .navigate(R.id.fragment_login)
             }
         }
         viewModel.uiState.observe(this, observer)
@@ -68,6 +67,6 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getAccount()
+        viewModel.checkAccount()
     }
 }

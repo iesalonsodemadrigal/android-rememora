@@ -3,7 +3,6 @@ package com.iesam.rememora.core.account.data
 import android.content.Context
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.iesam.rememora.app.Either
 import com.iesam.rememora.app.domain.ErrorApp
 import com.iesam.rememora.app.left
@@ -45,6 +44,4 @@ class AccountFirebaseRemoteDataSource @Inject constructor(
             ErrorApp.UnknownError.left()
         }
     }
-
-    fun FirebaseUser.toModel() = Account(this.uid, this.displayName, this.email, this.photoUrl)
 }

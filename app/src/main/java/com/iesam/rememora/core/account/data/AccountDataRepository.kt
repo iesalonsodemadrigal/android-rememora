@@ -16,7 +16,7 @@ class AccountDataRepository @Inject constructor(private val firebase: AccountFir
         return firebase.deleteAccount()
     }
 
-    override fun getAccount(): Either<ErrorApp, Account?> {
+    override suspend fun getAccount(): Either<ErrorApp, Account?> {
         return firebase.getAccount()
     }
 }

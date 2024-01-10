@@ -6,5 +6,5 @@ import com.iesam.rememora.app.domain.ErrorApp
 interface AccountRepository {
     suspend fun logout(): Either<ErrorApp, Boolean>
     suspend fun deleteAccount(): Either<ErrorApp, Boolean>
-    fun getAccount(): Either<ErrorApp, Account?>
+    suspend fun getAccount(): Either<ErrorApp, Account?>
 }

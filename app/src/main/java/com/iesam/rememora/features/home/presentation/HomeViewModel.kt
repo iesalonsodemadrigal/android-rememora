@@ -18,7 +18,7 @@ class HomeViewModel @Inject constructor(private val isAccountUseCase: IsAccountU
     private val _uiState = MutableLiveData<UiState>()
     val uiState: LiveData<UiState> get() = _uiState
 
-    fun getAccount() {
+    fun checkAccount() {
         _uiState.value = UiState(isLoading = true)
         viewModelScope.launch(Dispatchers.IO) {
             isAccountUseCase().fold(

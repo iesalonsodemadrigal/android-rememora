@@ -7,7 +7,7 @@ import com.iesam.rememora.core.account.domain.AccountRepository
 import javax.inject.Inject
 
 class IsAccountUseCase @Inject constructor(private val repository: AccountRepository) {
-    operator fun invoke(): Either<ErrorApp, Account?> {
+    suspend operator fun invoke(): Either<ErrorApp, Account?> {
         return repository.getAccount()
     }
 }
