@@ -13,6 +13,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object LocalModule {
+    const val TIME_CACHE = 5 * 60000
     @Singleton
     @Provides
     fun provideDataBase(@ApplicationContext context: Context) = Room.databaseBuilder(
