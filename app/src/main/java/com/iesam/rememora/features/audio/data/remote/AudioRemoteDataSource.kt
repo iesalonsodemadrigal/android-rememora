@@ -1,4 +1,4 @@
-package com.iesam.rememora.features.audio.data
+package com.iesam.rememora.features.audio.data.remote
 
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
