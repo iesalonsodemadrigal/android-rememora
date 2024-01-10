@@ -16,7 +16,7 @@ class GetImagesUseCase @Inject constructor(
             return if (userDb != null) {
                 repository.getImages(userDb.id!!)
             } else {
-                ErrorApp.UnknownError.left()
+                ErrorApp.SessionError.left()
             }
         }
     }

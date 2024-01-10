@@ -16,7 +16,7 @@ class GetMusicListUseCase @Inject constructor(
             return if (userDb != null) {
                 musicRepository.obtainMusicList(userDb.id!!)
             } else {
-                ErrorApp.UnknownError.left()
+                ErrorApp.SessionError.left()
             }
         }
     }
