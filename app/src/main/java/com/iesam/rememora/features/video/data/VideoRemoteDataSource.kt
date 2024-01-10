@@ -14,10 +14,10 @@ class VideoRemoteDataSource @Inject constructor(
     private val database: FirebaseDatabase,
     private val storage: FirebaseStorage
 ) {
-    suspend fun getVideos(): Either<ErrorApp, List<Video>> {
+    suspend fun getVideos(uid: String): Either<ErrorApp, List<Video>> {
         return try {
             val snapshot = database
-                .getReference("users/user_1/videos/videos_1")
+                .getReference("users/${uid}/videos/videos_1")
                 .get()
                 .await()
             snapshot.children.map {

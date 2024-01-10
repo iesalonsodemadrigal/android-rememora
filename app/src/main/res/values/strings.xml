@@ -17,4 +17,10 @@
     <string name="label_title">REMEMORA</string>
 
     <string name="label_buttom_ayuda">?</string>
+
+    <string name="label_button_login">Identificate con Google</string>
+    <string name="label_button_cancel">Cancelar</string>
+    <string name="label_button_logout">Cerrar sesión</string>
+    <string name="label_button_delete_account">Eliminar cuenta</string>
+    <string name="label_login">Para poder disfrutar de Rememora necesitamos que te identifiques con tu cuenta de Google. Solo guardaremos tu email para que puedas gestionar tu contenido.</string>
 </resources>

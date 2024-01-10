@@ -4,56 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/fragment_home">
-
     <action
         android:id="@+id/action_global_image_fragment"
         app:destination="@id/fragment_imagen" />
-
     <action
         android:id="@+id/action_global_video_fragment"
         app:destination="@id/fragment_video" />
-
     <action
         android:id="@+id/action_global_music_fragment"
         app:destination="@id/fragment_music" />
-
     <action
         android:id="@+id/action_global_audio_fragment"
         app:destination="@id/fragment_audio" />
-
     <fragment
         android:id="@+id/fragment_home"
         android:name="com.iesam.rememora.features.home.presentation.HomeFragment"
-        tools:layout="@layout/fragment_home">
-
-    </fragment>
-
+        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/fragment_imagen"
         android:name="com.iesam.rememora.features.images.presentation.ImagePlayerFragment"
-        tools:layout="@layout/fragment_images">
-
-    </fragment>
-
+        tools:layout="@layout/fragment_images" />
     <fragment
         android:id="@+id/fragment_video"
         android:name="com.iesam.rememora.features.video.presentation.VideoPlayerFragment"
-        tools:layaout="" >
-
-    </fragment>
-
+        tools:layaout="" />
     <fragment
         android:id="@+id/fragment_music"
         android:name="com.iesam.rememora.features.music.presentation.MusicPlayerFragment"
-        tools:layaout="" >
-
-    </fragment>
-
+        tools:layaout="" />
     <fragment
         android:id="@+id/fragment_audio"
         android:name="com.iesam.rememora.features.audio.presentation.AudioPlayerFragment"
-        tools:layout="@layout/fragment_audio" >
-
+        tools:layout="@layout/fragment_audio" />
+    <fragment
+        android:id="@+id/fragment_login"
+        android:name="com.iesam.rememora.core.account.presentation.LoginFragment">
+        <action
+            android:id="@+id/action_from_login_to_home"
+            app:destination="@id/fragment_home" />
     </fragment>
-
+    <fragment
+        android:id="@+id/fragment_logout"
+        android:name="com.iesam.rememora.core.account.presentation.LogoutFragment">
+        <action
+            android:id="@+id/action_from_logout_to_login"
+            app:destination="@id/fragment_login" />
+    </fragment>
 </navigation>
