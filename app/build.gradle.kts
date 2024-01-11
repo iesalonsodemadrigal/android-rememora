@@ -6,6 +6,8 @@ plugins {
     //Hilt
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    //Room
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -41,6 +43,7 @@ android {
     //ViewBinding
     buildFeatures{
         viewBinding=true
+        buildConfig = true
     }
 }
 
@@ -79,12 +82,16 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.android.gms:play-services-auth:20.7.0")
     implementation("com.firebaseui:firebase-ui-auth:7.2.0")
-
     //Exoplayer
     implementation("androidx.media3:media3-exoplayer:1.2.0")
     implementation("androidx.media3:media3-ui:1.2.0")
     implementation("androidx.media3:media3-common:1.2.0")
     implementation("androidx.media3:media3-session:1.2.0")
+    //Room
+    val room_version = "2.6.1"
+    implementation("androidx.room:room-runtime:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
