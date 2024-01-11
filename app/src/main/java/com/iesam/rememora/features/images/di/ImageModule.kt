@@ -1,6 +1,6 @@
 package com.iesam.rememora.features.images.di
 
-import com.iesam.rememora.features.images.data.ImageRemoteDataSource
+import com.iesam.rememora.features.images.data.ImageDataRepository
 import com.iesam.rememora.features.images.domain.ImageRepository
 import dagger.Binds
 import dagger.Module
@@ -11,5 +11,5 @@ import dagger.hilt.android.components.ViewModelComponent
 @InstallIn(ViewModelComponent::class)
 abstract class ImageModule {
     @Binds
-    abstract fun bindImageDataRepository(imageRemoteDataSource: ImageRemoteDataSource): ImageRepository
+    abstract fun bindImageDataRepository(imageDataRepository: ImageDataRepository): ImageRepository
 }

@@ -12,4 +12,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
+    <com.iesam.rememora.app.presentation.views.error.ErrorView
+        android:id="@+id/error_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.iesam.rememora.app.presentation.views.error.ErrorView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
