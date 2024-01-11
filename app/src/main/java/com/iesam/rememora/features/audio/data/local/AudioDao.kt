@@ -12,4 +12,7 @@ interface AudioDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(vararg users: AudioEntity)
+
+    @Query("DELETE FROM audioEntity")
+    suspend fun deleteAll()
 }

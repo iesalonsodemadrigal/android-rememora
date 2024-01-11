@@ -36,4 +36,13 @@ class AudioLocalDataSource @Inject constructor (private val audioDao: AudioDao) 
             ErrorApp.DataError.left()
         }
     }
+    suspend fun deleteAllAudios(): Either<ErrorApp, Boolean> {
+        return try {
+            audioDao.deleteAll()
+            true.right()
+        } catch (ex: Exception) {
+            ErrorApp.DataError.left()
+        }
+    }
+
 }

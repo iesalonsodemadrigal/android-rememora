@@ -14,6 +14,7 @@ class AudioDataRepository @Inject constructor (private val remoteDataSource : Au
         return if (localAudios.isRight() && localAudios.get().isNotEmpty()) localAudios
         else{
             return remoteDataSource.getAudios(uid).map { audios ->
+                localDataSource.deleteAllAudios()
                 localDataSource.saveAudios(audios)
                 audios
             }
