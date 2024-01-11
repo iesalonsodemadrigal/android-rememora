@@ -59,7 +59,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/label_buttom_ayuda"
         android:layout_margin="@dimen/margin_bottom_ayuda"
-        android:textSize="@dimen/size_title_buttom_menu"/>
+        android:textSize="@dimen/size_title_buttom_menu" />
+
+    <ImageView
+        android:id="@+id/action_account"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/ic_account"
+        android:layout_marginHorizontal="@dimen/size_padding_horizontal_menu"
+        android:layout_marginVertical="@dimen/spacing_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
     <androidx.fragment.app.FragmentContainerView

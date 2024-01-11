@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.iesam.rememora.app.domain.ErrorApp
+import com.iesam.rememora.app.presentation.views.error.ErrorUiModel
+import com.iesam.rememora.app.presentation.views.error.toErrorUiModel
 import com.iesam.rememora.features.video.domain.GetVideosUseCase
 import com.iesam.rememora.features.video.domain.Video
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,7 +31,9 @@ class VideoPlayerViewModel @Inject constructor(private val getVideosUseCase: Get
     }
 
     private fun responseError(error: ErrorApp) {
-        _uiState.postValue(UiState(errorApp = error))
+        _uiState.postValue(UiState(errorApp = error.toErrorUiModel {
+            getVideos()
+        }))
     }
 
     private fun responseSuccess(videos: List<Video>) {
@@ -37,7 +41,7 @@ class VideoPlayerViewModel @Inject constructor(private val getVideosUseCase: Get
     }
 
     data class UiState(
-        val errorApp: ErrorApp? = null,
+        val errorApp: ErrorUiModel? = null,
         val isLoading: Boolean = false,
         val videos: List<Video>? = null
     )

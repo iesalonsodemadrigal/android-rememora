@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.iesam.rememora.app.domain.ErrorApp
+import com.iesam.rememora.app.extensions.hide
+import com.iesam.rememora.app.extensions.show
+import com.iesam.rememora.app.presentation.views.error.ErrorUiModel
 import com.iesam.rememora.databinding.FragmentAudioBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,6 +46,7 @@ class AudioPlayerFragment : Fragment() {
                         val urlListAudios : List<String> = audios.map { audio ->
                             audio.source!!
                         }
+                        binding.mediaPlayer.show()
                         binding.mediaPlayer.render(urlListAudios)
                     }
                 }
@@ -52,7 +55,9 @@ class AudioPlayerFragment : Fragment() {
         viewModel.uiState.observe(viewLifecycleOwner, observer)
     }
 
-    private fun showError(error: ErrorApp) {
+    private fun showError(error: ErrorUiModel) {
+        binding.mediaPlayer.hide()
+        binding.errorView.render(error)
     }
 
     override fun onDestroyView() {

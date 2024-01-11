@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.iesam.rememora.app.domain.ErrorApp
+import com.iesam.rememora.app.presentation.views.error.ErrorUiModel
+import com.iesam.rememora.app.presentation.views.error.toErrorUiModel
 import com.iesam.rememora.features.images.domain.GetImagesUseCase
 import com.iesam.rememora.features.images.domain.Image
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,7 +31,9 @@ class ImagePlayerViewModel @Inject constructor(private val getImagesUseCase: Get
     }
 
     private fun responseError(error: ErrorApp) {
-        _uiState.postValue(UiState(errorApp = error))
+        _uiState.postValue(UiState(errorApp = error.toErrorUiModel {
+            getImages()
+        }))
     }
 
     private fun responseSuccess(images: List<Image>) {
@@ -37,7 +41,7 @@ class ImagePlayerViewModel @Inject constructor(private val getImagesUseCase: Get
     }
 
     data class UiState(
-        val errorApp: ErrorApp? = null,
+        val errorApp: ErrorUiModel? = null,
         val isLoading: Boolean = false,
         val images: List<Image>? = null
     )

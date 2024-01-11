@@ -17,4 +17,20 @@
     <string name="label_title">REMEMORA</string>
 
     <string name="label_buttom_ayuda">?</string>
+
+    <!-- Errores -->
+    <string name="content_description_error">Una imagen representando que hay un error</string>
+    <string name="title_button_error">Reintentar</string>
+    <string name="title_data_error">Error en la obtención de datos</string>
+    <string name="description_data_error">Lo sentimos, hemos tenido dificultades al intentar recuperar la información en este momento. Por favor, inténtalo de nuevo más tarde. Si el problema persiste, contacta con nuestro soporte técnico para obtener ayuda</string>
+    <string name="title_internet_error">¿Tienes conexión a Internet?</string>
+    <string name="description_internet_error">Lo siento, parece que estas experimentando problemas de conexión. Por favor, verifica tu conexión a Internet y vuelve a intentarlo.</string>
+    <string name="title_unknown_error">Error inesperado</string>
+    <string name="description_unknown_error">¡Ups! Algo salió mal y encontramos un error inesperado. Lamentamos las molestias. Nuestro equipo está trabajando para solucionar este problema. Por favor, inténtalo de nuevo más tarde. Si el problema persiste, ponte en contacto con nuestro soporte técnico para obtener ayuda.</string>
+
+    <string name="label_button_login">Identificate con Google</string>
+    <string name="label_button_cancel">Cancelar</string>
+    <string name="label_button_logout">Cerrar sesión</string>
+    <string name="label_button_delete_account">Eliminar cuenta</string>
+    <string name="label_login">Para poder disfrutar de Rememora necesitamos que te identifiques con tu cuenta de Google. Solo guardaremos tu email para que puedas gestionar tu contenido.</string>
 </resources>

@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.iesam.rememora.app.domain.ErrorApp
+import com.iesam.rememora.app.presentation.views.error.ErrorUiModel
+import com.iesam.rememora.app.presentation.views.error.toErrorUiModel
 import com.iesam.rememora.features.music.domain.GetMusicListUseCase
 import com.iesam.rememora.features.music.domain.Music
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,7 +28,9 @@ class MusicPlayerViewModel @Inject constructor(private val getMusicListUseCase: 
     }
 
     private fun responseError(it: ErrorApp) {
-        _uiState.postValue(UiState(errorApp = it))
+        _uiState.postValue(UiState(errorApp = it.toErrorUiModel {
+            loadMusicList()
+        }))
     }
 
     private fun responseSuccess(it: List<Music>) {
@@ -35,6 +39,6 @@ class MusicPlayerViewModel @Inject constructor(private val getMusicListUseCase: 
 
     data class UiState(
         val musicList: List<Music>? = null,
-        val errorApp: ErrorApp? = null
+        val errorApp: ErrorUiModel? = null
     )
 }
