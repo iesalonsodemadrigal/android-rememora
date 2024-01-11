@@ -32,4 +32,13 @@ class MusicLocalDataSource @Inject constructor(private val musicDao: MusicDao) {
         }
     }
 
+    suspend fun deleteAllMusic(): Either<ErrorApp, Boolean> {
+        return try {
+            musicDao.deleteAll()
+            true.right()
+        } catch (ex: Exception) {
+            ErrorApp.DataError.left()
+        }
+    }
+
 }

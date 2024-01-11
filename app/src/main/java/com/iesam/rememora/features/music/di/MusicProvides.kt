@@ -1,6 +1,6 @@
 package com.iesam.rememora.features.music.di
 
-import com.iesam.rememora.app.data.AppDatabase
+import com.iesam.rememora.app.data.local.AppDatabase
 import com.iesam.rememora.features.music.data.local.MusicDao
 import dagger.Module
 import dagger.Provides

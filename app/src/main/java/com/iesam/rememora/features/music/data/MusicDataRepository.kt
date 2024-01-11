@@ -18,9 +18,11 @@ class MusicDataRepository @Inject constructor(
         return if (localResult.isRight() && localResult.get().isNotEmpty()) {
             localResult
         } else {
-            val remoteResult = remoteDataSource.obtainMusicList(uid)
-            localDataSource.saveMusic(remoteResult.get())
-            remoteResult
+            remoteDataSource.obtainMusicList(uid).map { musicList ->
+                localDataSource.deleteAllMusic()
+                localDataSource.saveMusic(musicList)
+                musicList
+            }
         }
     }
 
