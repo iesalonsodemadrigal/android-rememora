@@ -23,7 +23,7 @@ class AccountFirebaseRemoteDataSource @Inject constructor(
             authUi.signOut(context).await()
             true.right()
         } catch (e: Error) {
-            ErrorApp.UnknownError.left()
+            ErrorApp.ServerError.left()
         }
     }
 
@@ -32,7 +32,7 @@ class AccountFirebaseRemoteDataSource @Inject constructor(
             authUi.delete(context).await()
             true.right()
         } catch (e: Error) {
-            ErrorApp.UnknownError.left()
+            ErrorApp.ServerError.left()
         }
     }
 
@@ -41,7 +41,7 @@ class AccountFirebaseRemoteDataSource @Inject constructor(
             val account = auth.currentUser?.toModel()
             account.right()
         } catch (e: Error) {
-            ErrorApp.UnknownError.left()
+            ErrorApp.ServerError.left()
         }
     }
 }

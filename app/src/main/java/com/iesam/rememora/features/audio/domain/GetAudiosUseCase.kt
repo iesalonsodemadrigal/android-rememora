@@ -16,7 +16,7 @@ class GetAudiosUseCase @Inject constructor(
             return if (userDb != null) {
                 repository.getAudios(userDb.id!!)
             } else {
-                ErrorApp.UnknownError.left()
+                ErrorApp.SessionError.left()
             }
         }
     }

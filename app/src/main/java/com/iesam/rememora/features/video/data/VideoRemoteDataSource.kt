@@ -8,6 +8,9 @@ import com.iesam.rememora.app.left
 import com.iesam.rememora.app.right
 import com.iesam.rememora.features.video.domain.Video
 import kotlinx.coroutines.tasks.await
+import java.net.ConnectException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class VideoRemoteDataSource @Inject constructor(
@@ -27,8 +30,14 @@ class VideoRemoteDataSource @Inject constructor(
                     storage.getReferenceFromUrl(video.source!!).downloadUrl.await().toString()
                 video.toModel()
             }.right()
+        } catch (ex: ConnectException) {
+            ErrorApp.InternetError.left()
+        } catch (ex: UnknownHostException) {
+            ErrorApp.InternetError.left()
+        } catch (ex: SocketTimeoutException) {
+            ErrorApp.InternetError.left()
         } catch (exception: Exception) {
-            return ErrorApp.DataError.left()
+            ErrorApp.ServerError.left()
         }
     }
 

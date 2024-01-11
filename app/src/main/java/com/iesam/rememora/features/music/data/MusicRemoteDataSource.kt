@@ -8,6 +8,9 @@ import com.iesam.rememora.app.left
 import com.iesam.rememora.app.right
 import com.iesam.rememora.features.music.domain.Music
 import kotlinx.coroutines.tasks.await
+import java.net.ConnectException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class MusicRemoteDataSource @Inject constructor(
@@ -29,8 +32,14 @@ class MusicRemoteDataSource @Inject constructor(
                         .toString()
                 music.toModel()
             }.right()
-        } catch (exception: Exception) {
+        } catch (ex: ConnectException) {
             ErrorApp.InternetError.left()
+        } catch (ex: UnknownHostException) {
+            ErrorApp.InternetError.left()
+        } catch (ex: SocketTimeoutException) {
+            ErrorApp.InternetError.left()
+        } catch (exception: Exception) {
+            ErrorApp.ServerError.left()
         }
     }
 }

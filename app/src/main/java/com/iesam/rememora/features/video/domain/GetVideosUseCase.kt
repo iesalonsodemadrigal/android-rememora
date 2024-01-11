@@ -16,7 +16,7 @@ class GetVideosUseCase @Inject constructor(
             return if (userDb != null) {
                 videoRepository.getVideos(userDb.id!!)
             } else {
-                ErrorApp.UnknownError.left()
+                ErrorApp.SessionError.left()
             }
         }
     }
