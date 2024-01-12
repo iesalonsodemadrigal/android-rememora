@@ -37,4 +37,13 @@ class ImageLocalDataSource @Inject constructor(private val imageDao: ImageDao) {
             ErrorApp.DataError.left()
         }
     }
+
+    suspend fun deleteAllImages(): Either<ErrorApp, Boolean> {
+        return try {
+            imageDao.deleteAll()
+            true.right()
+        } catch (ex: Exception) {
+            return ErrorApp.DataError.left()
+        }
+    }
 }
