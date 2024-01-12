@@ -10,7 +10,7 @@ interface AudioDao {
     @Query("SELECT * FROM audioEntity")
     suspend fun getAll(): List<AudioEntity>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     suspend fun insertAll(vararg users: AudioEntity)
 
     @Query("DELETE FROM audioEntity")
