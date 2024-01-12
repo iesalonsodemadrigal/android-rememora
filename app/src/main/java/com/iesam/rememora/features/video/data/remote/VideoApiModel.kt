@@ -1,4 +1,4 @@
-package com.iesam.rememora.features.video.data
+package com.iesam.rememora.features.video.data.remote
 
 import com.iesam.rememora.features.video.domain.Video
 
@@ -10,4 +10,5 @@ class VideoApiModel(
     val title: String? = null
 )
 
-fun VideoApiModel.toModel(): Video = Video(this.description, this.id, this.source, this.title)
+fun VideoApiModel.toModel(): Video =
+    Video(this.description!!, this.id!!, this.source!!, this.title!!)
