@@ -2,6 +2,7 @@ package com.iesam.rememora.app.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.iesam.rememora.features.audio.data.local.AudioDao
 import com.iesam.rememora.features.audio.data.local.AudioEntity
 import com.iesam.rememora.features.images.data.local.ImageDao
 import com.iesam.rememora.features.images.data.local.ImageEntity
@@ -14,5 +15,6 @@ import com.iesam.rememora.features.video.data.local.VideoEntity
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
+    abstract fun audioDao(): AudioDao
     abstract fun imageDao(): ImageDao
 }
