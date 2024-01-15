@@ -12,6 +12,6 @@ import dagger.hilt.android.components.ViewModelComponent
 class ImagesProvides {
 
     @Provides
-    fun provideImageDao(appDatBase: AppDatabase): ImageDao = appDatBase.imageDao()
+    fun provideImageDao(appDataBase: AppDatabase): ImageDao = appDataBase.imageDao()
 
 }
