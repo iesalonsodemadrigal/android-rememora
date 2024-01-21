@@ -1,4 +1,4 @@
-package com.iesam.rememora.features.images.data
+package com.iesam.rememora.features.images.data.remote
 
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
