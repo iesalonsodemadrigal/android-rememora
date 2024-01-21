@@ -1,4 +1,4 @@
-package com.iesam.rememora.features.images.data
+package com.iesam.rememora.features.images.data.remote
 
 import com.iesam.rememora.features.images.domain.Image
 
@@ -9,4 +9,5 @@ data class ImageDbModel(
     val title: String? = null
 )
 
-fun ImageDbModel.toModel(): Image = Image(this.id, this.description, this.source, this.title)
+fun ImageDbModel.toModel(): Image =
+    Image(this.id!!, this.description!!, this.source!!, this.title!!)
