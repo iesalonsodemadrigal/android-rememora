@@ -39,7 +39,7 @@ class MusicPlayerFragment : Fragment() {
         val observer = Observer<MusicPlayerViewModel.UiState> { uiState ->
             uiState.musicList?.let { musicList ->
                 val urlList: List<String> = musicList.map {
-                    it.source!!
+                    it.source
                 }
                 binding.mediaPlayer.show()
                 binding.mediaPlayer.render(urlList)

@@ -7,7 +7,7 @@ import com.iesam.rememora.core.account.domain.AccountRepository
 import javax.inject.Inject
 
 class GetMusicListUseCase @Inject constructor(
-    private val musicRepository: MusicRepostory,
+    private val musicRepository: MusicRepository,
     private val accountRepository: AccountRepository
 ) {
     suspend operator fun invoke(): Either<ErrorApp, List<Music>> {
