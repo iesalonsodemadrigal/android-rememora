@@ -8,7 +8,7 @@ import com.iesam.rememora.app.right
 import com.iesam.rememora.features.audio.domain.Audio
 import javax.inject.Inject
 
-class AudioLocalDataSource @Inject constructor (private val audioDao: AudioDao) {
+class AudioLocalDataSource @Inject constructor(private val audioDao: AudioDao) {
     suspend fun obtainAudios(): Either<ErrorApp, List<Audio>> {
         return try {
             val audios = audioDao.getAll()
@@ -19,7 +19,7 @@ class AudioLocalDataSource @Inject constructor (private val audioDao: AudioDao) 
                     audioEntity.toModel()
                 }.right()
             }
-        }catch (ex : Exception){
+        } catch (ex: Exception) {
             ErrorApp.DataError.left()
         }
     }
@@ -36,6 +36,7 @@ class AudioLocalDataSource @Inject constructor (private val audioDao: AudioDao) 
             ErrorApp.DataError.left()
         }
     }
+
     suspend fun deleteAllAudios(): Either<ErrorApp, Boolean> {
         return try {
             audioDao.deleteAll()

@@ -1,4 +1,4 @@
-package com.iesam.rememora.features.video.data
+package com.iesam.rememora.features.video.data.remote
 
 import com.iesam.rememora.features.video.domain.Video
 

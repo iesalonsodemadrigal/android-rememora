@@ -1,9 +1,9 @@
 package com.iesam.rememora.app.di
 
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.storage.FirebaseStorage
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,11 +15,11 @@ import javax.inject.Singleton
 object RemoteModule {
     @Singleton
     @Provides
-    fun provideFirebaseDataBase() : FirebaseDatabase = FirebaseDatabase.getInstance()
+    fun provideFirebaseDataBase(): FirebaseDatabase = FirebaseDatabase.getInstance()
 
     @Singleton
     @Provides
-    fun provideFirebaseStorage() : FirebaseStorage = FirebaseStorage.getInstance()
+    fun provideFirebaseStorage(): FirebaseStorage = FirebaseStorage.getInstance()
 
     @Singleton
     @Provides

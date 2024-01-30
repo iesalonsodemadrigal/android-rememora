@@ -43,7 +43,7 @@ class AudioPlayerFragment : Fragment() {
                     showError(it.errorApp)
                 } else {
                     it.audios?.let { audios ->
-                        val urlListAudios : List<String> = audios.map { audio ->
+                        val urlListAudios: List<String> = audios.map { audio ->
                             audio.source!!
                         }
                         binding.mediaPlayer.show()

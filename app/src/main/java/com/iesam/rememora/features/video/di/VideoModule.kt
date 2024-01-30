@@ -1,6 +1,6 @@
 package com.iesam.rememora.features.video.di
 
-import com.iesam.rememora.features.video.data.VideoDataRepository
+import com.iesam.rememora.features.video.data.remote.VideoDataRepository
 import com.iesam.rememora.features.video.domain.VideoRepository
 import dagger.Binds
 import dagger.Module

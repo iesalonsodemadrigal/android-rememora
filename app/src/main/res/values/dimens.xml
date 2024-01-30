@@ -10,9 +10,9 @@
     <dimen name="size_title_buttom_menu">33sp</dimen>
     <dimen name="size_title_fragment_home">50sp</dimen>
 
-    <dimen name="width_buttom_menu">300dp</dimen>
+    <dimen name="width_buttom_menu">200dp</dimen>
+    <dimen name="height_buttom_menu">100dp</dimen>
 
-    <dimen name="margin_vertical_bottom">40dp</dimen>
     <dimen name="margin_bottom_ayuda">10dp</dimen>
 
     <dimen name="size_padding_horizontal_menu_bottom">25dp</dimen>
@@ -32,4 +32,8 @@
     <dimen name="margin_horizontal_login_button">100dp</dimen>
     <dimen name="margin_vertical_login_button">30dp</dimen>
 
+    <!-- New Dimens -->
+    <dimen name="padding_vertical_menu_button">16dp</dimen>
+    <dimen name="width_size_menu_button">200dp</dimen>
+    <dimen name="margin_vertial_menu_button">20dp</dimen>
 </resources>

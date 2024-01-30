@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
+import com.google.firebase.auth.FirebaseAuth
 import com.iesam.rememora.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,6 +32,13 @@ class LoginFragment : Fragment() {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         setupView()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        FirebaseAuth.getInstance().currentUser?.let {
+            navigateToHome()
+        }
     }
 
     private fun setupView() {
@@ -57,9 +65,13 @@ class LoginFragment : Fragment() {
 
     private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
         if (result.resultCode == AppCompatActivity.RESULT_OK) {
-            findNavController().navigate(LoginFragmentDirections.actionFromLoginToHome())
+            navigateToHome()
         } else {
         }
+    }
+
+    private fun navigateToHome() {
+        findNavController().navigate(LoginFragmentDirections.actionFromLoginToHome())
     }
 
     override fun onDestroyView() {

@@ -49,6 +49,7 @@ class ImagePlayerFragment : Fragment() {
             mediaControls.repeatButton.setOnClickListener {
                 firstImage()
             }
+            mediaControls.repeatButton.visibility = View.GONE
         }
     }
 
@@ -73,6 +74,7 @@ class ImagePlayerFragment : Fragment() {
                             mediaControls.menuBottom.show()
                         }
                         refreshImage()
+                        updateButtons()
                     }
                 }
             }
@@ -91,6 +93,7 @@ class ImagePlayerFragment : Fragment() {
     private fun firstImage() {
         numImage = 0
         refreshImage()
+        updateButtons()
     }
 
     private fun backImage() {
@@ -98,6 +101,7 @@ class ImagePlayerFragment : Fragment() {
             numImage--
         }
         refreshImage()
+        updateButtons()
     }
 
     private fun nextImage() {
@@ -105,12 +109,28 @@ class ImagePlayerFragment : Fragment() {
             numImage++
         }
         refreshImage()
+        updateButtons()
     }
 
     private fun refreshImage() {
         Glide.with(this)
             .load(images[numImage].source)
             .into(binding.image)
+    }
+
+    private fun updateButtons() {
+        binding.apply {
+            if (numImage == 0 && images.size > 0) {
+                mediaControls.nextButton.isEnabled = true
+                mediaControls.backButton.isEnabled = false
+            } else if (images.size > 0 && numImage == images.size - 1) {
+                mediaControls.nextButton.isEnabled = false
+                mediaControls.backButton.isEnabled = true
+            } else {
+                mediaControls.nextButton.isEnabled = true
+                mediaControls.backButton.isEnabled = true
+            }
+        }
     }
 
     override fun onDestroyView() {

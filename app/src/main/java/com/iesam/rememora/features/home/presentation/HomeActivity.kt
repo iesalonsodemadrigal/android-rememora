@@ -57,16 +57,13 @@ class HomeActivity : AppCompatActivity() {
             }
             it.errorApp?.let {
             }
-            it.account?.let {
-                Navigation.findNavController(this@HomeActivity, R.id.fragment_container)
+            if (it.account == null) {
+                Navigation.findNavController(this, R.id.fragment_container)
                     .navigate(R.id.fragment_login)
+            } else {
+
             }
         }
         viewModel.uiState.observe(this, observer)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.checkAccount()
     }
 }

@@ -11,5 +11,5 @@ import dagger.hilt.android.components.ViewModelComponent
 @InstallIn(ViewModelComponent::class)
 class AudioProvides {
     @Provides
-    fun provideAudioDao (appDatabase: AppDatabase) : AudioDao = appDatabase.audioDao()
+    fun provideAudioDao(appDatabase: AppDatabase): AudioDao = appDatabase.audioDao()
 }

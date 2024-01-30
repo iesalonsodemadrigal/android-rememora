@@ -2,20 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
         android:id="@+id/image"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/media_controls"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="@dimen/margin_horizontal_fragmet_image"
-        android:layout_marginTop="@dimen/margin_top_fragment_image"
-        tools:src="@drawable/rememora2" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <include
         layout="@layout/view_media_controls"
@@ -25,7 +22,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/media_controls" />
-
 
     <com.iesam.rememora.app.presentation.views.error.ErrorView
         android:id="@+id/error_view"

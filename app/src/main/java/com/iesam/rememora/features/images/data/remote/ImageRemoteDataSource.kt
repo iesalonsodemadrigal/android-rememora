@@ -14,8 +14,8 @@ import java.net.UnknownHostException
 import javax.inject.Inject
 
 class ImageRemoteDataSource @Inject constructor(private val dataBase: FirebaseDatabase) {
-    suspend fun getImages(uid: String): Either<ErrorApp, List<Image>> {
 
+    suspend fun getImages(uid: String): Either<ErrorApp, List<Image>> {
         return try {
             val dataSnapshot = dataBase
                 .getReference("users/${uid}/photos/album_1")
@@ -41,7 +41,7 @@ class ImageRemoteDataSource @Inject constructor(private val dataBase: FirebaseDa
         }
     }
 
-    private suspend fun convertUrlImage(url: String):String {
+    private suspend fun convertUrlImage(url: String): String {
         val storage = FirebaseStorage.getInstance().getReferenceFromUrl(url)
         val uri = storage.downloadUrl.await()
         return uri.toString()

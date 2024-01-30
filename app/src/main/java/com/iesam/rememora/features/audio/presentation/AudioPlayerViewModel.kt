@@ -15,10 +15,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AudioPlayerViewModel @Inject constructor (private val useCase: GetAudiosUseCase) : ViewModel() {
+class AudioPlayerViewModel @Inject constructor(private val useCase: GetAudiosUseCase) :
+    ViewModel() {
 
     private val _uiState = MutableLiveData<UiState>()
-    val uiState : LiveData<UiState> get() = _uiState
+    val uiState: LiveData<UiState> get() = _uiState
 
     fun getListAudios() {
         _uiState.value = UiState(isLoading = true)
