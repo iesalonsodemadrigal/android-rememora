@@ -7,10 +7,10 @@
     <string name="label_buttom_music">Música</string>
 
 
-    <string name="label_buttom_next">SIGUIENTE</string>
-    <string name="label_buttom_back">ATRAS</string>
-    <string name="label_buttom_play">REPRODUCIR</string>
-    <string name="label_buttom_pause">PAUSAR</string>
+    <string name="label_buttom_next">Siguiente</string>
+    <string name="label_buttom_back">Anterior</string>
+    <string name="label_buttom_play">Reproducir</string>
+    <string name="label_buttom_pause">Pausar</string>
     <string name="label_buttom_repeat">REPETIR</string>
 
 
