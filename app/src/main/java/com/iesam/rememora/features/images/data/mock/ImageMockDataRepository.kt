@@ -30,6 +30,6 @@ class ImageMockDataRepository @Inject constructor(@ApplicationContext val contex
             "Imagen 2"
         )
 
-        return mutableListOf(photo1).right()
+        return mutableListOf(photo1, photo2).right()
     }
 }
