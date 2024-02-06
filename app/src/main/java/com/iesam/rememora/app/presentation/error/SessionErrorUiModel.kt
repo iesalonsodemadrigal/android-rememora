@@ -1,8 +1,8 @@
-package com.iesam.rememora.app.presentation.views.error
+package com.iesam.rememora.app.presentation.error
 
 import com.iesam.rememora.R
 
-class ServerErrorUiModel(private val onClick: (() -> Unit)? = null) : ErrorUiModel {
+class SessionErrorUiModel(private val onClick: (() -> Unit)? = null) : ErrorUiModel {
     override fun getImage(): Int = R.drawable.image_error
 
     override fun getTitle(): Int = R.string.title_unknown_error

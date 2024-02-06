@@ -23,11 +23,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/media_controls" />
 
-    <com.iesam.rememora.app.presentation.views.error.ErrorView
+    <com.iesam.rememora.app.presentation.error.ErrorView
         android:id="@+id/error_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </com.iesam.rememora.app.presentation.views.error.ErrorView>
+    </com.iesam.rememora.app.presentation.error.ErrorView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

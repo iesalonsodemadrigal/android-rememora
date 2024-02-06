@@ -1,4 +1,4 @@
-package com.iesam.rememora.app.presentation.views.error
+package com.iesam.rememora.app.presentation.error
 
 interface ErrorUiModel {
 

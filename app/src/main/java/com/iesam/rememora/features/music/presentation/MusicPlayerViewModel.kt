@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.iesam.rememora.app.domain.ErrorApp
-import com.iesam.rememora.app.presentation.views.error.ErrorUiModel
-import com.iesam.rememora.app.presentation.views.error.toErrorUiModel
+import com.iesam.rememora.app.presentation.error.ErrorUiModel
+import com.iesam.rememora.app.presentation.error.toErrorUiModel
 import com.iesam.rememora.features.music.domain.GetMusicListUseCase
 import com.iesam.rememora.features.music.domain.Music
 import dagger.hilt.android.lifecycle.HiltViewModel

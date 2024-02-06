@@ -22,7 +22,6 @@ class HomeActivity : AppCompatActivity() {
         _binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupView()
-        setupObserver()
     }
 
     private fun setupView() {
@@ -48,22 +47,5 @@ class HomeActivity : AppCompatActivity() {
                     .navigate(R.id.fragment_logout)
             }
         }
-    }
-
-    private fun setupObserver() {
-        val observer = Observer<HomeViewModel.UiState> {
-            if (it.isLoading) {
-            } else {
-            }
-            it.errorApp?.let {
-            }
-            if (it.account == null) {
-                Navigation.findNavController(this, R.id.fragment_container)
-                    .navigate(R.id.fragment_login)
-            } else {
-
-            }
-        }
-        viewModel.uiState.observe(this, observer)
     }
 }
