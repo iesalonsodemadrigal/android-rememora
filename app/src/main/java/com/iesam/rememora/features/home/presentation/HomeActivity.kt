@@ -1,13 +1,17 @@
 package com.iesam.rememora.features.home.presentation
 
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.iesam.rememora.R
 import com.iesam.rememora.databinding.ActivityHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
@@ -28,26 +32,38 @@ class HomeActivity : AppCompatActivity() {
     private fun setupView() {
         binding.apply {
             actionImage.setOnClickListener {
+                vibration()
                 Navigation.findNavController(this@HomeActivity, R.id.fragment_container)
                     .navigate(R.id.fragment_imagen)
             }
             actionVideo.setOnClickListener {
+                vibration()
                 Navigation.findNavController(this@HomeActivity, R.id.fragment_container)
                     .navigate(R.id.fragment_video)
             }
             actionMusica.setOnClickListener {
+                vibration()
                 Navigation.findNavController(this@HomeActivity, R.id.fragment_container)
                     .navigate(R.id.fragment_music)
+
             }
             actionAudio.setOnClickListener {
+                vibration()
                 Navigation.findNavController(this@HomeActivity, R.id.fragment_container)
                     .navigate(R.id.fragment_audio)
             }
             actionAccount.setOnClickListener {
+                vibration()
                 Navigation.findNavController(this@HomeActivity, R.id.fragment_container)
                     .navigate(R.id.fragment_logout)
             }
         }
+    }
+
+    private fun vibration() {
+        val vibrator = ContextCompat.getSystemService(this, Vibrator::class.java) as Vibrator
+
+        vibrator.vibrate(VibrationEffect.createOneShot(20, VibrationEffect.DEFAULT_AMPLITUDE))
     }
 
     private fun setupObserver() {
