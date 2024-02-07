@@ -1,16 +1,16 @@
 <resources>
     <string name="app_name">Rememora</string>
 
-    <string name="label_buttom_img">IMAGENES</string>
-    <string name="label_buttom_video">VIDEOS</string>
-    <string name="label_buttom_audio">AUDIOS</string>
-    <string name="label_buttom_music">MUSICA</string>
+    <string name="label_buttom_img">Fotos</string>
+    <string name="label_buttom_video">Vídeos</string>
+    <string name="label_buttom_audio">Audios</string>
+    <string name="label_buttom_music">Música</string>
 
 
-    <string name="label_buttom_next">SIGUIENTE</string>
-    <string name="label_buttom_back">ATRAS</string>
-    <string name="label_buttom_play">REPRODUCIR</string>
-    <string name="label_buttom_pause">PAUSAR</string>
+    <string name="label_buttom_next">Siguiente</string>
+    <string name="label_buttom_back">Anterior</string>
+    <string name="label_buttom_play">Reproducir</string>
+    <string name="label_buttom_pause">Pausar</string>
     <string name="label_buttom_repeat">REPETIR</string>
 
 
@@ -33,4 +33,5 @@
     <string name="label_button_logout">Cerrar sesión</string>
     <string name="label_button_delete_account">Eliminar cuenta</string>
     <string name="label_login">Para poder disfrutar de Rememora necesitamos que te identifiques con tu cuenta de Google. Solo guardaremos tu email para que puedas gestionar tu contenido.</string>
+    <string name="label_unknown_error">Se ha producido un error inesperado, por favor vuelve a intentarlo.</string>
 </resources>

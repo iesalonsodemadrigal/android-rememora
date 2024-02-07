@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.iesam.rememora.app.extensions.hide
 import com.iesam.rememora.app.extensions.show
-import com.iesam.rememora.app.presentation.views.error.ErrorUiModel
+import com.iesam.rememora.app.presentation.error.ErrorUiModel
 import com.iesam.rememora.databinding.FragmentAudioBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -43,7 +43,7 @@ class AudioPlayerFragment : Fragment() {
                     showError(it.errorApp)
                 } else {
                     it.audios?.let { audios ->
-                        val urlListAudios : List<String> = audios.map { audio ->
+                        val urlListAudios: List<String> = audios.map { audio ->
                             audio.source!!
                         }
                         binding.mediaPlayer.show()

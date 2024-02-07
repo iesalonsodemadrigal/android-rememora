@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.iesam.rememora.app.domain.ErrorApp
-import com.iesam.rememora.app.presentation.views.error.ErrorUiModel
-import com.iesam.rememora.app.presentation.views.error.toErrorUiModel
+import com.iesam.rememora.app.presentation.error.ErrorUiModel
+import com.iesam.rememora.app.presentation.error.toErrorUiModel
 import com.iesam.rememora.features.audio.domain.Audio
 import com.iesam.rememora.features.audio.domain.GetAudiosUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,10 +15,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AudioPlayerViewModel @Inject constructor (private val useCase: GetAudiosUseCase) : ViewModel() {
+class AudioPlayerViewModel @Inject constructor(private val useCase: GetAudiosUseCase) :
+    ViewModel() {
 
     private val _uiState = MutableLiveData<UiState>()
-    val uiState : LiveData<UiState> get() = _uiState
+    val uiState: LiveData<UiState> get() = _uiState
 
     fun getListAudios() {
         _uiState.value = UiState(isLoading = true)

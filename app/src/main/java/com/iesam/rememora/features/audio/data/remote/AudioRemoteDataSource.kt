@@ -13,20 +13,23 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.inject.Inject
 
-class AudioRemoteDataSource @Inject constructor (private val firebaseDataBase : FirebaseDatabase, private val firebaseStorage: FirebaseStorage) {
-     suspend fun getAudios(uid: String): Either<ErrorApp, List<Audio>> {
-         return try {
-             val dataSnapshot = firebaseDataBase
-                 .getReference("users/${uid}/audio/playlist1")
-                 .get()
-                 .await()
-             dataSnapshot.children.map {
-                 it.getValue(AudioDbModel::class.java)!!
-             }.map { audio ->
-                 audio.source =
-                     firebaseStorage.getReferenceFromUrl(audio.source!!).downloadUrl.await()
-                         .toString()
-                 audio.toModel()
+class AudioRemoteDataSource @Inject constructor(
+    private val firebaseDataBase: FirebaseDatabase,
+    private val firebaseStorage: FirebaseStorage
+) {
+    suspend fun getAudios(uid: String): Either<ErrorApp, List<Audio>> {
+        return try {
+            val dataSnapshot = firebaseDataBase
+                .getReference("users/${uid}/audio/playlist1")
+                .get()
+                .await()
+            dataSnapshot.children.map {
+                it.getValue(AudioDbModel::class.java)!!
+            }.map { audio ->
+                audio.source =
+                    firebaseStorage.getReferenceFromUrl(audio.source!!).downloadUrl.await()
+                        .toString()
+                audio.toModel()
             }.right()
         } catch (ex: ConnectException) {
             ErrorApp.InternetError.left()

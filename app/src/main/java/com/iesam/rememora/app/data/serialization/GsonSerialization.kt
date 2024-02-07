@@ -2,7 +2,7 @@ package com.iesam.rememora.app.data.serialization
 
 import com.google.gson.Gson
 
-class GsonSerialization: JsonSerialization {
+class GsonSerialization : JsonSerialization {
     private val gson = Gson()
     override fun <T> toJson(obj: T, typeClass: Class<T>): String {
         return gson.toJson(obj, typeClass)
