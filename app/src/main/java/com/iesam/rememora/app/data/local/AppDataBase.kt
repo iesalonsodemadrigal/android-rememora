@@ -8,6 +8,7 @@ import com.iesam.rememora.features.images.data.local.ImageDao
 import com.iesam.rememora.features.images.data.local.ImageEntity
 import com.iesam.rememora.features.music.data.local.MusicDao
 import com.iesam.rememora.features.music.data.local.MusicEntity
+import com.iesam.rememora.features.video.data.local.VideoDao
 import com.iesam.rememora.features.video.data.local.VideoEntity
 
 @Database(
@@ -18,5 +19,6 @@ import com.iesam.rememora.features.video.data.local.VideoEntity
 abstract class AppDatabase : RoomDatabase() {
     abstract fun musicDao(): MusicDao
     abstract fun audioDao(): AudioDao
+    abstract fun videoDao(): VideoDao
     abstract fun imageDao(): ImageDao
 }
