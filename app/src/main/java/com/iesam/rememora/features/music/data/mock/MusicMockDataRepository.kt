@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class MusicMockDataRepository @Inject constructor(@ApplicationContext val context: Context) :
     MusicRepository {
-    override suspend fun obtainMusicList(uid: String): Either<ErrorApp, List<Song>> {
+    override suspend fun obtainMusicList(): Either<ErrorApp, List<Song>> {
         return mutableListOf(
             Song(
                 "1",

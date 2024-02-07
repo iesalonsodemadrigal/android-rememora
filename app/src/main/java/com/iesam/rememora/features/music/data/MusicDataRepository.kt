@@ -13,12 +13,12 @@ class MusicDataRepository @Inject constructor(
     private val localDataSource: MusicLocalDataSource
 ) :
     MusicRepository {
-    override suspend fun obtainMusicList(uid: String): Either<ErrorApp, List<Song>> {
+    override suspend fun obtainMusicList(): Either<ErrorApp, List<Song>> {
         val localResult = localDataSource.getAllMusic()
         return if (localResult.isRight() && localResult.get().isNotEmpty()) {
             localResult
         } else {
-            remoteDataSource.obtainMusicList(uid).map { musicList ->
+            remoteDataSource.obtainMusicList().map { musicList ->
                 localDataSource.deleteAllMusic()
                 localDataSource.saveMusic(musicList)
                 musicList
