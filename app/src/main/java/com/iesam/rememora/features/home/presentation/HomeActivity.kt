@@ -39,10 +39,10 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setupView() {
         binding.apply {
-            volumeDownBottom.setOnClickListener{
+            volumeDownBottom.setOnClickListener {
                 volumeDown()
             }
-            volumeUpBottom.setOnClickListener{
+            volumeUpBottom.setOnClickListener {
                 volumeUp()
             }
             actionImage.setOnClickListener {
@@ -85,13 +85,13 @@ class HomeActivity : AppCompatActivity() {
         viewModel.uiState.observe(this, observer)
     }
 
-    private fun volumeDown(){
+    private fun volumeDown() {
         val volume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
         val newVolume = maxOf(volume - 1, 0)
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, newVolume, 0)
     }
 
-    private fun volumeUp(){
+    private fun volumeUp() {
         val volume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
         val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
         val newVolume = minOf(volume + 1, maxVolume)
