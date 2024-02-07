@@ -18,7 +18,7 @@ class ImageMockDataRepository @Inject constructor(@ApplicationContext val contex
         val photo1 = Image(
             "Imagen 1",
             "1",
-            context.getFileFromAssets("mock_photo_1.jpeg").absolutePath,
+            context.getFileFromAssets("photos", "mock_photo_1.jpeg").absolutePath,
             "Imagen 1"
         )
 
@@ -26,7 +26,7 @@ class ImageMockDataRepository @Inject constructor(@ApplicationContext val contex
         val photo2 = Image(
             "Imagen 2",
             "2",
-            context.getFileFromAssets("mock_photo_2.jpeg").absolutePath,
+            context.getFileFromAssets("photos", "mock_photo_2.jpeg").absolutePath,
             "Imagen 2"
         )
 
