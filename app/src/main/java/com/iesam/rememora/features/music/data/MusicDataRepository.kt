@@ -4,8 +4,8 @@ import com.iesam.rememora.app.Either
 import com.iesam.rememora.app.domain.ErrorApp
 import com.iesam.rememora.features.music.data.local.MusicLocalDataSource
 import com.iesam.rememora.features.music.data.remote.MusicRemoteDataSource
-import com.iesam.rememora.features.music.domain.Music
 import com.iesam.rememora.features.music.domain.MusicRepository
+import com.iesam.rememora.features.music.domain.Song
 import javax.inject.Inject
 
 class MusicDataRepository @Inject constructor(
@@ -13,7 +13,7 @@ class MusicDataRepository @Inject constructor(
     private val localDataSource: MusicLocalDataSource
 ) :
     MusicRepository {
-    override suspend fun obtainMusicList(uid: String): Either<ErrorApp, List<Music>> {
+    override suspend fun obtainMusicList(uid: String): Either<ErrorApp, List<Song>> {
         val localResult = localDataSource.getAllMusic()
         return if (localResult.isRight() && localResult.get().isNotEmpty()) {
             localResult

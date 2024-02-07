@@ -10,7 +10,7 @@ class GetMusicListUseCase @Inject constructor(
     private val musicRepository: MusicRepository,
     private val accountRepository: AccountRepository
 ) {
-    suspend operator fun invoke(): Either<ErrorApp, List<Music>> {
+    suspend operator fun invoke(): Either<ErrorApp, List<Song>> {
         val user = accountRepository.getAccount()
         return user.map { userDb ->
             return if (userDb != null) {

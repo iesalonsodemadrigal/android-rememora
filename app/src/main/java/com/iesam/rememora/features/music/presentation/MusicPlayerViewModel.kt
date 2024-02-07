@@ -8,7 +8,7 @@ import com.iesam.rememora.app.domain.ErrorApp
 import com.iesam.rememora.app.presentation.error.ErrorUiModel
 import com.iesam.rememora.app.presentation.error.toErrorUiModel
 import com.iesam.rememora.features.music.domain.GetMusicListUseCase
-import com.iesam.rememora.features.music.domain.Music
+import com.iesam.rememora.features.music.domain.Song
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,12 +33,12 @@ class MusicPlayerViewModel @Inject constructor(private val getMusicListUseCase: 
         }))
     }
 
-    private fun responseSuccess(it: List<Music>) {
+    private fun responseSuccess(it: List<Song>) {
         _uiState.postValue(UiState(musicList = it))
     }
 
     data class UiState(
-        val musicList: List<Music>? = null,
+        val musicList: List<Song>? = null,
         val errorApp: ErrorUiModel? = null
     )
 }
