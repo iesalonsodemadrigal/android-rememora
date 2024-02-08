@@ -5,11 +5,11 @@ import com.iesam.rememora.app.di.LocalModule.TIME_CACHE
 import com.iesam.rememora.app.domain.ErrorApp
 import com.iesam.rememora.app.left
 import com.iesam.rememora.app.right
-import com.iesam.rememora.features.music.domain.Music
+import com.iesam.rememora.features.music.domain.Song
 import javax.inject.Inject
 
 class MusicLocalDataSource @Inject constructor(private val musicDao: MusicDao) {
-    suspend fun saveMusic(musicList: List<Music>): Either<ErrorApp, Boolean> {
+    suspend fun saveMusic(musicList: List<Song>): Either<ErrorApp, Boolean> {
         return try {
             val musicEntities = musicList.toEntity(System.currentTimeMillis())
             musicDao.insertAll(*musicEntities.toTypedArray())
@@ -19,11 +19,11 @@ class MusicLocalDataSource @Inject constructor(private val musicDao: MusicDao) {
         }
     }
 
-    suspend fun getAllMusic(): Either<ErrorApp, List<Music>> {
+    suspend fun getAllMusic(): Either<ErrorApp, List<Song>> {
         return try {
             val localMusic = musicDao.loadAll()
             if (localMusic.isEmpty() || localMusic.first().createdAt.plus(TIME_CACHE) < System.currentTimeMillis()) {
-                listOf<Music>().right()
+                listOf<Song>().right()
             } else {
                 localMusic.toDomain().right()
             }
