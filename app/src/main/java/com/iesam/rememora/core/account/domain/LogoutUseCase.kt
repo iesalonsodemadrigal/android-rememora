@@ -6,6 +6,6 @@ import javax.inject.Inject
 
 class LogoutUseCase @Inject constructor(private val repository: AccountRepository) {
     suspend operator fun invoke(): Either<ErrorApp, Boolean> {
-        return repository.logout()
+        return repository.signOut()
     }
 }

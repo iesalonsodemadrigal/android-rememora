@@ -2,23 +2,23 @@ package com.iesam.rememora.core.account.data
 
 import com.iesam.rememora.app.Either
 import com.iesam.rememora.app.domain.ErrorApp
-import com.iesam.rememora.core.account.data.remote.AccountFirebaseRemoteDataSource
+import com.iesam.rememora.app.right
 import com.iesam.rememora.core.account.domain.Account
 import com.iesam.rememora.core.account.domain.AccountRepository
 import javax.inject.Inject
 
-class AccountDataRepository @Inject constructor(private val firebase: AccountFirebaseRemoteDataSource) :
+class AccountMockDataRepository @Inject constructor() :
     AccountRepository {
 
     override suspend fun signOut(): Either<ErrorApp, Boolean> {
-        return firebase.logout()
+        return true.right()
     }
 
     override suspend fun deleteAccount(): Either<ErrorApp, Boolean> {
-        return firebase.deleteAccount()
+        return true.right()
     }
 
     override suspend fun getAccount(): Either<ErrorApp, Account?> {
-        return firebase.getAccount()
+        return Account("1", "Usuario Mock", "siadenlab@iesalonsodemadrigal.es").right()
     }
 }

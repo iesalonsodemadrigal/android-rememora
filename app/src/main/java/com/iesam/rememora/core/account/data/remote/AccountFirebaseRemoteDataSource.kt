@@ -1,4 +1,4 @@
-package com.iesam.rememora.core.account.data
+package com.iesam.rememora.core.account.data.remote
 
 import android.content.Context
 import com.firebase.ui.auth.AuthUI
