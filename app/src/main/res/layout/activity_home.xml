@@ -116,13 +116,13 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/spacing_horizontal"
+        android:layout_marginVertical="@dimen/spacing_vertical"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/layout_menu"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginVertical="@dimen/spacing_vertical"
-        android:layout_marginHorizontal="@dimen/spacing_horizontal"
         app:navGraph="@navigation/nav_graph" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
