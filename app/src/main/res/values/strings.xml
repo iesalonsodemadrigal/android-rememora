@@ -36,4 +36,5 @@
     <string name="label_button_logout">Cerrar sesión</string>
     <string name="label_button_delete_account">Eliminar cuenta</string>
     <string name="label_login">Para poder disfrutar de Rememora necesitamos que te identifiques con tu cuenta de Google. Solo guardaremos tu email para que puedas gestionar tu contenido.</string>
+    <string name="label_unknown_error">Se ha producido un error inesperado, por favor vuelve a intentarlo.</string>
 </resources>

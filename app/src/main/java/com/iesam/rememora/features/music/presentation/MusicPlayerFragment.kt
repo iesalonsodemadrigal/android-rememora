@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.iesam.rememora.app.extensions.hide
 import com.iesam.rememora.app.extensions.show
-import com.iesam.rememora.app.presentation.views.error.ErrorUiModel
+import com.iesam.rememora.app.presentation.error.ErrorUiModel
 import com.iesam.rememora.databinding.FragmentMusicBinding
 import dagger.hilt.android.AndroidEntryPoint
 

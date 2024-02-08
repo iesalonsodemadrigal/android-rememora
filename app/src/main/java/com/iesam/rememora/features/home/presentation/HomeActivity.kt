@@ -34,7 +34,6 @@ class HomeActivity : AppCompatActivity() {
         volumeUpBottom = findViewById(R.id.volume_up)
 
         setupView()
-        setupObserver()
     }
 
     private fun setupView() {

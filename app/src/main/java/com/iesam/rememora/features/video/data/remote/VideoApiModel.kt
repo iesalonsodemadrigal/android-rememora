@@ -10,4 +10,5 @@ class VideoApiModel(
     val title: String? = null
 )
 
-fun VideoApiModel.toModel(): Video = Video(this.description, this.id, this.source, this.title)
+fun VideoApiModel.toModel(): Video =
+    Video(this.description!!, this.id!!, this.source!!, this.title!!)

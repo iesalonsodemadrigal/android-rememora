@@ -13,12 +13,12 @@ class ImageDataRepository @Inject constructor(
     private val imageRemoteDataSource: ImageRemoteDataSource
 ) :
     ImageRepository {
-    override suspend fun getImages(uid: String): Either<ErrorApp, List<Image>> {
+    override suspend fun getImages(): Either<ErrorApp, List<Image>> {
         val local = imageLocalDataSource.getImages()
         return if (local.isRight() && local.get().isNotEmpty()) {
             local
         } else {
-            val remote = imageRemoteDataSource.getImages(uid)
+            val remote = imageRemoteDataSource.getImages()
             remote.map { images ->
                 imageLocalDataSource.deleteAllImages()
                 imageLocalDataSource.saveImage(images)
