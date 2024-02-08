@@ -101,7 +101,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun navigateToHome() {
-        findNavController().navigate(LoginFragmentDirections.actionFromLoginToHome())
+        findNavController().navigate(LoginFragmentDirections.actionFromLoginToInitialMenu())
     }
 
     override fun onDestroyView() {
