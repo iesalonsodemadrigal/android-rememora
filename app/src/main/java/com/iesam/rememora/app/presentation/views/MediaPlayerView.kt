@@ -7,7 +7,6 @@ import android.widget.FrameLayout
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
-import com.iesam.rememora.R
 import com.iesam.rememora.databinding.ViewMediaplayerBinding
 
 class MediaPlayerView @JvmOverloads constructor(
@@ -32,7 +31,6 @@ class MediaPlayerView @JvmOverloads constructor(
             override fun onPlaybackStateChanged(state: Int) {
                 when (state) {
                     Player.STATE_ENDED -> {
-                        binding.playPauseButton.text = context.getString(R.string.label_buttom_play)
                         playMusic()
                         exoPlayer.pause()
                         exoPlayer.seekTo(0)
@@ -47,8 +45,11 @@ class MediaPlayerView @JvmOverloads constructor(
             nextButton.setOnClickListener {
                 playNextMedia()
             }
-            playPauseButton.setOnClickListener {
-                playOrPauseMedia()
+            pauseButton.setOnClickListener {
+                pauseMedia()
+            }
+            playButton.setOnClickListener {
+                playMedia()
             }
         }
     }
@@ -63,16 +64,15 @@ class MediaPlayerView @JvmOverloads constructor(
         playMusic()
     }
 
-    private fun playOrPauseMedia() {
+    private fun pauseMedia() {
         exoPlayer.let {
-            if (it.isPlaying) {
-                it.pause()
-                binding.playPauseButton.text = context.getString(R.string.label_buttom_play)
-            } else {
-                it.play()
-                binding.playPauseButton.text = context.getString(R.string.label_buttom_pause)
+            it.pause()
+        }
+    }
 
-            }
+    private fun playMedia() {
+        exoPlayer.let {
+            it.play()
         }
     }
 
@@ -84,7 +84,6 @@ class MediaPlayerView @JvmOverloads constructor(
             exoPlayer.setMediaItem(mediaItem)
             exoPlayer.prepare()
             exoPlayer.play()
-            binding.playPauseButton.text = context.getString(R.string.label_buttom_pause)
         }
     }
 
