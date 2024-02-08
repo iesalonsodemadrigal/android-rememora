@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/video_section"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/initial_menu_image_margin_vertical"
+        android:layout_marginStart="@dimen/initial_menu_image_margin_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/video_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="@dimen/initial_menu_image_size"
+            android:layout_height="@dimen/initial_menu_image_size"
+            android:src="@drawable/ic_video"
+            android:contentDescription="@string/label_buttom_video"></ImageView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/AppMenuTitle"
+            app:layout_constraintTop_toBottomOf="@id/video_icon"
+            app:layout_constraintStart_toStartOf="@id/video_icon"
+            app:layout_constraintEnd_toEndOf="@id/video_icon"
+            tools:text="Videos">
+
+        </com.google.android.material.textview.MaterialTextView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/image_section"
+        app:layout_constraintTop_toTopOf="@id/video_section"
+        android:layout_marginEnd="@dimen/initial_menu_image_margin_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="@dimen/initial_menu_image_size"
+            android:layout_height="@dimen/initial_menu_image_size"
+            android:src="@drawable/ic_camera"
+            android:contentDescription="@string/label_buttom_video"></ImageView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/AppMenuTitle"
+            app:layout_constraintTop_toBottomOf="@id/image_icon"
+            app:layout_constraintStart_toStartOf="@id/image_icon"
+            app:layout_constraintEnd_toEndOf="@id/image_icon"
+            tools:text="Fotos">
+
+        </com.google.android.material.textview.MaterialTextView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/music_section"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/initial_menu_image_margin_vertical"
+        android:layout_marginStart="@dimen/initial_menu_image_margin_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/music_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/AppMenuTitle"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@id/music_icon"
+            app:layout_constraintEnd_toEndOf="@id/music_icon"
+            tools:text="Música"></com.google.android.material.textview.MaterialTextView>
+
+        <ImageView
+            android:id="@+id/music_icon"
+            app:layout_constraintTop_toBottomOf="@id/music_title"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="@dimen/initial_menu_image_size"
+            android:layout_height="@dimen/initial_menu_image_size"
+            android:src="@drawable/ic_music"
+            android:contentDescription="@string/label_buttom_video"></ImageView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/audio_section"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/initial_menu_image_margin_vertical"
+        android:layout_marginEnd="@dimen/initial_menu_image_margin_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/audio_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/AppMenuTitle"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Audios"></com.google.android.material.textview.MaterialTextView>
+
+        <ImageView
+            android:id="@+id/audio_icon"
+            app:layout_constraintTop_toBottomOf="@id/audio_title"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="@dimen/initial_menu_image_size"
+            android:layout_height="@dimen/initial_menu_image_size"
+            android:src="@drawable/ic_mic"
+            android:contentDescription="@string/label_buttom_video"></ImageView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,4 +50,8 @@
     <style name="AppTextLogin" parent="TextAppearance.Material3.BodyMedium">
         <item name="android:textAlignment">center</item>
     </style>
+
+    <style name="AppMenuTitle" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textSize">@dimen/initial_menu_title_size</item>
+    </style>
 </resources>
