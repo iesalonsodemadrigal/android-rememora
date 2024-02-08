@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.iesam.rememora.R
 import com.iesam.rememora.databinding.ActivityHomeBinding
@@ -65,23 +64,6 @@ class HomeActivity : AppCompatActivity() {
                     .navigate(R.id.fragment_logout)
             }
         }
-    }
-
-    private fun setupObserver() {
-        val observer = Observer<HomeViewModel.UiState> {
-            if (it.isLoading) {
-            } else {
-            }
-            it.errorApp?.let {
-            }
-            if (it.account == null) {
-                Navigation.findNavController(this, R.id.fragment_container)
-                    .navigate(R.id.fragment_login)
-            } else {
-
-            }
-        }
-        viewModel.uiState.observe(this, observer)
     }
 
     private fun volumeDown() {
