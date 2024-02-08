@@ -50,4 +50,8 @@
     <style name="AppTextLogin" parent="TextAppearance.Material3.BodyMedium">
         <item name="android:textAlignment">center</item>
     </style>
+
+    <style name="AppLabNum" parent="TextAppearance.AppCompat.Body1" >
+        <item name="android:textSize">33sp</item>
+    </style>
 </resources>

@@ -77,6 +77,7 @@ class MediaPlayerView @JvmOverloads constructor(
     }
 
     private fun playMusic() {
+        bindLabelNum()
         checkList()
         if (currentPosition < urlMediaList.size) {
             val currentMusic = urlMediaList[currentPosition]
@@ -85,6 +86,10 @@ class MediaPlayerView @JvmOverloads constructor(
             exoPlayer.prepare()
             exoPlayer.play()
         }
+    }
+
+    private fun bindLabelNum () {
+        binding.labelNum.text = "${currentPosition+1}/${urlMediaList.size}"
     }
 
     private fun checkList() {

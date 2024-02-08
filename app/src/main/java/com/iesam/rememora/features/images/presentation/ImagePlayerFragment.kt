@@ -1,6 +1,7 @@
 package com.iesam.rememora.features.images.presentation
 
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -116,6 +117,8 @@ class ImagePlayerFragment : Fragment() {
         Glide.with(this)
             .load(images[numImage].source)
             .into(binding.image)
+
+        bindLabelNum()
     }
 
     private fun updateButtons() {
@@ -131,6 +134,10 @@ class ImagePlayerFragment : Fragment() {
                 mediaControls.backButton.isEnabled = true
             }
         }
+    }
+
+    private fun bindLabelNum () {
+        binding.labelNum.text = "${numImage+1} / ${images.size}"
     }
 
     override fun onDestroyView() {

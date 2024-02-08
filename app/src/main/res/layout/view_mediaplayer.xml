@@ -1,12 +1,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/menu_bottom"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginHorizontal="@dimen/spacing_vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginVertical="@dimen/spacing_vertical"
+        android:layout_marginBottom="@dimen/spacing_vertical"
         android:id="@+id/bottomButtonContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,11 +57,24 @@
     <androidx.media3.ui.PlayerView
         android:id="@+id/media_view"
         app:use_controller="false"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="@dimen/margin_horizontal_media"
+        app:layout_constraintBottom_toTopOf="@id/label_num"
         app:layout_constraintTop_toBottomOf="@id/bottomButtonContainer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="@dimen/spacing_vertical"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/label_num"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/media_view"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/media_view"
+        style="@style/AppLabNum"
+        tools:text = "2/5"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
