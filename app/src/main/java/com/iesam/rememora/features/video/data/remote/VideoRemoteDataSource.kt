@@ -1,5 +1,6 @@
 package com.iesam.rememora.features.video.data.remote
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.iesam.rememora.app.Either
@@ -15,21 +16,26 @@ import javax.inject.Inject
 
 class VideoRemoteDataSource @Inject constructor(
     private val database: FirebaseDatabase,
-    private val storage: FirebaseStorage
+    private val storage: FirebaseStorage,
+    private val auth: FirebaseAuth
 ) {
-    suspend fun getVideos(uid: String): Either<ErrorApp, List<Video>> {
+    suspend fun getVideos(): Either<ErrorApp, List<Video>> {
         return try {
-            val snapshot = database
-                .getReference("users/${uid}/videos/videos_1")
-                .get()
-                .await()
-            snapshot.children.map {
-                it.getValue(VideoApiModel::class.java)!!
-            }.map { video ->
-                video.source =
-                    storage.getReferenceFromUrl(video.source!!).downloadUrl.await().toString()
-                video.toModel()
-            }.right()
+            auth.uid?.let { uid ->
+                val snapshot = database
+                    .getReference("users/${uid}/videos/videos_1")
+                    .get()
+                    .await()
+                snapshot.children.map {
+                    it.getValue(VideoApiModel::class.java)!!
+                }.map { video ->
+                    video.source =
+                        storage.getReferenceFromUrl(video.source!!).downloadUrl.await().toString()
+                    video.toModel()
+                }.right()
+            } ?: run {
+                ErrorApp.SessionError.left()
+            }
         } catch (ex: ConnectException) {
             ErrorApp.InternetError.left()
         } catch (ex: UnknownHostException) {
