@@ -2,15 +2,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/menu_bottom"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:layout_marginHorizontal="@dimen/spacing_vertical">
+    android:layout_gravity="center">
 
     <LinearLayout
         android:id="@+id/bottomButtonContainer"
         android:layout_width="match_parent"
+        android:gravity="center"
         android:layout_height="wrap_content"
+        android:background="?attr/colorPrimaryContainer"
         android:orientation="horizontal"
         android:paddingVertical="@dimen/spacing_vertical"
         app:layout_constraintEnd_toEndOf="parent"
