@@ -6,6 +6,8 @@
     <dimen name="spacing_horizontal_media_player">32dp</dimen>
     <dimen name="size_padding_horizontal_menu">40dp</dimen>
     <dimen name="size_padding_vertical_menu">70dp</dimen>
+    <dimen name="spacing_menu_buttons_horizontal">100dp</dimen>
+    <dimen name="spacing_menu_buttons_vertical">60dp</dimen>
 
     <dimen name="size_title_buttom_menu">33sp</dimen>
     <dimen name="size_title_fragment_home">50sp</dimen>
@@ -36,4 +38,11 @@
     <dimen name="padding_vertical_menu_button">16dp</dimen>
     <dimen name="width_size_menu_button">200dp</dimen>
     <dimen name="margin_vertial_menu_button">20dp</dimen>
+
+    <!-- Initial menu-->
+    <dimen name="initial_menu_image_size">150dp</dimen>
+    <dimen name="initial_menu_image_margin_vertical">20dp</dimen>
+    <dimen name="initial_menu_image_margin_horizontal">150dp</dimen>
+    <!-- Sacado de ChatGPT: Chema -->
+    <dimen name="initial_menu_title_size">50sp</dimen>
 </resources>
