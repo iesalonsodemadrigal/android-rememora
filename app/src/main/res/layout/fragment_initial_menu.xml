@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.iesam.rememora.app.presentation.views.Button3dView
-                android:id="@+id/photo_icon"
+                android:id="@+id/action_photo"
                 android:layout_width="@dimen/initial_menu_image_size"
                 android:layout_height="@dimen/initial_menu_image_size"
                 android:contentDescription="@string/label_buttom_img" />
@@ -48,7 +48,7 @@
             app:layout_constraintTop_toTopOf="@id/photo_section">
 
             <com.iesam.rememora.app.presentation.views.Button3dView
-                android:id="@+id/music_icon"
+                android:id="@+id/action_music"
                 android:layout_width="@dimen/initial_menu_image_size"
                 android:layout_height="@dimen/initial_menu_image_size"
                 android:contentDescription="@string/label_buttom_music" />
@@ -74,7 +74,7 @@
             app:layout_constraintTop_toBottomOf="@id/photo_section">
 
             <com.iesam.rememora.app.presentation.views.Button3dView
-                android:id="@+id/video_icon"
+                android:id="@+id/action_video"
                 android:layout_width="@dimen/initial_menu_image_size"
                 android:layout_height="@dimen/initial_menu_image_size"
                 android:contentDescription="@string/label_buttom_video" />
@@ -101,7 +101,7 @@
             app:layout_constraintTop_toTopOf="@id/video_section">
 
             <com.iesam.rememora.app.presentation.views.Button3dView
-                android:id="@+id/audio_icon"
+                android:id="@+id/action_audio"
                 android:layout_width="@dimen/initial_menu_image_size"
                 android:layout_height="@dimen/initial_menu_image_size"
                 android:contentDescription="@string/label_buttom_audio" />

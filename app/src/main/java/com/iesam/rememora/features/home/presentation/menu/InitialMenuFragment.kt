@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.iesam.rememora.databinding.FragmentInitialMenuBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,25 +26,22 @@ class InitialMenuFragment : Fragment() {
 
     private fun setupView() {
         binding.apply {
-            videoIcon.setOnClickListener {
-                Snackbar.make(this.root, "Test", Snackbar.LENGTH_SHORT).show()
-            }
-            audioSection.setOnClickListener {
+            actionAudio.setOnClickListener {
                 findNavController().navigate(
                     InitialMenuFragmentDirections.actionGlobalAudioFragment()
                 )
             }
-            videoSection.setOnClickListener {
+            actionVideo.setOnClickListener {
                 findNavController().navigate(
                     InitialMenuFragmentDirections.actionGlobalVideoFragment()
                 )
             }
-            photoSection.setOnClickListener {
+            actionPhoto.setOnClickListener {
                 findNavController().navigate(
                     InitialMenuFragmentDirections.actionGlobalImageFragment()
                 )
             }
-            musicSection.setOnClickListener {
+            actionMusic.setOnClickListener {
                 findNavController().navigate(
                     InitialMenuFragmentDirections.actionGlobalMusicFragment()
                 )
