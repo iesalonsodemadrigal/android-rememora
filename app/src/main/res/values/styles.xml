@@ -56,6 +56,11 @@
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
+    <style name="AppSmallTitleButton3D" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textSize">@dimen/small_title_button_3d</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
 
     <style name="AppLabNum" parent="TextAppearance.AppCompat.Body1" >
         <item name="android:textSize">33sp</item>
