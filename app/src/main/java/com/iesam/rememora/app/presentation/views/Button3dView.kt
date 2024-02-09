@@ -19,7 +19,7 @@ class Button3dView @JvmOverloads constructor(
     }
 
     override fun performClick(): Boolean {
-        isSelected = !isSelected
+        //isSelected = !isSelected
         runVibration()
         playBeep()
         return super.performClick()
