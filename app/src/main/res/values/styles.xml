@@ -51,7 +51,9 @@
         <item name="android:textAlignment">center</item>
     </style>
 
-    <style name="AppMenuTitle" parent="TextAppearance.Material3.TitleLarge">
+    <style name="AppTitleButton3D" parent="TextAppearance.Material3.TitleLarge">
         <item name="android:textSize">@dimen/initial_menu_title_size</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
     </style>
+
 </resources>
