@@ -13,10 +13,10 @@
             android:id="@+id/photo_section"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/spacing_menu_buttons_horizontal"
-            android:layout_marginVertical="@dimen/spacing_menu_buttons_vertical"
             android:gravity="center"
-            android:orientation="vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/spacing_horizontal"
+            android:paddingVertical="@dimen/spacing_vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -30,6 +30,7 @@
                 style="@style/AppTitleButton3D"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_horizontal"
                 android:text="@string/label_buttom_img">
 
             </com.google.android.material.textview.MaterialTextView>
@@ -39,10 +40,11 @@
             android:id="@+id/music_section"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/spacing_menu_buttons_horizontal"
-            android:layout_marginVertical="@dimen/spacing_menu_buttons_vertical"
             android:gravity="center"
-            android:orientation="vertical"
+            android:orientation="horizontal"
+            android:layout_marginStart="@dimen/spacing_menu_buttons_horizontal"
+            android:paddingHorizontal="@dimen/spacing_horizontal"
+            android:paddingVertical="@dimen/spacing_vertical"
             app:layout_constraintBottom_toBottomOf="@id/photo_section"
             app:layout_constraintStart_toEndOf="@id/photo_section"
             app:layout_constraintTop_toTopOf="@id/photo_section">
@@ -57,6 +59,7 @@
                 style="@style/AppTitleButton3D"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_horizontal"
                 android:text="@string/label_buttom_music">
 
             </com.google.android.material.textview.MaterialTextView>
@@ -66,10 +69,11 @@
             android:id="@+id/video_section"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/spacing_menu_buttons_vertical"
             android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="@id/photo_section"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/spacing_menu_buttons_vertical"
+            android:paddingHorizontal="@dimen/spacing_horizontal"
+            android:paddingVertical="@dimen/spacing_vertical"
             app:layout_constraintStart_toStartOf="@id/photo_section"
             app:layout_constraintTop_toBottomOf="@id/photo_section">
 
@@ -83,6 +87,7 @@
                 style="@style/AppTitleButton3D"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_horizontal"
                 android:text="@string/label_buttom_video">
 
             </com.google.android.material.textview.MaterialTextView>
@@ -92,13 +97,13 @@
             android:id="@+id/audio_section"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/spacing_menu_buttons_vertical"
             android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@id/video_section"
-            app:layout_constraintEnd_toEndOf="@id/music_section"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/spacing_menu_buttons_vertical"
+            android:paddingHorizontal="@dimen/spacing_horizontal"
+            android:paddingVertical="@dimen/spacing_vertical"
             app:layout_constraintStart_toStartOf="@id/music_section"
-            app:layout_constraintTop_toTopOf="@id/video_section">
+            app:layout_constraintTop_toBottomOf="@id/music_section">
 
             <com.iesam.rememora.app.presentation.views.Button3dView
                 android:id="@+id/action_audio"
@@ -108,6 +113,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/AppTitleButton3D"
+                android:layout_marginStart="@dimen/spacing_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/label_buttom_audio">

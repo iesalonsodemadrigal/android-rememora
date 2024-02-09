@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="spacing_vertical">32dp</dimen>
+    <dimen name="spacing_vertical">16dp</dimen>
     <dimen name="spacing_horizontal">16dp</dimen>
     <dimen name="spacing_horizontal_media_player">32dp</dimen>
     <dimen name="size_padding_horizontal_menu">40dp</dimen>
@@ -45,4 +45,6 @@
     <dimen name="initial_menu_image_margin_horizontal">150dp</dimen>
     <!-- Sacado de ChatGPT: Chema -->
     <dimen name="initial_menu_title_size">50sp</dimen>
+
+    <dimen name="margin_horizontal_media">150dp</dimen>
 </resources>

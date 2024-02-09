@@ -56,4 +56,8 @@
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
+
+    <style name="AppLabNum" parent="TextAppearance.AppCompat.Body1" >
+        <item name="android:textSize">33sp</item>
+    </style>
 </resources>
