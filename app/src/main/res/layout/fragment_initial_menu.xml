@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/photo_section"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_menu_buttons_horizontal"
+            android:layout_marginVertical="@dimen/spacing_menu_buttons_vertical"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.iesam.rememora.app.presentation.views.Button3dView
+                android:id="@+id/action_photo"
+                android:layout_width="@dimen/initial_menu_image_size"
+                android:layout_height="@dimen/initial_menu_image_size"
+                android:contentDescription="@string/label_buttom_img" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/AppTitleButton3D"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_buttom_img">
+
+            </com.google.android.material.textview.MaterialTextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/music_section"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_menu_buttons_horizontal"
+            android:layout_marginVertical="@dimen/spacing_menu_buttons_vertical"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@id/photo_section"
+            app:layout_constraintStart_toEndOf="@id/photo_section"
+            app:layout_constraintTop_toTopOf="@id/photo_section">
+
+            <com.iesam.rememora.app.presentation.views.Button3dView
+                android:id="@+id/action_music"
+                android:layout_width="@dimen/initial_menu_image_size"
+                android:layout_height="@dimen/initial_menu_image_size"
+                android:contentDescription="@string/label_buttom_music" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/AppTitleButton3D"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_buttom_music">
+
+            </com.google.android.material.textview.MaterialTextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/video_section"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/spacing_menu_buttons_vertical"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@id/photo_section"
+            app:layout_constraintStart_toStartOf="@id/photo_section"
+            app:layout_constraintTop_toBottomOf="@id/photo_section">
+
+            <com.iesam.rememora.app.presentation.views.Button3dView
+                android:id="@+id/action_video"
+                android:layout_width="@dimen/initial_menu_image_size"
+                android:layout_height="@dimen/initial_menu_image_size"
+                android:contentDescription="@string/label_buttom_video" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/AppTitleButton3D"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_buttom_video">
+
+            </com.google.android.material.textview.MaterialTextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/audio_section"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/spacing_menu_buttons_vertical"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@id/video_section"
+            app:layout_constraintEnd_toEndOf="@id/music_section"
+            app:layout_constraintStart_toStartOf="@id/music_section"
+            app:layout_constraintTop_toTopOf="@id/video_section">
+
+            <com.iesam.rememora.app.presentation.views.Button3dView
+                android:id="@+id/action_audio"
+                android:layout_width="@dimen/initial_menu_image_size"
+                android:layout_height="@dimen/initial_menu_image_size"
+                android:contentDescription="@string/label_buttom_audio" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/AppTitleButton3D"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_buttom_audio">
+
+            </com.google.android.material.textview.MaterialTextView>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>
