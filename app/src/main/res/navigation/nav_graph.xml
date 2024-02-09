@@ -16,6 +16,11 @@
     <action
         android:id="@+id/action_global_audio_fragment"
         app:destination="@id/fragment_audio" />
+    <action
+        android:id="@+id/action_to_home"
+        app:destination="@id/fragment_initial_menu"
+        app:popUpTo="@id/fragment_initial_menu"
+        app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/fragment_home"
         android:name="com.iesam.rememora.features.home.presentation.HomeFragment"

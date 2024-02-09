@@ -14,6 +14,7 @@ import com.iesam.rememora.app.extensions.hide
 import com.iesam.rememora.app.extensions.show
 import com.iesam.rememora.app.presentation.error.ErrorUiModel
 import com.iesam.rememora.databinding.FragmentImagesBinding
+import com.iesam.rememora.features.home.presentation.HomeActivity
 import com.iesam.rememora.features.images.domain.Image
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,6 +42,7 @@ class ImagePlayerFragment : Fragment() {
 
     private fun setupView() {
         binding.apply {
+            (requireActivity() as HomeActivity).showHomeButton()
             mediaControls.backButton.setOnClickListener {
                 backImage()
             }

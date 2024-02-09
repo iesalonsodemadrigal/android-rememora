@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import com.iesam.rememora.R
 
 
-class Button3dView @JvmOverloads constructor(
+open class Button3dView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : androidx.appcompat.widget.AppCompatImageButton(context, attrs) {
 

@@ -22,8 +22,8 @@
 
             <com.iesam.rememora.app.presentation.views.Button3dView
                 android:id="@+id/action_photo"
-                android:layout_width="@dimen/initial_menu_image_size"
-                android:layout_height="@dimen/initial_menu_image_size"
+                android:layout_width="@dimen/button_3d_size"
+                android:layout_height="@dimen/button_3d_size"
                 android:contentDescription="@string/label_buttom_img" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -51,8 +51,8 @@
 
             <com.iesam.rememora.app.presentation.views.Button3dView
                 android:id="@+id/action_music"
-                android:layout_width="@dimen/initial_menu_image_size"
-                android:layout_height="@dimen/initial_menu_image_size"
+                android:layout_width="@dimen/button_3d_size"
+                android:layout_height="@dimen/button_3d_size"
                 android:contentDescription="@string/label_buttom_music" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -79,8 +79,8 @@
 
             <com.iesam.rememora.app.presentation.views.Button3dView
                 android:id="@+id/action_video"
-                android:layout_width="@dimen/initial_menu_image_size"
-                android:layout_height="@dimen/initial_menu_image_size"
+                android:layout_width="@dimen/button_3d_size"
+                android:layout_height="@dimen/button_3d_size"
                 android:contentDescription="@string/label_buttom_video" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -107,8 +107,8 @@
 
             <com.iesam.rememora.app.presentation.views.Button3dView
                 android:id="@+id/action_audio"
-                android:layout_width="@dimen/initial_menu_image_size"
-                android:layout_height="@dimen/initial_menu_image_size"
+                android:layout_width="@dimen/button_3d_size"
+                android:layout_height="@dimen/button_3d_size"
                 android:contentDescription="@string/label_buttom_audio" />
 
             <com.google.android.material.textview.MaterialTextView

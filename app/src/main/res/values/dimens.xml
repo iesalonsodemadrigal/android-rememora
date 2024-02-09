@@ -40,7 +40,7 @@
     <dimen name="margin_vertial_menu_button">20dp</dimen>
 
     <!-- Initial menu-->
-    <dimen name="initial_menu_image_size">150dp</dimen>
+    <dimen name="button_3d_size">150dp</dimen>
     <dimen name="initial_menu_image_margin_vertical">20dp</dimen>
     <dimen name="initial_menu_image_margin_horizontal">150dp</dimen>
     <!-- Sacado de ChatGPT: Chema -->

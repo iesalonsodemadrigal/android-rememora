@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.iesam.rememora.databinding.FragmentInitialMenuBinding
+import com.iesam.rememora.features.home.presentation.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,6 +27,7 @@ class InitialMenuFragment : Fragment() {
 
     private fun setupView() {
         binding.apply {
+            (requireActivity() as HomeActivity).hideHomeButton()
             actionAudio.setOnClickListener {
                 findNavController().navigate(
                     InitialMenuFragmentDirections.actionGlobalAudioFragment()
