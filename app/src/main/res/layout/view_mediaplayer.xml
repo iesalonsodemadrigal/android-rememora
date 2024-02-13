@@ -25,8 +25,8 @@
 
             <com.iesam.rememora.app.presentation.views.Button3dView
                 android:id="@+id/back_button"
-                android:layout_width="@dimen/button_3d_size"
-                android:layout_height="@dimen/button_3d_size"
+                android:layout_width="@dimen/button_3d_menu_2_size"
+                android:layout_height="@dimen/button_3d_menu_2_size"
                 android:contentDescription="@string/label_buttom_back"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -60,8 +60,8 @@
 
             <com.iesam.rememora.app.presentation.views.Button3dView
                 android:id="@+id/pause_button"
-                android:layout_width="@dimen/button_3d_size"
-                android:layout_height="@dimen/button_3d_size"
+                android:layout_width="@dimen/button_3d_menu_2_size"
+                android:layout_height="@dimen/button_3d_menu_2_size"
                 android:contentDescription="@string/label_buttom_back"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -95,8 +95,8 @@
 
             <com.iesam.rememora.app.presentation.views.Button3dView
                 android:id="@+id/play_button"
-                android:layout_width="@dimen/button_3d_size"
-                android:layout_height="@dimen/button_3d_size"
+                android:layout_width="@dimen/button_3d_menu_2_size"
+                android:layout_height="@dimen/button_3d_menu_2_size"
                 android:contentDescription="@string/label_buttom_play"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -131,8 +131,8 @@
 
             <com.iesam.rememora.app.presentation.views.Button3dView
                 android:id="@+id/next_button"
-                android:layout_width="@dimen/button_3d_size"
-                android:layout_height="@dimen/button_3d_size"
+                android:layout_width="@dimen/button_3d_menu_2_size"
+                android:layout_height="@dimen/button_3d_menu_2_size"
                 android:contentDescription="@string/label_buttom_next"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
