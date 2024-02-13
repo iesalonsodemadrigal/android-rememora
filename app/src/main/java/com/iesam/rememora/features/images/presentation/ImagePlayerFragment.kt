@@ -145,7 +145,7 @@ class ImagePlayerFragment : Fragment() {
     }
 
     private fun bindLabelNum () {
-        binding.labelNum.text = "${numImage+1} / ${images.size}"
+        binding.labelNum.text = "${numImage+1} de ${images.size}"
         binding.determinateLinearIndicator.progress = numImage+1
     }
 

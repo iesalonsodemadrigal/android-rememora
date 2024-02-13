@@ -96,7 +96,7 @@ class MediaPlayerView @JvmOverloads constructor(
     }
 
     private fun bindLabelNum () {
-        binding.labelNum.text = "${currentPosition+1}/${urlMediaList.size}"
+        binding.labelNum.text = "${currentPosition+1} de ${urlMediaList.size}"
         binding.determinateLinearIndicator.progress = (currentPosition+1)
     }
 
