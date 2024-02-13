@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import android.widget.ProgressBar
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
@@ -52,6 +53,12 @@ class MediaPlayerView @JvmOverloads constructor(
                 playMedia()
             }
         }
+        binding.determinateLinearIndicator.apply {
+            isIndeterminate = false
+            min = 1
+            max = urlMediaList.size
+        }
+
     }
 
     private fun playNextMedia() {
@@ -90,6 +97,7 @@ class MediaPlayerView @JvmOverloads constructor(
 
     private fun bindLabelNum () {
         binding.labelNum.text = "${currentPosition+1}/${urlMediaList.size}"
+        binding.determinateLinearIndicator.progress = (currentPosition+1)
     }
 
     private fun checkList() {

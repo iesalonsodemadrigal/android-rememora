@@ -168,18 +168,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottomButtonContainer"
+        android:layout_marginHorizontal="@dimen/margin_horizontal_media"
         app:use_controller="false" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/label_num"
         style="@style/AppLabNum"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/media_view"
         app:layout_constraintStart_toStartOf="@id/media_view"
         app:layout_constraintTop_toBottomOf="@id/media_view"
         tools:text="2/5" />
+
+    <ProgressBar
+        android:id="@+id/determinate_linear_indicator"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/label_num"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/media_view"
+        app:layout_constraintEnd_toEndOf="@id/media_view"
+        tools:progress="2"
+        tools:max="5"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

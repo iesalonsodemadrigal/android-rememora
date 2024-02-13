@@ -53,6 +53,12 @@ class ImagePlayerFragment : Fragment() {
                 firstImage()
             }
             mediaControls.repeatButton.visibility = View.GONE
+            determinateLinearIndicator.apply {
+                isIndeterminate = false
+                max = images.size
+                min = 1
+                progress = 1
+            }
         }
     }
 
@@ -140,6 +146,7 @@ class ImagePlayerFragment : Fragment() {
 
     private fun bindLabelNum () {
         binding.labelNum.text = "${numImage+1} / ${images.size}"
+        binding.determinateLinearIndicator.progress = numImage+1
     }
 
     override fun onDestroyView() {
