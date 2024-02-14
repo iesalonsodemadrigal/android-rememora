@@ -1,6 +1,9 @@
 package com.iesam.rememora.features.home.presentation.menu
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +17,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class InitialMenuFragment : Fragment() {
     private var _binding: FragmentInitialMenuBinding? = null
     private val binding get() = _binding!!
+
+    private var brightnessValue = 100
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,18 +34,30 @@ class InitialMenuFragment : Fragment() {
         binding.apply {
             (requireActivity() as HomeActivity).hideHomeButton()
             actionBrightnessUp.setOnClickListener {
-                val activity = requireActivity()
-                val window = activity.window
-                val layoutParams = window.attributes
-                layoutParams.screenBrightness = layoutParams.screenBrightness + 20.1f
-                window.attributes = layoutParams
+                val context = requireContext()
+                val settingsCanWrite = hasWriteSettingsPermission(context)
+                if (!settingsCanWrite) {
+                    changeWriteSettingsPermission(context)
+                } else {
+                    if (brightnessValue <= 245) {
+                        brightnessValue += 10
+                        changeScreenBrightness(context, brightnessValue)
+                        val k = brightnessValue.toDouble() / 255
+                    }
+                }
             }
             actionBrightnessDown.setOnClickListener {
-                val activity = requireActivity()
-                val window = activity.window
-                val layoutParams = window.attributes
-                layoutParams.screenBrightness = layoutParams.screenBrightness - 20.1f
-                window.attributes = layoutParams
+                val context = requireContext()
+                val settingsCanWrite = hasWriteSettingsPermission(context)
+                if (!settingsCanWrite) {
+                    changeWriteSettingsPermission(context)
+                } else {
+                    if (brightnessValue >= 0) {
+                        brightnessValue -= 10
+                        changeScreenBrightness(context, brightnessValue)
+                        val k = brightnessValue.toDouble() / 255
+                    }
+                }
             }
             actionAudio.setOnClickListener {
                 findNavController().navigate(
@@ -65,4 +82,24 @@ class InitialMenuFragment : Fragment() {
         }
     }
 
+    private fun hasWriteSettingsPermission(context: Context): Boolean {
+        return Settings.System.canWrite(context)
+    }
+
+    private fun changeWriteSettingsPermission(context: Context) {
+        val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
+        startActivity(intent)
+    }
+
+    private fun changeScreenBrightness(context: Context, screenBrightnessValue: Int) {
+        Settings.System.putInt(
+            context.contentResolver,
+            Settings.System.SCREEN_BRIGHTNESS_MODE,
+            Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL
+        )
+        Settings.System.putInt(
+            context.contentResolver,
+            Settings.System.SCREEN_BRIGHTNESS, screenBrightnessValue
+        )
+    }
 }
