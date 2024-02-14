@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.ViewSwitcher
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -49,6 +48,7 @@ class ImagePlayerFragment : Fragment() {
             mediaControls.backButton.setOnClickListener {
                 backImage()
             }
+
             imagePrevious.setOnClickListener{
                 backImage()
             }
@@ -61,7 +61,9 @@ class ImagePlayerFragment : Fragment() {
             mediaControls.repeatButton.setOnClickListener {
                 firstImage()
             }
+            
             mediaControls.repeatButton.visibility = View.GONE
+
             image.setFactory { ImageView(requireContext()) }
         }
     }
@@ -163,7 +165,6 @@ class ImagePlayerFragment : Fragment() {
             }
         }
     }
-
 
     private fun updateButtons() {
         binding.apply {
