@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="spacing_vertical">16dp</dimen>
+    <dimen name="spacing_horizontal">16dp</dimen>
+    <dimen name="spacing_horizontal_media_player">32dp</dimen>
+    <dimen name="size_padding_horizontal_menu">40dp</dimen>
+    <dimen name="size_padding_vertical_menu">70dp</dimen>
+    <dimen name="spacing_menu_buttons_horizontal">100dp</dimen>
+    <dimen name="spacing_menu_buttons_vertical">60dp</dimen>
+    <dimen name="spacing_mediaplayer_buttons_horizontal">50dp</dimen>
+
+    <dimen name="size_title_buttom_menu">33sp</dimen>
+    <dimen name="size_title_fragment_home">50sp</dimen>
+
+    <dimen name="width_buttom_menu">200dp</dimen>
+    <dimen name="height_buttom_menu">100dp</dimen>
+
+    <dimen name="margin_bottom_ayuda">10dp</dimen>
+
+    <dimen name="size_padding_horizontal_menu_bottom">25dp</dimen>
+    <dimen name="layout_width_menu_bottom">250dp</dimen>
+    <dimen name="layout_height_menu_bottom">100dp</dimen>
+
+    <dimen name="width_image">768dp</dimen>
+    <dimen name="height_image">432dp</dimen>
+    <dimen name="height_error_image">300dp</dimen>
+    <dimen name="width_error_image">300dp</dimen>
+
+    <dimen name="margin_horizontal_fragmet_image">50dp</dimen>
+    <dimen name="margin_horizontal_error">30dp</dimen>
+    <dimen name="margin_vertical_error">15dp</dimen>
+    <dimen name="margin_top_fragment_image">35dp</dimen>
+
+    <dimen name="margin_horizontal_login_button">100dp</dimen>
+    <dimen name="margin_vertical_login_button">30dp</dimen>
+
+    <!-- New Dimens -->
+    <dimen name="padding_vertical_menu_button">16dp</dimen>
+    <dimen name="width_size_menu_button">200dp</dimen>
+    <dimen name="margin_vertial_menu_button">20dp</dimen>
+
+    <!-- Initial menu-->
+    <dimen name="button_3d_size">150dp</dimen>
+    <dimen name="initial_menu_image_margin_vertical">20dp</dimen>
+    <dimen name="initial_menu_image_margin_horizontal">150dp</dimen>
+    <!-- Sacado de ChatGPT: Chema -->
+    <dimen name="initial_menu_title_size">50sp</dimen>
+    <dimen name="small_title_button_3d">40sp</dimen>
+
+    <dimen name="margin_horizontal_media">150dp</dimen>
+</resources>

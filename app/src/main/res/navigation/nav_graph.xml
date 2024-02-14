@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment_login">
+    <action
+        android:id="@+id/action_global_image_fragment"
+        app:destination="@id/fragment_imagen" />
+    <action
+        android:id="@+id/action_global_video_fragment"
+        app:destination="@id/fragment_video" />
+    <action
+        android:id="@+id/action_global_music_fragment"
+        app:destination="@id/fragment_music" />
+    <action
+        android:id="@+id/action_global_audio_fragment"
+        app:destination="@id/fragment_audio" />
+    <action
+        android:id="@+id/action_to_home"
+        app:destination="@id/fragment_initial_menu"
+        app:popUpTo="@id/fragment_initial_menu"
+        app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/fragment_home"
+        android:name="com.iesam.rememora.features.home.presentation.HomeFragment"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/fragment_imagen"
+        android:name="com.iesam.rememora.features.images.presentation.ImagePlayerFragment"
+        tools:layout="@layout/fragment_images" />
+    <fragment
+        android:id="@+id/fragment_video"
+        android:name="com.iesam.rememora.features.video.presentation.VideoPlayerFragment"
+        tools:layaout="" />
+    <fragment
+        android:id="@+id/fragment_music"
+        android:name="com.iesam.rememora.features.music.presentation.MusicPlayerFragment"
+        tools:layaout="" />
+    <fragment
+        android:id="@+id/fragment_audio"
+        android:name="com.iesam.rememora.features.audio.presentation.AudioPlayerFragment"
+        tools:layout="@layout/fragment_audio" />
+    <fragment
+        android:id="@+id/fragment_login"
+        android:name="com.iesam.rememora.core.account.presentation.LoginFragment">
+        <action
+            android:id="@+id/action_from_login_to_home"
+            app:destination="@id/fragment_home" />
+        <action
+            android:id="@+id/action_from_login_to_initial_menu"
+            app:destination="@id/fragment_initial_menu" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_logout"
+        android:name="com.iesam.rememora.core.account.presentation.LogoutFragment">
+        <action
+            android:id="@+id/action_from_logout_to_login"
+            app:destination="@id/fragment_login" />
+    </fragment>
+    <!--  Initial menu  -->
+    <fragment
+        android:id="@+id/fragment_initial_menu"
+        android:name="com.iesam.rememora.features.home.presentation.menu.InitialMenuFragment">
+        <action
+            android:id="@+id/action_global_image_fragment"
+            app:destination="@id/fragment_imagen" />
+        <action
+            android:id="@+id/action_global_video_fragment"
+            app:destination="@id/fragment_video" />
+        <action
+            android:id="@+id/action_global_music_fragment"
+            app:destination="@id/fragment_music" />
+        <action
+            android:id="@+id/action_global_audio_fragment"
+            app:destination="@id/fragment_audio" />
+
+    </fragment>
+</navigation>

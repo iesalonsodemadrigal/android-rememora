@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppSmallToolbar" parent="ThemeOverlay.Material3.Toolbar.Surface">
+        <item name="titleCentered">true</item>
+        <item name="titleTextColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="AppElevatedCard" parent="Widget.Material3.CardView.Elevated">
+
+    </style>
+
+    <style name="AppFilledCard" parent="Widget.Material3.CardView.Filled">
+
+    </style>
+
+    <style name="AppOutlinedCard" parent="Widget.Material3.CardView.Outlined">
+
+    </style>
+
+    <style name="AppTitleCard" parent="TextAppearance.Material3.TitleLarge">
+
+    </style>
+
+    <style name="AppBodyCard" parent="TextAppearance.Material3.BodyLarge">
+
+    </style>
+
+    <style name="AppElevatedButton" parent="Widget.Material3.Button.ElevatedButton">
+
+    </style>
+
+    <style name="MediaButtonStyle" parent="TextAppearance.Material3.DisplaySmall">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
+
+    <style name="AppFilledButton" parent="Widget.Material3.Button.IconButton.Filled">
+
+    </style>
+
+    <style name="AppTitleError" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="AppDescriptionError" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textAlignment">viewStart</item>
+    </style>
+
+    <style name="AppTextLogin" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="AppTitleButton3D" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textSize">@dimen/initial_menu_title_size</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="AppSmallTitleButton3D" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textSize">@dimen/small_title_button_3d</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+
+    <style name="AppLabNum" parent="TextAppearance.AppCompat.Body1" >
+        <item name="android:textSize">33sp</item>
+    </style>
+</resources>
