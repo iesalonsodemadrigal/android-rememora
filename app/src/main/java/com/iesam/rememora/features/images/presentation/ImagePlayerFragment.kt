@@ -1,6 +1,5 @@
 package com.iesam.rememora.features.images.presentation
 
-import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.iesam.rememora.app.extensions.hide
+import com.iesam.rememora.app.extensions.invisible
 import com.iesam.rememora.app.extensions.setUrl
 import com.iesam.rememora.app.extensions.show
 import com.iesam.rememora.app.presentation.error.ErrorUiModel
@@ -62,11 +62,7 @@ class ImagePlayerFragment : Fragment() {
                 firstImage()
             }
             mediaControls.repeatButton.visibility = View.GONE
-            image.setFactory(object : ViewSwitcher.ViewFactory {
-                override fun makeView(): View {
-                    return ImageView(requireContext())
-                }
-            })
+            image.setFactory { ImageView(requireContext()) }
         }
     }
 
@@ -143,7 +139,7 @@ class ImagePlayerFragment : Fragment() {
         when (numImage) {
             0 -> {
                 binding.apply {
-                    imagePrevious.hide()
+                    imagePrevious.invisible()
                     imageNext.show()
                     imageNext.setUrl(images[numImage + 1].source)
                 }
@@ -153,7 +149,7 @@ class ImagePlayerFragment : Fragment() {
                 binding.apply {
                     imagePrevious.show()
                     imagePrevious.setUrl(images[numImage - 1].source)
-                    imageNext.hide()
+                    imageNext.invisible()
                 }
             }
 
