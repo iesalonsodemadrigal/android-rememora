@@ -19,9 +19,8 @@ open class Button3dView @JvmOverloads constructor(
     }
 
     override fun performClick(): Boolean {
-        //isSelected = !isSelected
+        //playBeep()
         runVibration()
-        playBeep()
         return super.performClick()
     }
 
@@ -33,6 +32,6 @@ open class Button3dView @JvmOverloads constructor(
     private fun runVibration() {
         val vibrator =
             ContextCompat.getSystemService(this.context, Vibrator::class.java) as Vibrator
-        vibrator.vibrate(VibrationEffect.createOneShot(20, VibrationEffect.DEFAULT_AMPLITUDE))
+        vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
     }
 }
