@@ -7,8 +7,6 @@ import android.widget.FrameLayout
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
-import com.iesam.rememora.app.extensions.hide
-import com.iesam.rememora.app.extensions.show
 import com.iesam.rememora.databinding.ViewMediaplayerBinding
 
 class MediaPlayerView @JvmOverloads constructor(
@@ -79,6 +77,7 @@ class MediaPlayerView @JvmOverloads constructor(
     }
 
     private fun playMusic() {
+        bindLabelNum()
         checkList()
         if (currentPosition < urlMediaList.size) {
             val currentMusic = urlMediaList[currentPosition]
@@ -87,6 +86,10 @@ class MediaPlayerView @JvmOverloads constructor(
             exoPlayer.prepare()
             exoPlayer.play()
         }
+    }
+
+    private fun bindLabelNum() {
+        binding.labelNum.text = "${currentPosition + 1}/${urlMediaList.size}"
     }
 
     private fun checkList() {
