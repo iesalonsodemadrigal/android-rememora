@@ -18,6 +18,9 @@
 
     <string name="label_buttom_ayuda">?</string>
 
+    <string name="label_button_brightness_up">Subir brillo</string>
+    <string name="label_button_brightness_down">Bajar brillo</string>
+
     <!-- Errores -->
     <string name="content_description_error">Una imagen representando que hay un error</string>
     <string name="title_button_error">Reintentar</string>

@@ -28,6 +28,20 @@ class InitialMenuFragment : Fragment() {
     private fun setupView() {
         binding.apply {
             (requireActivity() as HomeActivity).hideHomeButton()
+            actionBrightnessUp.setOnClickListener {
+                val activity = requireActivity()
+                val window = activity.window
+                val layoutParams = window.attributes
+                layoutParams.screenBrightness = layoutParams.screenBrightness + 20.1f
+                window.attributes = layoutParams
+            }
+            actionBrightnessDown.setOnClickListener {
+                val activity = requireActivity()
+                val window = activity.window
+                val layoutParams = window.attributes
+                layoutParams.screenBrightness = layoutParams.screenBrightness - 20.1f
+                window.attributes = layoutParams
+            }
             actionAudio.setOnClickListener {
                 findNavController().navigate(
                     InitialMenuFragmentDirections.actionGlobalAudioFragment()

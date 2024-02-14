@@ -1,19 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/brightness_up"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/spacing_horizontal"
+        android:paddingVertical="@dimen/spacing_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/photo_section"
+        <com.iesam.rememora.app.presentation.views.Button3dView
+            android:id="@+id/action_brightness_up"
+            android:layout_width="@dimen/button_3d_size"
+            android:layout_height="@dimen/button_3d_size"
+            android:contentDescription="@string/label_button_brightness_up"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/ic_up"
+            app:layout_constraintBottom_toBottomOf="@id/action_brightness_up"
+            app:layout_constraintEnd_toEndOf="@id/action_brightness_up"
+            app:layout_constraintStart_toStartOf="@id/action_brightness_up"
+            app:layout_constraintTop_toTopOf="@id/action_brightness_up" />
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/AppTitleButton3D"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="@dimen/spacing_horizontal"
+            android:layout_marginStart="@dimen/spacing_horizontal"
+            android:text="@string/label_button_brightness_up"
+            app:layout_constraintBottom_toBottomOf="@id/action_brightness_up"
+            app:layout_constraintStart_toEndOf="@id/action_brightness_up"
+            app:layout_constraintTop_toTopOf="@id/action_brightness_up">
+
+        </com.google.android.material.textview.MaterialTextView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/brightness_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/spacing_horizontal"
+        android:paddingVertical="@dimen/spacing_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.iesam.rememora.app.presentation.views.Button3dView
+            android:id="@+id/action_brightness_down"
+            android:layout_width="@dimen/button_3d_size"
+            android:layout_height="@dimen/button_3d_size"
+            android:contentDescription="@string/label_button_brightness_down"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/ic_down"
+            app:layout_constraintBottom_toBottomOf="@id/action_brightness_down"
+            app:layout_constraintEnd_toEndOf="@id/action_brightness_down"
+            app:layout_constraintStart_toStartOf="@id/action_brightness_down"
+            app:layout_constraintTop_toTopOf="@id/action_brightness_down" />
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/AppTitleButton3D"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_horizontal"
+            android:text="@string/label_button_brightness_down"
+            app:layout_constraintBottom_toBottomOf="@id/action_brightness_down"
+            app:layout_constraintStart_toEndOf="@id/action_brightness_down"
+            app:layout_constraintTop_toTopOf="@id/action_brightness_down">
+
+        </com.google.android.material.textview.MaterialTextView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/photo_section"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/spacing_horizontal"
             android:paddingVertical="@dimen/spacing_vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -170,6 +254,8 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-</RelativeLayout>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
