@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.ViewSwitcher
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -60,6 +62,11 @@ class ImagePlayerFragment : Fragment() {
                 firstImage()
             }
             mediaControls.repeatButton.visibility = View.GONE
+            image.setFactory(object : ViewSwitcher.ViewFactory {
+                override fun makeView(): View {
+                    return ImageView(requireContext())
+                }
+            })
         }
     }
 
@@ -107,8 +114,6 @@ class ImagePlayerFragment : Fragment() {
     }
 
     private fun backImage() {
-        binding.image.setInAnimation(requireContext(), R.anim.from_right)
-        binding.image.setInAnimation(requireContext(), R.anim.to_left)
         if (numImage > 0) {
             numImage--
         }
@@ -117,8 +122,6 @@ class ImagePlayerFragment : Fragment() {
     }
 
     private fun nextImage() {
-        binding.image.setInAnimation(requireContext(), R.anim.from_left)
-        binding.image.setInAnimation(requireContext(), R.anim.to_right)
         if (numImage < (images.size - 1)) {
             numImage++
         }
