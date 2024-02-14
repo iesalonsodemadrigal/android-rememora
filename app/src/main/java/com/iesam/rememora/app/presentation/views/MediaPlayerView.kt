@@ -8,6 +8,8 @@ import android.widget.ProgressBar
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
+import com.iesam.rememora.app.extensions.hide
+import com.iesam.rememora.app.extensions.show
 import com.iesam.rememora.databinding.ViewMediaplayerBinding
 
 class MediaPlayerView @JvmOverloads constructor(
@@ -19,10 +21,16 @@ class MediaPlayerView @JvmOverloads constructor(
     private var currentPosition = 0
 
     private var exoPlayer: ExoPlayer
+    private var exoPlayerPrevious: ExoPlayer
+    private var exoPlayerNext: ExoPlayer
 
     init {
         exoPlayer = ExoPlayer.Builder(context).build()
+        exoPlayerPrevious = ExoPlayer.Builder(context).build()
+        exoPlayerNext = ExoPlayer.Builder(context).build()
         binding.mediaView.player = exoPlayer
+        binding.mediaPrevious.player = exoPlayerPrevious
+        binding.mediaNext.player = exoPlayerNext
         setupView()
     }
 
@@ -53,12 +61,6 @@ class MediaPlayerView @JvmOverloads constructor(
                 playMedia()
             }
         }
-        binding.determinateLinearIndicator.apply {
-            isIndeterminate = false
-            min = 1
-            max = urlMediaList.size
-        }
-
     }
 
     private fun playNextMedia() {
@@ -84,8 +86,8 @@ class MediaPlayerView @JvmOverloads constructor(
     }
 
     private fun playMusic() {
-        bindLabelNum()
         checkList()
+        bindMiniatures()
         if (currentPosition < urlMediaList.size) {
             val currentMusic = urlMediaList[currentPosition]
             val mediaItem = MediaItem.fromUri(currentMusic)
@@ -95,14 +97,34 @@ class MediaPlayerView @JvmOverloads constructor(
         }
     }
 
-    private fun bindLabelNum () {
-        binding.labelNum.text = "${currentPosition+1} de ${urlMediaList.size}"
-        binding.determinateLinearIndicator.progress = (currentPosition+1)
-    }
-
     private fun checkList() {
         binding.backButton.isEnabled = currentPosition > 0
         binding.nextButton.isEnabled = currentPosition < urlMediaList.size - 1
+    }
+
+    private fun bindMiniatures () {
+        when (currentPosition) {
+            0 -> {
+                binding.mediaPrevious.hide()
+                binding.mediaNext.show()
+                exoPlayerNext.setMediaItem(MediaItem.fromUri(urlMediaList[currentPosition+1]))
+                exoPlayerNext.prepare()
+            }
+            urlMediaList.size-1 -> {
+                binding.mediaPrevious.show()
+                binding.mediaNext.hide()
+                exoPlayerPrevious.setMediaItem(MediaItem.fromUri(urlMediaList[currentPosition-1]))
+                exoPlayerPrevious.prepare()
+            }
+            else -> {
+                binding.mediaPrevious.show()
+                binding.mediaNext.show()
+                exoPlayerNext.setMediaItem(MediaItem.fromUri(urlMediaList[currentPosition+1]))
+                exoPlayerPrevious.setMediaItem(MediaItem.fromUri(urlMediaList[currentPosition-1]))
+                exoPlayerPrevious.prepare()
+                exoPlayerNext.prepare()
+            }
+        }
     }
 
     fun render(mediaList: List<String>) {

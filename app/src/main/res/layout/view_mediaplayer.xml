@@ -160,38 +160,54 @@
 
     </LinearLayout>
 
-    <androidx.media3.ui.PlayerView
-        android:id="@+id/media_view"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/label_num"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottomButtonContainer"
-        android:layout_marginHorizontal="@dimen/margin_horizontal_media"
-        app:use_controller="false" />
+        android:orientation="horizontal"
+        android:gravity="center">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/label_num"
-        style="@style/AppLabNum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/media_view"
-        app:layout_constraintStart_toStartOf="@id/media_view"
-        app:layout_constraintTop_toBottomOf="@id/media_view"
-        tools:text="2/5" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="10dp">
 
-    <ProgressBar
-        android:id="@+id/determinate_linear_indicator"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/label_num"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/media_view"
-        app:layout_constraintEnd_toEndOf="@id/media_view"
-        tools:progress="2"
-        tools:max="5"/>
+            <androidx.media3.ui.PlayerView
+                android:id="@+id/media_previous"
+                android:layout_width="120dp"
+                android:layout_height="100dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/media_view"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:use_controller="false" />
 
+            <androidx.media3.ui.PlayerView
+                android:id="@+id/media_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="30dp"
+                app:layout_constraintStart_toEndOf="@id/media_previous"
+                app:layout_constraintEnd_toStartOf="@id/media_next"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:use_controller="false" />
+
+            <androidx.media3.ui.PlayerView
+                android:id="@+id/media_next"
+                android:layout_width="120dp"
+                android:layout_height="100dp"
+                app:layout_constraintStart_toEndOf="@id/media_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:use_controller="false" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
