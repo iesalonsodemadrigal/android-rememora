@@ -1,7 +1,5 @@
 package com.iesam.rememora.features.images.presentation
 
-
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -53,12 +51,6 @@ class ImagePlayerFragment : Fragment() {
                 firstImage()
             }
             mediaControls.repeatButton.visibility = View.GONE
-            determinateLinearIndicator.apply {
-                isIndeterminate = false
-                max = images.size
-                min = 1
-                progress = 1
-            }
         }
     }
 
@@ -126,8 +118,51 @@ class ImagePlayerFragment : Fragment() {
             .load(images[numImage].source)
             .into(binding.image)
 
+        bindMiniImages()
         bindLabelNum()
     }
+
+    private fun bindLabelNum() {
+        binding.labelNum.text = "${numImage + 1} / ${images.size}"
+    }
+
+    private fun bindMiniImages() {
+        when (numImage) {
+            0 -> {
+                binding.apply {
+                    imagePrevious.hide()
+                    imageNext.show()
+                }
+                Glide.with(this)
+                    .load(images[numImage + 1].source)
+                    .into(binding.imageNext)
+            }
+
+            images.size - 1 -> {
+                binding.apply {
+                    imagePrevious.show()
+                    imageNext.hide()
+                }
+                Glide.with(this)
+                    .load(images[numImage - 1].source)
+                    .into(binding.imagePrevious)
+            }
+
+            else -> {
+                binding.apply {
+                    imagePrevious.show()
+                    imageNext.show()
+                }
+                Glide.with(this)
+                    .load(images[numImage - 1].source)
+                    .into(binding.imagePrevious)
+                Glide.with(this)
+                    .load(images[numImage + 1].source)
+                    .into(binding.imageNext)
+            }
+        }
+    }
+
 
     private fun updateButtons() {
         binding.apply {
@@ -142,11 +177,6 @@ class ImagePlayerFragment : Fragment() {
                 mediaControls.backButton.isEnabled = true
             }
         }
-    }
-
-    private fun bindLabelNum () {
-        binding.labelNum.text = "${numImage+1} de ${images.size}"
-        binding.determinateLinearIndicator.progress = numImage+1
     }
 
     override fun onDestroyView() {

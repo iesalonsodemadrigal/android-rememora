@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import android.widget.ProgressBar
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
@@ -21,16 +20,10 @@ class MediaPlayerView @JvmOverloads constructor(
     private var currentPosition = 0
 
     private var exoPlayer: ExoPlayer
-    private var exoPlayerPrevious: ExoPlayer
-    private var exoPlayerNext: ExoPlayer
 
     init {
         exoPlayer = ExoPlayer.Builder(context).build()
-        exoPlayerPrevious = ExoPlayer.Builder(context).build()
-        exoPlayerNext = ExoPlayer.Builder(context).build()
         binding.mediaView.player = exoPlayer
-        binding.mediaPrevious.player = exoPlayerPrevious
-        binding.mediaNext.player = exoPlayerNext
         setupView()
     }
 
@@ -87,7 +80,6 @@ class MediaPlayerView @JvmOverloads constructor(
 
     private fun playMusic() {
         checkList()
-        bindMiniatures()
         if (currentPosition < urlMediaList.size) {
             val currentMusic = urlMediaList[currentPosition]
             val mediaItem = MediaItem.fromUri(currentMusic)
@@ -100,31 +92,6 @@ class MediaPlayerView @JvmOverloads constructor(
     private fun checkList() {
         binding.backButton.isEnabled = currentPosition > 0
         binding.nextButton.isEnabled = currentPosition < urlMediaList.size - 1
-    }
-
-    private fun bindMiniatures () {
-        when (currentPosition) {
-            0 -> {
-                binding.mediaPrevious.hide()
-                binding.mediaNext.show()
-                exoPlayerNext.setMediaItem(MediaItem.fromUri(urlMediaList[currentPosition+1]))
-                exoPlayerNext.prepare()
-            }
-            urlMediaList.size-1 -> {
-                binding.mediaPrevious.show()
-                binding.mediaNext.hide()
-                exoPlayerPrevious.setMediaItem(MediaItem.fromUri(urlMediaList[currentPosition-1]))
-                exoPlayerPrevious.prepare()
-            }
-            else -> {
-                binding.mediaPrevious.show()
-                binding.mediaNext.show()
-                exoPlayerNext.setMediaItem(MediaItem.fromUri(urlMediaList[currentPosition+1]))
-                exoPlayerPrevious.setMediaItem(MediaItem.fromUri(urlMediaList[currentPosition-1]))
-                exoPlayerPrevious.prepare()
-                exoPlayerNext.prepare()
-            }
-        }
     }
 
     fun render(mediaList: List<String>) {
