@@ -20,11 +20,11 @@
 
     <com.iesam.rememora.app.presentation.views.HomeButton3dView
         android:id="@+id/action_back_to_home"
-        android:visibility="gone"
         android:layout_width="@dimen/button_3d_size"
         android:layout_height="@dimen/button_3d_size"
         android:layout_marginHorizontal="@dimen/spacing_horizontal"
         android:layout_marginVertical="@dimen/spacing_vertical"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

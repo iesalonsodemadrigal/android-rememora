@@ -9,9 +9,9 @@
     <LinearLayout
         android:id="@+id/bottomButtonContainer"
         android:layout_width="match_parent"
-        android:gravity="center"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimaryContainer"
+        android:gravity="center"
         android:orientation="horizontal"
         android:paddingVertical="@dimen/spacing_vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -169,6 +169,70 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottomButtonContainer"
         app:use_controller="false" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/container_volume_buttons"
+        android:orientation="vertical"
+        android:paddingVertical="@dimen/spacing_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/media_view">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/spacing_volume_buttons_horizontal">
+
+            <com.iesam.rememora.app.presentation.views.Button3dView
+                android:id="@+id/volume_up"
+                android:layout_width="@dimen/button_3d_size_volume"
+                android:layout_height="@dimen/button_3d_size_volume"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/volume_up_vector"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/ic_volume_up"
+                app:layout_constraintBottom_toBottomOf="@id/volume_up"
+                app:layout_constraintEnd_toEndOf="@id/volume_up"
+                app:layout_constraintStart_toStartOf="@id/volume_up"
+                app:layout_constraintTop_toTopOf="@id/volume_up" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ic_volume"
+                android:layout_width="@dimen/button_3d_size_volume"
+                android:layout_height="@dimen/button_3d_size_volume"
+                android:src="@drawable/ic_volume"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/volume_up" />
+
+            <com.iesam.rememora.app.presentation.views.Button3dView
+                android:id="@+id/volume_down"
+                android:layout_width="@dimen/button_3d_size_volume"
+                android:layout_height="@dimen/button_3d_size_volume"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ic_volume" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/volume_down_vector"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/ic_volume_down"
+                app:layout_constraintBottom_toBottomOf="@id/volume_down"
+                app:layout_constraintEnd_toEndOf="@id/volume_down"
+                app:layout_constraintStart_toStartOf="@id/volume_down"
+                app:layout_constraintTop_toTopOf="@id/volume_down" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/label_num"

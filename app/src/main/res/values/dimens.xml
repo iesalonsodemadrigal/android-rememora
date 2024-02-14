@@ -9,6 +9,7 @@
     <dimen name="spacing_menu_buttons_horizontal">100dp</dimen>
     <dimen name="spacing_menu_buttons_vertical">60dp</dimen>
     <dimen name="spacing_mediaplayer_buttons_horizontal">50dp</dimen>
+    <dimen name="spacing_volume_buttons_horizontal">10dp</dimen>
 
     <dimen name="size_title_buttom_menu">33sp</dimen>
     <dimen name="size_title_fragment_home">50sp</dimen>
@@ -49,4 +50,6 @@
     <dimen name="small_title_button_3d">40sp</dimen>
 
     <dimen name="margin_horizontal_media">150dp</dimen>
+    <!-- Volume Buttons -->
+    <dimen name="button_3d_size_volume">100dp</dimen>
 </resources>
