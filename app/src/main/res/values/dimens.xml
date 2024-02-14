@@ -50,6 +50,7 @@
     <dimen name="small_title_button_3d">40sp</dimen>
 
     <dimen name="margin_horizontal_media">100dp</dimen>
-
+    <dimen name="width_mini_image">120dp</dimen>
+    <dimen name="height_mini_image">100dp</dimen>
 
 </resources>
