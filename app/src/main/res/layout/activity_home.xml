@@ -20,12 +20,23 @@
 
     <com.iesam.rememora.app.presentation.views.HomeButton3dView
         android:id="@+id/action_back_to_home"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="@dimen/button_3d_size"
         android:layout_height="@dimen/button_3d_size"
         android:layout_marginHorizontal="@dimen/spacing_horizontal"
         android:layout_marginVertical="@dimen/spacing_vertical"
+        app:layout_constraintBottom_toTopOf="@id/label_back_to_home"
+        app:layout_constraintEnd_toEndOf="parent"></com.iesam.rememora.app.presentation.views.HomeButton3dView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/label_back_to_home"
+        android:text="@string/label_back_to_home"
+        android:layout_width="wrap_content"
+        style="@style/AppTitleButton3D"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content">
+
+    </com.google.android.material.textview.MaterialTextView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
