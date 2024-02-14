@@ -4,40 +4,96 @@
     android:id="@+id/menu_bottom"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/spacing_vertical">
+    android:background="?attr/colorPrimaryContainer"
+    android:paddingHorizontal="@dimen/spacing_horizontal"
+    android:paddingVertical="@dimen/spacing_vertical">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/back_button"
-        android:layout_width="@dimen/layout_width_menu_bottom"
-        android:layout_height="@dimen/layout_height_menu_bottom"
-        android:layout_marginHorizontal="@dimen/spacing_vertical"
-        android:layout_marginVertical="@dimen/spacing_vertical"
-        android:text="@string/label_buttom_back"
-        android:textSize="@dimen/size_title_buttom_menu"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/spacing_horizontal"
+        android:paddingVertical="@dimen/spacing_vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.iesam.rememora.app.presentation.views.Button3dView
+            android:id="@+id/back_button"
+            android:layout_width="@dimen/button_3d_size"
+            android:layout_height="@dimen/button_3d_size"
+            android:contentDescription="@string/label_buttom_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/ic_previous_mediaplayer"
+            app:layout_constraintBottom_toBottomOf="@id/back_button"
+            app:layout_constraintEnd_toEndOf="@id/back_button"
+            app:layout_constraintStart_toStartOf="@id/back_button"
+            app:layout_constraintTop_toTopOf="@id/back_button" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/AppTitleButton3D"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_horizontal"
+            android:text="@string/label_buttom_back"
+            app:layout_constraintBottom_toBottomOf="@id/back_button"
+            app:layout_constraintStart_toEndOf="@id/back_button"
+            app:layout_constraintTop_toTopOf="@id/back_button" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/repeat_button"
         android:layout_width="@dimen/layout_width_menu_bottom"
         android:layout_height="@dimen/layout_height_menu_bottom"
-        android:layout_marginHorizontal="@dimen/spacing_horizontal"
-        android:layout_marginVertical="@dimen/spacing_vertical"
         android:text="@string/label_buttom_repeat"
         android:textSize="@dimen/size_title_buttom_menu"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/next_button"
-        android:layout_width="@dimen/layout_width_menu_bottom"
-        android:layout_height="@dimen/layout_height_menu_bottom"
-        android:layout_marginHorizontal="@dimen/spacing_horizontal"
-        android:layout_marginVertical="@dimen/spacing_vertical"
-        android:text="@string/label_buttom_next"
-        android:textSize="@dimen/size_title_buttom_menu"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/spacing_horizontal"
+        android:paddingVertical="@dimen/spacing_vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/AppTitleButton3D"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_horizontal"
+            android:text="@string/label_buttom_next"
+            app:layout_constraintBottom_toBottomOf="@id/next_button"
+            app:layout_constraintEnd_toStartOf="@id/next_button"
+            app:layout_constraintTop_toTopOf="@id/next_button" />
+
+        <com.iesam.rememora.app.presentation.views.Button3dView
+            android:id="@+id/next_button"
+            android:layout_width="@dimen/button_3d_size"
+            android:layout_height="@dimen/button_3d_size"
+            android:contentDescription="@string/label_buttom_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/ic_next_mediaplayer"
+            app:layout_constraintBottom_toBottomOf="@id/next_button"
+            app:layout_constraintEnd_toEndOf="@id/next_button"
+            app:layout_constraintStart_toStartOf="@id/next_button"
+            app:layout_constraintTop_toTopOf="@id/next_button" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

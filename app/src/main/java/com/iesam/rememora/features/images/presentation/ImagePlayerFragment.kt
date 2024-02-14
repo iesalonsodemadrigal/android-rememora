@@ -1,6 +1,7 @@
 package com.iesam.rememora.features.images.presentation
 
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.iesam.rememora.app.extensions.hide
 import com.iesam.rememora.app.extensions.show
 import com.iesam.rememora.app.presentation.error.ErrorUiModel
 import com.iesam.rememora.databinding.FragmentImagesBinding
+import com.iesam.rememora.features.home.presentation.HomeActivity
 import com.iesam.rememora.features.images.domain.Image
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -40,6 +42,7 @@ class ImagePlayerFragment : Fragment() {
 
     private fun setupView() {
         binding.apply {
+            (requireActivity() as HomeActivity).showHomeButton()
             mediaControls.backButton.setOnClickListener {
                 backImage()
             }
@@ -116,6 +119,8 @@ class ImagePlayerFragment : Fragment() {
         Glide.with(this)
             .load(images[numImage].source)
             .into(binding.image)
+
+        bindLabelNum()
     }
 
     private fun updateButtons() {
@@ -131,6 +136,10 @@ class ImagePlayerFragment : Fragment() {
                 mediaControls.backButton.isEnabled = true
             }
         }
+    }
+
+    private fun bindLabelNum () {
+        binding.labelNum.text = "${numImage+1} / ${images.size}"
     }
 
     override fun onDestroyView() {
