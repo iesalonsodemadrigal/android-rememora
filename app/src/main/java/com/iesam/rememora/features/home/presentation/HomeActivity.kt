@@ -3,12 +3,12 @@ package com.iesam.rememora.features.home.presentation
 import android.content.Context
 import android.media.AudioManager
 import android.os.Bundle
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.iesam.rememora.R
 import com.iesam.rememora.app.extensions.hide
 import com.iesam.rememora.app.extensions.show
+import com.iesam.rememora.app.presentation.views.Button3dView
 import com.iesam.rememora.databinding.ActivityHomeBinding
 import com.iesam.rememora.databinding.ViewMediaplayerBinding
 import com.iesam.rememora.features.home.presentation.menu.InitialMenuFragmentDirections
@@ -23,8 +23,8 @@ class HomeActivity : AppCompatActivity() {
     private val bindingMediaPlayer get() = _bindingMediaPlayer!!
 
     private lateinit var audioManager: AudioManager
-    private lateinit var volumeDownBottom: Button
-    private lateinit var volumeUpBottom: Button
+    private lateinit var volumeDownBottom: Button3dView
+    private lateinit var volumeUpBottom: Button3dView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,10 +37,9 @@ class HomeActivity : AppCompatActivity() {
         }
         hideHomeButton()
         _bindingMediaPlayer = ViewMediaplayerBinding.inflate(layoutInflater)
-        setContentView(bindingMediaPlayer.root)
         audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        volumeDownBottom = findViewById(R.id.volume_down)
-        volumeUpBottom = findViewById(R.id.volume_up)
+        volumeDownBottom = bindingMediaPlayer.volumeDown
+        volumeUpBottom = bindingMediaPlayer.volumeUp
         setupView()
     }
 
