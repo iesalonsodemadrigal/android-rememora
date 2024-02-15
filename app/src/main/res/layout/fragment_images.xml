@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <include
         android:id="@+id/media_controls"
@@ -25,51 +25,128 @@
         tools:text="2/5" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutMediaPlayer"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/spacing_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/label_num"
-        android:layout_marginHorizontal="@dimen/spacing_horizontal">
+        app:layout_constraintTop_toBottomOf="@id/label_num">
 
-        <ImageButton
-            android:id="@+id/image_previous"
-            android:layout_width="@dimen/width_mini_image"
-            android:layout_height="@dimen/height_mini_image"
-            app:layout_constraintStart_toStartOf="parent"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_previous_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/image"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.iesam.rememora.app.presentation.views.Button3dView
+                android:id="@+id/action_prev_image"
+                android:layout_width="@dimen/button_3d_menu_2_size"
+                android:layout_height="@dimen/button_3d_menu_2_size"
+                android:contentDescription="@string/label_buttom_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/ic_previous_mediaplayer"
+                app:layout_constraintBottom_toBottomOf="@id/action_prev_image"
+                app:layout_constraintEnd_toEndOf="@id/action_prev_image"
+                app:layout_constraintStart_toStartOf="@id/action_prev_image"
+                app:layout_constraintTop_toTopOf="@id/action_prev_image" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/title_previous"
+                style="@style/AppTitleButton3D"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/action_prev_image"
+                app:layout_constraintStart_toStartOf="@id/action_prev_image"
+                app:layout_constraintTop_toBottomOf="@id/action_prev_image" />
+
+            <com.iesam.rememora.app.presentation.views.ImageButton3dView
+                android:id="@+id/image_previous"
+                android:layout_width="@dimen/button_3d_size"
+                android:layout_height="@dimen/button_3d_size"
+                android:layout_marginTop="@dimen/spacing_vertical"
+                android:background="@drawable/frame_thumbnail_resource"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title_previous" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageSwitcher
             android:id="@+id/image"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginHorizontal="@dimen/spacing_horizontal"
-            android:inAnimation="@anim/fade_in"
-            android:outAnimation="@anim/fade_out"
-            app:layout_constraintStart_toEndOf="@id/image_previous"
-            app:layout_constraintEnd_toStartOf="@id/image_next"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:layout_marginBottom="@dimen/spacing_vertical"
+            android:background="@drawable/frame_resource"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/layout_next_button"
+            app:layout_constraintStart_toEndOf="@id/layout_previous_button"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/image_next"
-            android:layout_width="@dimen/width_mini_image"
-            android:layout_height="@dimen/height_mini_image"
-            app:layout_constraintStart_toEndOf="@id/image"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_next_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintStart_toEndOf="@id/image"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.iesam.rememora.app.presentation.views.Button3dView
+                android:id="@+id/action_next_img"
+                android:layout_width="@dimen/button_3d_menu_2_size"
+                android:layout_height="@dimen/button_3d_menu_2_size"
+                android:contentDescription="@string/label_buttom_next"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/ic_next_mediaplayer"
+                app:layout_constraintBottom_toBottomOf="@id/action_next_img"
+                app:layout_constraintEnd_toEndOf="@id/action_next_img"
+                app:layout_constraintStart_toStartOf="@id/action_next_img"
+                app:layout_constraintTop_toTopOf="@id/action_next_img" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/title_next"
+                style="@style/AppTitleButton3D"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/action_next_img"
+                app:layout_constraintStart_toStartOf="@id/action_next_img"
+                app:layout_constraintTop_toBottomOf="@id/action_next_img" />
+
+            <com.iesam.rememora.app.presentation.views.ImageButton3dView
+                android:id="@+id/image_next"
+                android:layout_width="@dimen/button_3d_size"
+                android:layout_height="@dimen/button_3d_size"
+                android:layout_marginTop="@dimen/spacing_vertical"
+                android:background="@drawable/frame_thumbnail_resource"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title_next" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.iesam.rememora.app.presentation.error.ErrorView
         android:id="@+id/error_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </com.iesam.rememora.app.presentation.error.ErrorView>
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

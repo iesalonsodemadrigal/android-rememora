@@ -7,17 +7,12 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.util.AttributeSet
 import androidx.core.content.ContextCompat
-import com.iesam.rememora.R
 import com.iesam.rememora.app.BUTTON_3D_SOUND_ACTIVE
 
 
-open class Button3dView @JvmOverloads constructor(
+open class ImageButton3dView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
-) : androidx.appcompat.widget.AppCompatImageButton(context, attrs) {
-
-    init {
-        background = ContextCompat.getDrawable(this.context, R.drawable.state_3d_button)
-    }
+) : androidx.appcompat.widget.AppCompatImageView(context, attrs) {
 
     override fun performClick(): Boolean {
         playBeep()

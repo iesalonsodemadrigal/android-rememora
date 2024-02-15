@@ -46,17 +46,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/repeat_button"
-        android:layout_width="@dimen/layout_width_menu_bottom"
-        android:layout_height="@dimen/layout_height_menu_bottom"
-        android:text="@string/label_buttom_repeat"
-        android:textSize="@dimen/size_title_buttom_menu"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

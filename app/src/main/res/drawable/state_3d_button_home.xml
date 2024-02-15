@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/bg_button_3d_home_pressed" android:state_selected="true" /> <!-- pressed -->
-    <item android:drawable="@drawable/bg_button_3d_home_pressed" android:state_pressed="true" /> <!-- pressed -->
-    <item android:drawable="@drawable/bg_button_3d_home_pressed" android:state_focused="true" /> <!-- focused -->
-    <item android:drawable="@drawable/bg_button_3d_home" android:state_selected="false" /> <!-- pressed -->
-    <item android:drawable="@drawable/bg_button_3d_home" /> <!-- default -->
+    <item android:drawable="@drawable/bg_button_3d_green_home" android:state_selected="true" /> <!-- pressed -->
+    <item android:drawable="@drawable/bg_button_3d_green_home" android:state_pressed="true" /> <!-- pressed -->
+    <item android:drawable="@drawable/bg_button_3d_green_home" android:state_focused="true" /> <!-- focused -->
+    <item android:drawable="@drawable/bg_button_3d_green_home_pressed" android:state_selected="false" /> <!-- pressed -->
+    <item android:drawable="@drawable/bg_button_3d_green_home_pressed" /> <!-- default -->
 </selector>
