@@ -25,8 +25,8 @@
 
             <com.iesam.rememora.app.presentation.views.Button3dView
                 android:id="@+id/back_button"
-                android:layout_width="@dimen/button_3d_size"
-                android:layout_height="@dimen/button_3d_size"
+                android:layout_width="@dimen/button_3d_menu_2_size"
+                android:layout_height="@dimen/button_3d_menu_2_size"
                 android:contentDescription="@string/label_buttom_back"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -60,8 +60,8 @@
 
             <com.iesam.rememora.app.presentation.views.Button3dView
                 android:id="@+id/pause_button"
-                android:layout_width="@dimen/button_3d_size"
-                android:layout_height="@dimen/button_3d_size"
+                android:layout_width="@dimen/button_3d_menu_2_size"
+                android:layout_height="@dimen/button_3d_menu_2_size"
                 android:contentDescription="@string/label_buttom_back"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -95,8 +95,8 @@
 
             <com.iesam.rememora.app.presentation.views.Button3dView
                 android:id="@+id/play_button"
-                android:layout_width="@dimen/button_3d_size"
-                android:layout_height="@dimen/button_3d_size"
+                android:layout_width="@dimen/button_3d_menu_2_size"
+                android:layout_height="@dimen/button_3d_menu_2_size"
                 android:contentDescription="@string/label_buttom_play"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -131,8 +131,8 @@
 
             <com.iesam.rememora.app.presentation.views.Button3dView
                 android:id="@+id/next_button"
-                android:layout_width="@dimen/button_3d_size"
-                android:layout_height="@dimen/button_3d_size"
+                android:layout_width="@dimen/button_3d_menu_2_size"
+                android:layout_height="@dimen/button_3d_menu_2_size"
                 android:contentDescription="@string/label_buttom_next"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -168,18 +168,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottomButtonContainer"
+        android:layout_marginHorizontal="@dimen/margin_horizontal_media"
         app:use_controller="false" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/label_num"
         style="@style/AppLabNum"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/media_view"
         app:layout_constraintStart_toStartOf="@id/media_view"
         app:layout_constraintTop_toBottomOf="@id/media_view"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:text="2/5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

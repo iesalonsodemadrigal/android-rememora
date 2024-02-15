@@ -1,22 +1,24 @@
 package com.iesam.rememora.features.images.presentation
 
-
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.bumptech.glide.Glide
 import com.iesam.rememora.app.extensions.hide
+import com.iesam.rememora.app.extensions.invisible
+import com.iesam.rememora.app.extensions.setUrl
 import com.iesam.rememora.app.extensions.show
 import com.iesam.rememora.app.presentation.error.ErrorUiModel
 import com.iesam.rememora.databinding.FragmentImagesBinding
 import com.iesam.rememora.features.home.presentation.HomeActivity
 import com.iesam.rememora.features.images.domain.Image
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class ImagePlayerFragment : Fragment() {
@@ -46,13 +48,23 @@ class ImagePlayerFragment : Fragment() {
             mediaControls.backButton.setOnClickListener {
                 backImage()
             }
+
+            imagePrevious.setOnClickListener{
+                backImage()
+            }
             mediaControls.nextButton.setOnClickListener {
+                nextImage()
+            }
+            imageNext.setOnClickListener {
                 nextImage()
             }
             mediaControls.repeatButton.setOnClickListener {
                 firstImage()
             }
+            
             mediaControls.repeatButton.visibility = View.GONE
+
+            image.setFactory { ImageView(requireContext()) }
         }
     }
 
@@ -116,11 +128,42 @@ class ImagePlayerFragment : Fragment() {
     }
 
     private fun refreshImage() {
-        Glide.with(this)
-            .load(images[numImage].source)
-            .into(binding.image)
-
+        binding.image.setImageURI(images[numImage].source.toUri())
+        bindMiniImages()
         bindLabelNum()
+    }
+
+    private fun bindLabelNum() {
+        binding.labelNum.text = "${numImage + 1} / ${images.size}"
+    }
+
+    private fun bindMiniImages() {
+        when (numImage) {
+            0 -> {
+                binding.apply {
+                    imagePrevious.invisible()
+                    imageNext.show()
+                    imageNext.setUrl(images[numImage + 1].source)
+                }
+            }
+
+            images.size - 1 -> {
+                binding.apply {
+                    imagePrevious.show()
+                    imagePrevious.setUrl(images[numImage - 1].source)
+                    imageNext.invisible()
+                }
+            }
+
+            else -> {
+                binding.apply {
+                    imagePrevious.show()
+                    imagePrevious.setUrl(images[numImage - 1].source)
+                    imageNext.show()
+                    imageNext.setUrl(images[numImage + 1].source)
+                }
+            }
+        }
     }
 
     private fun updateButtons() {
@@ -136,10 +179,6 @@ class ImagePlayerFragment : Fragment() {
                 mediaControls.backButton.isEnabled = true
             }
         }
-    }
-
-    private fun bindLabelNum () {
-        binding.labelNum.text = "${numImage+1} / ${images.size}"
     }
 
     override fun onDestroyView() {
