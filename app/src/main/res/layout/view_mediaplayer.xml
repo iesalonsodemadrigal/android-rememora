@@ -9,11 +9,11 @@
     <LinearLayout
         android:id="@+id/bottomButtonContainer"
         android:layout_width="match_parent"
-        android:gravity="center"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimaryContainer"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:paddingVertical="@dimen/spacing_vertical"
+        android:paddingVertical="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -160,26 +160,26 @@
 
     </LinearLayout>
 
-    <androidx.media3.ui.PlayerView
-        android:id="@+id/media_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/label_num"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bottomButtonContainer"
-        android:layout_marginHorizontal="@dimen/margin_horizontal_media"
-        app:use_controller="false" />
-
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/label_num"
         style="@style/AppLabNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/media_view"
-        app:layout_constraintStart_toStartOf="@id/media_view"
-        app:layout_constraintTop_toBottomOf="@id/media_view"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bottomButtonContainer"
         tools:text="2/5" />
+
+    <androidx.media3.ui.PlayerView
+        android:id="@+id/media_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/spacing_horizontal"
+        android:layout_marginBottom="@dimen/spacing_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label_num"
+        app:use_controller="false" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

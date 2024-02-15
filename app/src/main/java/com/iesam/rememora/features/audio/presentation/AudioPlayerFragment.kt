@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.iesam.rememora.R
 import com.iesam.rememora.app.extensions.hide
 import com.iesam.rememora.app.extensions.show
 import com.iesam.rememora.app.presentation.error.ErrorUiModel
@@ -49,7 +50,7 @@ class AudioPlayerFragment : Fragment() {
                             audio.source!!
                         }
                         binding.mediaPlayer.show()
-                        binding.mediaPlayer.render(urlListAudios)
+                        binding.mediaPlayer.render(urlListAudios, getString(R.string.label_navigation_audios))
                     }
                 }
             }

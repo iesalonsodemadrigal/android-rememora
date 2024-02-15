@@ -40,7 +40,7 @@
     <string name="label_navigation_photo">fotos</string>
     <string name="label_navigation_video">vídeos</string>
     <string name="label_navigation_audios">audios</string>
-    <string name="label_navigation_canciones">canciones</string>
+    <string name="label_navigation_songs">canciones</string>
 
     <string name="label_button_next_photo">Foto\nSiguiente</string>
     <string name="label_button_prev_photo">Foto Anterior</string>
