@@ -7,6 +7,7 @@ import android.widget.FrameLayout
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
+import com.iesam.rememora.R
 import com.iesam.rememora.databinding.ViewMediaplayerBinding
 
 class MediaPlayerView @JvmOverloads constructor(
@@ -16,6 +17,7 @@ class MediaPlayerView @JvmOverloads constructor(
     private val binding = ViewMediaplayerBinding.inflate(LayoutInflater.from(context), this, true)
     private var urlMediaList: List<String> = mutableListOf()
     private var currentPosition = 0
+    private var label: String = ""
 
     private var exoPlayer: ExoPlayer
 
@@ -88,8 +90,13 @@ class MediaPlayerView @JvmOverloads constructor(
         }
     }
 
-    private fun bindLabelNum () {
-        binding.labelNum.text = "${currentPosition+1}/${urlMediaList.size}"
+    private fun bindLabelNum() {
+        binding.labelNum.text = context.getString(
+            R.string.label_navigation,
+            (currentPosition + 1).toString(),
+            urlMediaList.size.toString(),
+            label
+        )
     }
 
     private fun checkList() {
@@ -97,8 +104,9 @@ class MediaPlayerView @JvmOverloads constructor(
         binding.nextButton.isEnabled = currentPosition < urlMediaList.size - 1
     }
 
-    fun render(mediaList: List<String>) {
+    fun render(mediaList: List<String>, label: String) {
         urlMediaList = mediaList
+        this.label = label
         playMusic()
     }
 

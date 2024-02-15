@@ -70,9 +70,11 @@ class HomeActivity : AppCompatActivity() {
 
     fun hideHomeButton() {
         binding.actionBackToHome.hide()
+        binding.labelBackToHome.hide()
     }
 
     fun showHomeButton() {
         binding.actionBackToHome.show()
+        binding.labelBackToHome.show()
     }
 }

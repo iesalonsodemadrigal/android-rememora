@@ -34,4 +34,14 @@
     <string name="label_button_delete_account">Eliminar cuenta</string>
     <string name="label_login">Para poder disfrutar de Rememora necesitamos que te identifiques con tu cuenta de Google. Solo guardaremos tu email para que puedas gestionar tu contenido.</string>
     <string name="label_unknown_error">Se ha producido un error inesperado, por favor vuelve a intentarlo.</string>
+
+    <string name="label_back_to_home">Salir</string>
+    <string name="label_navigation">%1$s / %2$s %3$s</string>
+    <string name="label_navigation_photo">fotos</string>
+    <string name="label_navigation_video">vídeos</string>
+    <string name="label_navigation_audios">audios</string>
+    <string name="label_navigation_songs">canciones</string>
+
+    <string name="label_button_next_photo">Foto\nSiguiente</string>
+    <string name="label_button_prev_photo">Foto Anterior</string>
 </resources>
