@@ -47,11 +47,8 @@ class MediaPlayerView @JvmOverloads constructor(
             nextButton.setOnClickListener {
                 playNextMedia()
             }
-            pauseButton.setOnClickListener {
-                pauseMedia()
-            }
-            playButton.setOnClickListener {
-                playMedia()
+            mediaView.setOnClickListener {
+                playOrPauseMedia()
             }
         }
     }
@@ -66,20 +63,19 @@ class MediaPlayerView @JvmOverloads constructor(
         playMusic()
     }
 
-    private fun pauseMedia() {
+    private fun playOrPauseMedia() {
         exoPlayer.let {
-            it.pause()
-        }
-    }
-
-    private fun playMedia() {
-        exoPlayer.let {
-            it.play()
+            if (it.isPlaying) {
+                it.pause()
+            } else {
+                it.play()
+            }
         }
     }
 
     private fun playMusic() {
         bindLabelNum()
+        bindLabelButtons()
         checkList()
         if (currentPosition < urlMediaList.size) {
             val currentMusic = urlMediaList[currentPosition]
@@ -97,6 +93,11 @@ class MediaPlayerView @JvmOverloads constructor(
             urlMediaList.size.toString(),
             label
         )
+    }
+
+    private fun bindLabelButtons() {
+        binding.lableSectionBack.text = label
+        binding.lableSectionNext.text = label
     }
 
     private fun checkList() {
