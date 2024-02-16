@@ -41,19 +41,35 @@ class MediaPlayerView @JvmOverloads constructor(
             }
         })
         binding.apply {
+            menuButton.setOnClickListener {
+                playerButtonsContainer.visibility = VISIBLE
+                menuButtonAction.visibility = GONE
+            }
             backButton.setOnClickListener {
                 playPreviousMedia()
+                backToMenu()
             }
             nextButton.setOnClickListener {
                 playNextMedia()
+                backToMenu()
             }
             pauseButton.setOnClickListener {
                 pauseMedia()
+                backToMenu()
             }
             playButton.setOnClickListener {
                 playMedia()
+                backToMenu()
             }
         }
+    }
+
+    private fun backToMenu() {
+        binding.apply {
+            playerButtonsContainer.visibility = GONE
+            menuButtonAction.visibility = VISIBLE
+        }
+
     }
 
     private fun playNextMedia() {
