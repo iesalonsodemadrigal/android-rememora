@@ -93,7 +93,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/spacing_mediaplayer_buttons_horizontal">
 
-            <com.iesam.rememora.app.presentation.views.Button3dView
+            <com.iesam.rememora.app.presentation.views.PlayButton3dView
                 android:id="@+id/play_button"
                 android:layout_width="@dimen/button_3d_menu_2_size"
                 android:layout_height="@dimen/button_3d_menu_2_size"
