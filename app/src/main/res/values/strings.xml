@@ -45,7 +45,7 @@
     <string name="label_button_next_photo">Foto\nSiguiente</string>
     <string name="label_button_prev_photo">Foto Anterior</string>
 
-    <!-- tutorial inicio -->
+    <!-- tutorial initial -->
     <string name="tutorial_title_photo">Pulsa aquí para ver fotos.</string>
     <string name="tutorial_description_photo"> </string>
     <string name="tutorial_title_video">Pulsa aquí para ver vídeos.</string>
@@ -54,7 +54,7 @@
     <string name="tutorial_description_music"> </string>
     <string name="tutorial_title_audio">Pulsa aquí para ver audios.</string>
     <string name="tutorial_description_audio"> </string>
-    <!-- tutorial fotos -->
+    <!-- tutorial photos -->
     <string name="tutorial_title_photo_label_num">Esta etiqueta indica la foto que esta viendo actualmente y el numero total de fotos.</string>
     <string name="tutorial_description_photo_label_num"> </string>
     <string name="tutorial_title_photo_bottom_previous">Pulsa aquí para ver la imagen anterior.</string>
