@@ -1,175 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/photo_section"
+        android:layout_width="350dp"
         android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/photo_section"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="@dimen/spacing_horizontal"
-            android:paddingVertical="@dimen/spacing_vertical"
+        <com.iesam.rememora.app.presentation.views.Button3dView
+            android:id="@+id/action_photo"
+            android:layout_width="@dimen/button_3d_size"
+            android:layout_height="@dimen/button_3d_size"
+            android:contentDescription="@string/label_buttom_img"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <com.iesam.rememora.app.presentation.views.Button3dView
-                android:id="@+id/action_photo"
-                android:layout_width="@dimen/button_3d_size"
-                android:layout_height="@dimen/button_3d_size"
-                android:contentDescription="@string/label_buttom_img"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/ic_camera"
+            app:layout_constraintBottom_toBottomOf="@id/action_photo"
+            app:layout_constraintEnd_toEndOf="@id/action_photo"
+            app:layout_constraintStart_toStartOf="@id/action_photo"
+            app:layout_constraintTop_toTopOf="@id/action_photo" />
 
-            <ImageView
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:src="@drawable/ic_camera"
-                app:layout_constraintBottom_toBottomOf="@id/action_photo"
-                app:layout_constraintEnd_toEndOf="@id/action_photo"
-                app:layout_constraintStart_toStartOf="@id/action_photo"
-                app:layout_constraintTop_toTopOf="@id/action_photo" />
-
-            <com.google.android.material.textview.MaterialTextView
-                style="@style/AppTitleButton3D"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_horizontal"
-                android:text="@string/label_buttom_img"
-                app:layout_constraintBottom_toBottomOf="@id/action_photo"
-                app:layout_constraintStart_toEndOf="@id/action_photo"
-                app:layout_constraintTop_toTopOf="@id/action_photo">
-
-            </com.google.android.material.textview.MaterialTextView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/music_section"
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/AppTitleButton3D"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spacing_menu_buttons_horizontal"
-            android:paddingHorizontal="@dimen/spacing_horizontal"
-            android:paddingVertical="@dimen/spacing_vertical"
-            app:layout_constraintBottom_toBottomOf="@id/photo_section"
-            app:layout_constraintStart_toEndOf="@id/photo_section"
-            app:layout_constraintTop_toTopOf="@id/photo_section">
+            android:layout_marginStart="@dimen/spacing_horizontal"
+            android:text="@string/label_buttom_img"
+            app:layout_constraintBottom_toBottomOf="@id/action_photo"
+            app:layout_constraintStart_toEndOf="@id/action_photo"
+            app:layout_constraintTop_toTopOf="@id/action_photo">
 
-            <com.iesam.rememora.app.presentation.views.Button3dView
-                android:id="@+id/action_music"
-                android:layout_width="@dimen/button_3d_size"
-                android:layout_height="@dimen/button_3d_size"
-                android:contentDescription="@string/label_buttom_music"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:src="@drawable/ic_music"
-                app:layout_constraintBottom_toBottomOf="@id/action_music"
-                app:layout_constraintEnd_toEndOf="@id/action_music"
-                app:layout_constraintStart_toStartOf="@id/action_music"
-                app:layout_constraintTop_toTopOf="@id/action_music" />
-
-            <com.google.android.material.textview.MaterialTextView
-                style="@style/AppTitleButton3D"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_horizontal"
-                android:text="@string/label_buttom_music"
-                app:layout_constraintBottom_toBottomOf="@id/action_music"
-                app:layout_constraintStart_toEndOf="@id/action_music"
-                app:layout_constraintTop_toTopOf="@id/action_music">
-
-            </com.google.android.material.textview.MaterialTextView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/video_section"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_menu_buttons_vertical"
-            android:paddingHorizontal="@dimen/spacing_horizontal"
-            android:paddingVertical="@dimen/spacing_vertical"
-            app:layout_constraintStart_toStartOf="@id/photo_section"
-            app:layout_constraintTop_toBottomOf="@id/photo_section">
-
-            <com.iesam.rememora.app.presentation.views.Button3dView
-                android:id="@+id/action_video"
-                android:layout_width="@dimen/button_3d_size"
-                android:layout_height="@dimen/button_3d_size"
-                android:contentDescription="@string/label_buttom_video"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:src="@drawable/ic_video"
-                app:layout_constraintBottom_toBottomOf="@id/action_video"
-                app:layout_constraintEnd_toEndOf="@id/action_video"
-                app:layout_constraintStart_toStartOf="@id/action_video"
-                app:layout_constraintTop_toTopOf="@id/action_video" />
-
-            <com.google.android.material.textview.MaterialTextView
-                style="@style/AppTitleButton3D"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/spacing_horizontal"
-                android:text="@string/label_buttom_video"
-                app:layout_constraintBottom_toBottomOf="@id/action_video"
-                app:layout_constraintStart_toEndOf="@id/action_video"
-                app:layout_constraintTop_toTopOf="@id/action_video">
-
-            </com.google.android.material.textview.MaterialTextView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/audio_section"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_menu_buttons_vertical"
-            android:paddingHorizontal="@dimen/spacing_horizontal"
-            android:paddingVertical="@dimen/spacing_vertical"
-            app:layout_constraintStart_toStartOf="@id/music_section"
-            app:layout_constraintTop_toBottomOf="@id/music_section">
-
-            <com.iesam.rememora.app.presentation.views.Button3dView
-                android:id="@+id/action_audio"
-                android:layout_width="@dimen/button_3d_size"
-                android:layout_height="@dimen/button_3d_size"
-                android:contentDescription="@string/label_buttom_audio"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:src="@drawable/ic_audio"
-                app:layout_constraintBottom_toBottomOf="@id/action_audio"
-                app:layout_constraintEnd_toEndOf="@id/action_audio"
-                app:layout_constraintStart_toStartOf="@id/action_audio"
-                app:layout_constraintTop_toTopOf="@id/action_audio" />
-
-            <com.google.android.material.textview.MaterialTextView
-                style="@style/AppTitleButton3D"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_horizontal"
-                android:text="@string/label_buttom_audio"
-                app:layout_constraintBottom_toBottomOf="@id/action_audio"
-                app:layout_constraintStart_toEndOf="@id/action_audio"
-                app:layout_constraintTop_toTopOf="@id/action_audio">
-
-            </com.google.android.material.textview.MaterialTextView>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.textview.MaterialTextView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</RelativeLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/music_section"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_padding_vertical_menu">
+
+        <com.iesam.rememora.app.presentation.views.Button3dView
+            android:id="@+id/action_music"
+            android:layout_width="@dimen/button_3d_size"
+            android:layout_height="@dimen/button_3d_size"
+            android:contentDescription="@string/label_buttom_music"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/ic_music"
+            app:layout_constraintBottom_toBottomOf="@id/action_music"
+            app:layout_constraintEnd_toEndOf="@id/action_music"
+            app:layout_constraintStart_toStartOf="@id/action_music"
+            app:layout_constraintTop_toTopOf="@id/action_music" />
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/AppTitleButton3D"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_horizontal"
+            android:text="@string/label_buttom_music"
+            app:layout_constraintBottom_toBottomOf="@id/action_music"
+            app:layout_constraintStart_toEndOf="@id/action_music"
+            app:layout_constraintTop_toTopOf="@id/action_music">
+
+        </com.google.android.material.textview.MaterialTextView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/video_section"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_padding_vertical_menu">
+
+        <com.iesam.rememora.app.presentation.views.Button3dView
+            android:id="@+id/action_video"
+            android:layout_width="@dimen/button_3d_size"
+            android:layout_height="@dimen/button_3d_size"
+            android:contentDescription="@string/label_buttom_video"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/ic_video"
+            app:layout_constraintBottom_toBottomOf="@id/action_video"
+            app:layout_constraintEnd_toEndOf="@id/action_video"
+            app:layout_constraintStart_toStartOf="@id/action_video"
+            app:layout_constraintTop_toTopOf="@id/action_video" />
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/AppTitleButton3D"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_horizontal"
+            android:text="@string/label_buttom_video"
+            app:layout_constraintBottom_toBottomOf="@id/action_video"
+            app:layout_constraintStart_toEndOf="@id/action_video"
+            app:layout_constraintTop_toTopOf="@id/action_video">
+
+        </com.google.android.material.textview.MaterialTextView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/audio_section"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_padding_vertical_menu">
+
+        <com.iesam.rememora.app.presentation.views.Button3dView
+            android:id="@+id/action_audio"
+            android:layout_width="@dimen/button_3d_size"
+            android:layout_height="@dimen/button_3d_size"
+            android:contentDescription="@string/label_buttom_audio"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/ic_audio"
+            app:layout_constraintBottom_toBottomOf="@id/action_audio"
+            app:layout_constraintEnd_toEndOf="@id/action_audio"
+            app:layout_constraintStart_toStartOf="@id/action_audio"
+            app:layout_constraintTop_toTopOf="@id/action_audio" />
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/AppTitleButton3D"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_horizontal"
+            android:text="@string/label_buttom_audio"
+            app:layout_constraintBottom_toBottomOf="@id/action_audio"
+            app:layout_constraintStart_toEndOf="@id/action_audio"
+            app:layout_constraintTop_toTopOf="@id/action_audio">
+
+        </com.google.android.material.textview.MaterialTextView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
