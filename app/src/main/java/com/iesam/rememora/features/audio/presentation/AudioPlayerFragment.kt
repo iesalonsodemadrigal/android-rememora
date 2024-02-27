@@ -42,6 +42,7 @@ class AudioPlayerFragment : Fragment() {
                 if (it.errorApp != null) {
                     showError(it.errorApp)
                 } else {
+                    hideError()
                     it.audios?.let { audios ->
                         val urlListAudios: List<String> = audios.map { audio ->
                             audio.source!!
@@ -58,6 +59,11 @@ class AudioPlayerFragment : Fragment() {
     private fun showError(error: ErrorUiModel) {
         binding.mediaPlayer.hide()
         binding.errorView.render(error)
+    }
+
+    private fun hideError() {
+        binding.errorView.hide()
+        binding.mediaPlayer.show()
     }
 
     override fun onDestroyView() {

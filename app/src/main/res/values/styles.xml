@@ -45,6 +45,7 @@
 
     <style name="AppDescriptionError" parent="TextAppearance.Material3.BodyMedium">
         <item name="android:textAlignment">viewStart</item>
+        <item name="android:textSize">24dp</item>
     </style>
 
     <style name="AppTextLogin" parent="TextAppearance.Material3.BodyMedium">

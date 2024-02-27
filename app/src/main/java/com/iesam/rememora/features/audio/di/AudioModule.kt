@@ -10,6 +10,5 @@ import dagger.hilt.android.components.ViewModelComponent
 @Module
 @InstallIn(ViewModelComponent::class)
 abstract class AudioModule {
-    @Binds
-    abstract fun bindFirebase(dataRepository: AudioDataRepository): AudiosRepository
+
 }

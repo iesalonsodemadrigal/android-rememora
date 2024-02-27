@@ -66,13 +66,18 @@ class MediaPlayerView @JvmOverloads constructor(
     private fun playOrPauseMedia() {
         exoPlayer.let {
             if (it.isPlaying) {
-                it.pause()
-                binding.playPauseButton.text = context.getString(R.string.label_buttom_play)
+                pause()
             } else {
                 it.play()
                 binding.playPauseButton.text = context.getString(R.string.label_buttom_pause)
-
             }
+        }
+    }
+
+    private fun pause(){
+        exoPlayer.let {
+            it.pause()
+            binding.playPauseButton.text = context.getString(R.string.label_buttom_play)
         }
     }
 
@@ -96,6 +101,7 @@ class MediaPlayerView @JvmOverloads constructor(
     fun render(mediaList: List<String>) {
         urlMediaList = mediaList
         playMusic()
+        pause()
     }
 
     override fun onDetachedFromWindow() {

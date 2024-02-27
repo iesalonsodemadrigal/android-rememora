@@ -11,6 +11,4 @@ import dagger.hilt.android.components.ViewModelComponent
 @InstallIn(ViewModelComponent::class)
 abstract class MusicModule {
 
-    @Binds
-    abstract fun bindMusicDataRepository(musicDataRepository: MusicDataRepository): MusicRepository
 }
