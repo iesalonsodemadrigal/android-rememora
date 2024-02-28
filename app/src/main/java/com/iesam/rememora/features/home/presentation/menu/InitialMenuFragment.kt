@@ -25,6 +25,7 @@ class InitialMenuFragment : Fragment() {
     ): View {
         _binding = FragmentInitialMenuBinding.inflate(inflater, container, false)
         setupView()
+        setupTutorial()
         return binding.root
     }
 
@@ -52,45 +53,52 @@ class InitialMenuFragment : Fragment() {
                 )
             }
         }
-        tutorial()
     }
 
-    private fun tutorial() {
-        val targetPhoto = binding.photoSection.createTarget(
-            getString(R.string.tutorial_title_photo),
-            getString(R.string.tutorial_description_photo), 130
-        )
-        val targetVideo = binding.videoSection.createTarget(
-            getString(R.string.tutorial_title_video),
-            getString(R.string.tutorial_description_video), 140
-        )
-        val targetMusic = binding.musicSection.createTarget(
-            getString(R.string.tutorial_title_music),
-            getString(R.string.tutorial_description_music), 140
-        )
-        val targetAudio = binding.audioSection.createTarget(
-            getString(R.string.tutorial_title_audio),
-            getString(R.string.tutorial_description_audio), 140
-        )
+    private fun setupTutorial() {
+        if ((requireActivity() as HomeActivity).showMenuTutorial) {
+            (requireActivity() as HomeActivity).showMenuTutorial = false
+            val targetPhoto = binding.photoSection.createTarget(
+                getString(R.string.tutorial_title_photo),
+                getString(R.string.tutorial_description_photo), 130
+            )
+            val targetVideo = binding.videoSection.createTarget(
+                getString(R.string.tutorial_title_video),
+                getString(R.string.tutorial_description_video), 140
+            )
+            val targetMusic = binding.musicSection.createTarget(
+                getString(R.string.tutorial_title_music),
+                getString(R.string.tutorial_description_music), 140
+            )
+            val targetAudio = binding.audioSection.createTarget(
+                getString(R.string.tutorial_title_audio),
+                getString(R.string.tutorial_description_audio), 140
+            )
 
-        TapTargetView.showFor(activity, targetPhoto, object : TapTargetView.Listener() { //fotos
-            override fun onTargetClick(view: TapTargetView) {
-                super.onTargetClick(view)
-                TapTargetView.showFor(activity, targetVideo, object : TapTargetView.Listener() { //videos
-                    override fun onTargetClick(view: TapTargetView) {
-                        super.onTargetClick(view)
-                        TapTargetView.showFor(activity, targetMusic, object : TapTargetView.Listener() { //musica
+            TapTargetView.showFor(activity, targetPhoto, object : TapTargetView.Listener() { //fotos
+                override fun onTargetClick(view: TapTargetView) {
+                    super.onTargetClick(view)
+                    TapTargetView.showFor(
+                        activity,
+                        targetVideo,
+                        object : TapTargetView.Listener() { //videos
                             override fun onTargetClick(view: TapTargetView) {
                                 super.onTargetClick(view)
-                                TapTargetView.showFor(activity, targetAudio) //audio
+                                TapTargetView.showFor(
+                                    activity,
+                                    targetMusic,
+                                    object : TapTargetView.Listener() { //musica
+                                        override fun onTargetClick(view: TapTargetView) {
+                                            super.onTargetClick(view)
+                                            TapTargetView.showFor(activity, targetAudio) //audio
+                                        }
+                                    }
+                                )
                             }
                         }
-                        )
-                    }
-                })
-            }
+                    )
+                }
+            })
         }
-        )
     }
-
 }

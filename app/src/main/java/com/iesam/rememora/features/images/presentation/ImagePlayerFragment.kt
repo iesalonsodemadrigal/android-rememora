@@ -45,13 +45,13 @@ class ImagePlayerFragment : Fragment() {
     ): View {
         _binding = FragmentImagesBinding.inflate(inflater, container, false)
         setupView()
+        setupTutorial()
         return binding.root
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun setupView() {
         (requireActivity() as HomeActivity).showHomeButton()
-
         binding.apply {
             mediaControls.menuBottom.hide()
 
@@ -100,49 +100,57 @@ class ImagePlayerFragment : Fragment() {
                 }
             })
         }
-        tutorial()
     }
 
-    private fun tutorial() {
-        val targetLabelNum = binding.labelNum.createTarget(
-            getString(R.string.tutorial_title_photo_label_num),
-            getString(R.string.tutorial_description_photo_label_num),
-            100
-        )
-        val targetBottomPrevious = binding.prevImage.createTarget(
-            getString(R.string.tutorial_title_photo_bottom_previous),
-            getString(R.string.tutorial_description_photo_bottom_previous),
-            50
-        )
-        val targetBottomNext = binding.nextImg.createTarget(
-            getString(R.string.tutorial_title_photo_bottom_next),
-            getString(R.string.tutorial_description_photo_bottom_next),
-            50
-        )
+    private fun setupTutorial() {
+        if ((requireActivity() as HomeActivity).showPhotoTutorial) {
+            (requireActivity() as HomeActivity).showPhotoTutorial = false
+            val targetLabelNum = binding.labelNum.createTarget(
+                getString(R.string.tutorial_title_photo_label_num),
+                getString(R.string.tutorial_description_photo_label_num),
+                100
+            )
+            val targetBottomPrevious = binding.prevImage.createTarget(
+                getString(R.string.tutorial_title_photo_bottom_previous),
+                getString(R.string.tutorial_description_photo_bottom_previous),
+                50
+            )
+            val targetBottomNext = binding.nextImg.createTarget(
+                getString(R.string.tutorial_title_photo_bottom_next),
+                getString(R.string.tutorial_description_photo_bottom_next),
+                50
+            )
 
-        val targetBottomInit = (requireActivity() as HomeActivity).bottomHome.createTarget(
-            getString(R.string.tutorial_title_bottom_back_home),
-            getString(R.string.tutorial_description_bottom_back_home),
-            50
-        )
+            val targetBottomInit = (requireActivity() as HomeActivity).bottomHome.createTarget(
+                getString(R.string.tutorial_title_bottom_back_home),
+                getString(R.string.tutorial_description_bottom_back_home),
+                50
+            )
 
-        TapTargetView.showFor(activity, targetBottomInit, object : TapTargetView.Listener(){
-            override fun onTargetClick(view: TapTargetView?) {
-                super.onTargetClick(view)
-                TapTargetView.showFor(activity, targetLabelNum, object : TapTargetView.Listener() {
-                    override fun onTargetClick(view: TapTargetView) {
-                        super.onTargetClick(view)
-                        TapTargetView.showFor(activity, targetBottomPrevious, object : TapTargetView.Listener() {
+            TapTargetView.showFor(activity, targetBottomInit, object : TapTargetView.Listener() {
+                override fun onTargetClick(view: TapTargetView?) {
+                    super.onTargetClick(view)
+                    TapTargetView.showFor(
+                        activity,
+                        targetLabelNum,
+                        object : TapTargetView.Listener() {
                             override fun onTargetClick(view: TapTargetView) {
                                 super.onTargetClick(view)
-                                TapTargetView.showFor(activity, targetBottomNext)
-                            }
+                                TapTargetView.showFor(
+                                    activity,
+                                    targetBottomPrevious,
+                                    object : TapTargetView.Listener() {
+                                        override fun onTargetClick(view: TapTargetView) {
+                                            super.onTargetClick(view)
+                                            TapTargetView.showFor(activity, targetBottomNext)
+                                        }
 
+                                    })
+                            }
                         })
-                    }
-                })
-            }
-        })
+                }
+            })
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

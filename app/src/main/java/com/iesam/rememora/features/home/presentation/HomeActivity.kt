@@ -16,8 +16,10 @@ class HomeActivity : AppCompatActivity() {
 
     private var _binding: ActivityHomeBinding? = null
     private val binding get() = _binding!!
-    lateinit var bottomHome : HomeButton3dView
+    lateinit var bottomHome: HomeButton3dView
 
+    var showMenuTutorial: Boolean = true
+    var showPhotoTutorial: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
