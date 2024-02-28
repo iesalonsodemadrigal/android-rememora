@@ -6,6 +6,7 @@ import androidx.navigation.findNavController
 import com.iesam.rememora.R
 import com.iesam.rememora.app.extensions.hide
 import com.iesam.rememora.app.extensions.show
+import com.iesam.rememora.app.presentation.views.HomeButton3dView
 import com.iesam.rememora.databinding.ActivityHomeBinding
 import com.iesam.rememora.features.home.presentation.menu.InitialMenuFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,6 +16,7 @@ class HomeActivity : AppCompatActivity() {
 
     private var _binding: ActivityHomeBinding? = null
     private val binding get() = _binding!!
+    lateinit var bottomHome : HomeButton3dView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +29,7 @@ class HomeActivity : AppCompatActivity() {
             )
         }
         hideHomeButton()
+        bottomHome = binding.actionBackToHome
     }
 
     fun hideHomeButton() {

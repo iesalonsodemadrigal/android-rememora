@@ -11,7 +11,9 @@ import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.getkeepsafe.taptargetview.TapTargetView
 import com.iesam.rememora.R
+import com.iesam.rememora.app.extensions.createTarget
 import com.iesam.rememora.app.extensions.hide
 import com.iesam.rememora.app.extensions.invisible
 import com.iesam.rememora.app.extensions.setUrl
@@ -98,6 +100,49 @@ class ImagePlayerFragment : Fragment() {
                 }
             })
         }
+        tutorial()
+    }
+
+    private fun tutorial() {
+        val targetLabelNum = binding.labelNum.createTarget(
+            getString(R.string.tutorial_title_photo_label_num),
+            getString(R.string.tutorial_description_photo_label_num),
+            100
+        )
+        val targetBottomPrevious = binding.prevImage.createTarget(
+            getString(R.string.tutorial_title_photo_bottom_previous),
+            getString(R.string.tutorial_description_photo_bottom_previous),
+            50
+        )
+        val targetBottomNext = binding.nextImg.createTarget(
+            getString(R.string.tutorial_title_photo_bottom_next),
+            getString(R.string.tutorial_description_photo_bottom_next),
+            50
+        )
+
+        val targetBottomInit = (requireActivity() as HomeActivity).bottomHome.createTarget(
+            getString(R.string.tutorial_title_bottom_back_home),
+            getString(R.string.tutorial_description_bottom_back_home),
+            50
+        )
+
+        TapTargetView.showFor(activity, targetBottomInit, object : TapTargetView.Listener(){
+            override fun onTargetClick(view: TapTargetView?) {
+                super.onTargetClick(view)
+                TapTargetView.showFor(activity, targetLabelNum, object : TapTargetView.Listener() {
+                    override fun onTargetClick(view: TapTargetView) {
+                        super.onTargetClick(view)
+                        TapTargetView.showFor(activity, targetBottomPrevious, object : TapTargetView.Listener() {
+                            override fun onTargetClick(view: TapTargetView) {
+                                super.onTargetClick(view)
+                                TapTargetView.showFor(activity, targetBottomNext)
+                            }
+
+                        })
+                    }
+                })
+            }
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
