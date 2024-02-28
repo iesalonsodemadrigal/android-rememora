@@ -35,7 +35,5 @@ fun View.createTarget(title: String, subtitle: String, radius: Int): TapTarget {
         .tintTarget(true) // Si se debe teñir el color de la vista de destino
         .transparentTarget(true) // Especifique si el objetivo es transparente (muestra el contenido debajo)
         .targetRadius(radius) // Especifique el radio objetivo (en dp)
-
     return target
-
 }
