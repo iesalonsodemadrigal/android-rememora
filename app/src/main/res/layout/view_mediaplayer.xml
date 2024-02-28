@@ -49,7 +49,7 @@
                 style="@style/AppSmallTitleButton3D"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_buttom_video"
+                android:text="@string/label_buttom_options"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

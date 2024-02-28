@@ -12,6 +12,7 @@
     <string name="label_buttom_play">Reproducir</string>
     <string name="label_buttom_pause">Pausar</string>
     <string name="label_buttom_repeat">REPETIR</string>
+    <string name="label_buttom_options">Opciones</string>
 
 
     <string name="label_title">REMEMORA</string>
