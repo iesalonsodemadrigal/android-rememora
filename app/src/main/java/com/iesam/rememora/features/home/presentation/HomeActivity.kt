@@ -10,7 +10,7 @@ import com.iesam.rememora.app.extensions.hide
 import com.iesam.rememora.app.extensions.show
 import com.iesam.rememora.app.presentation.views.Button3dView
 import com.iesam.rememora.databinding.ActivityHomeBinding
-import com.iesam.rememora.databinding.ViewMediaplayerBinding
+import com.iesam.rememora.databinding.FragmentInitialMenuBinding
 import com.iesam.rememora.features.home.presentation.menu.InitialMenuFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,8 +19,8 @@ class HomeActivity : AppCompatActivity() {
 
     private var _binding: ActivityHomeBinding? = null
     private val binding get() = _binding!!
-    private var _bindingMediaPlayer: ViewMediaplayerBinding? = null
-    private val bindingMediaPlayer get() = _bindingMediaPlayer!!
+    private var _bindingInitialMenu: FragmentInitialMenuBinding? = null
+    private val bindingInitialMenu get() = _bindingInitialMenu!!
 
     private lateinit var audioManager: AudioManager
     private lateinit var volumeDownBottom: Button3dView
@@ -36,15 +36,15 @@ class HomeActivity : AppCompatActivity() {
             )
         }
         hideHomeButton()
-        _bindingMediaPlayer = ViewMediaplayerBinding.inflate(layoutInflater)
+        _bindingInitialMenu = FragmentInitialMenuBinding.inflate(layoutInflater)
         audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        volumeDownBottom = bindingMediaPlayer.volumeDown
-        volumeUpBottom = bindingMediaPlayer.volumeUp
+        volumeDownBottom = bindingInitialMenu.volumeDown
+        volumeUpBottom = bindingInitialMenu.volumeUp
         setupView()
     }
 
     private fun setupView() {
-        bindingMediaPlayer.apply {
+        bindingInitialMenu.apply {
             volumeUpBottom.setOnClickListener {
                 volumeUp()
             }
