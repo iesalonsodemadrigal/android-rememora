@@ -8,51 +8,53 @@
 
     <androidx.media3.ui.PlayerView
         android:id="@+id/media_view"
-        app:use_controller="false"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         app:auto_show="false"
-        app:layout_constraintTop_toTopOf="parent"
+        app:artwork_display_mode="fill"
+        app:default_artwork="@drawable/ic_voice_wave"
         app:layout_constraintBottom_toTopOf="@id/bottomButtonContainer"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:use_controller="false" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginVertical="@dimen/spacing_vertical"
         android:id="@+id/bottomButtonContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/media_view"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_marginVertical="@dimen/spacing_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/media_view">
 
         <Button
             android:id="@+id/back_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            style="@style/MediaButtonStyle"
             android:layout_width="@dimen/layout_width_menu_bottom"
             android:layout_height="@dimen/layout_height_menu_bottom"
             android:text="@string/label_buttom_back"
-            style="@style/MediaButtonStyle" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/play_pause_button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/back_button"
-            app:layout_constraintEnd_toStartOf="@id/next_button"
+            style="@style/MediaButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/layout_height_menu_bottom"
-            style="@style/MediaButtonStyle"
             android:text="@string/label_buttom_pause"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/next_button"
+            app:layout_constraintStart_toEndOf="@id/back_button"
             tools:text="REPRODUCIR" />
 
         <Button
             android:id="@+id/next_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            style="@style/MediaButtonStyle"
             android:layout_width="@dimen/layout_width_menu_bottom"
             android:layout_height="@dimen/layout_height_menu_bottom"
             android:text="@string/label_buttom_next"
-            style="@style/MediaButtonStyle" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
