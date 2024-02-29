@@ -41,8 +41,21 @@ android {
 
         create("local") {
             initWith(getByName("debug"))
-            //applicationIdSuffix = ".debugLocal" }
             buildConfigField("boolean", "IS_LOCAL_ENV", "true")
+        }
+    }
+
+    flavorDimensions += "version"
+    productFlavors {
+        create("v1") {
+            dimension = "version"
+            applicationIdSuffix = ".v1"
+            versionNameSuffix = ".v1"
+        }
+        create("v4") {
+            dimension = "version"
+            applicationIdSuffix = ".v4"
+            versionNameSuffix = ".v4"
         }
     }
 

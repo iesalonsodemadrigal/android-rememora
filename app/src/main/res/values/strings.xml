@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Rememora</string>
+    <string name="app_name">RememoraV1</string>
 
     <string name="label_buttom_img">Fotos</string>
     <string name="label_buttom_video">Vídeos</string>
