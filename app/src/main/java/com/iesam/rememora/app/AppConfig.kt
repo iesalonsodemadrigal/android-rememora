@@ -1,3 +1,3 @@
 package com.iesam.rememora.app
 
-const val BUTTON_3D_SOUND_ACTIVE: Boolean = false
+const val BUTTON_3D_SOUND_ACTIVE: Boolean = true
