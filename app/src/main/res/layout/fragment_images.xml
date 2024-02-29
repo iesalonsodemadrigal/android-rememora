@@ -79,6 +79,7 @@
                 android:layout_width="@dimen/button_3d_size"
                 android:layout_height="@dimen/button_3d_size"
                 android:layout_marginTop="@dimen/spacing_vertical"
+                android:visibility="gone"
                 android:background="@drawable/frame_thumbnail_resource"
                 android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
@@ -140,6 +141,7 @@
 
             <com.iesam.rememora.app.presentation.views.ImageButton3dView
                 android:id="@+id/image_next"
+                android:visibility="gone"
                 android:layout_width="@dimen/button_3d_size"
                 android:layout_height="@dimen/button_3d_size"
                 android:layout_marginTop="@dimen/spacing_vertical"

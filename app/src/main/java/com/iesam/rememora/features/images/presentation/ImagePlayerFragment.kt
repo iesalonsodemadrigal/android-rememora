@@ -222,7 +222,7 @@ class ImagePlayerFragment : Fragment() {
 
     private fun refreshImage() {
         binding.image.setImageURI(images[numImage].source.toUri())
-        bindMiniImages()
+        //bindMiniImages()
         bindLabelNum()
     }
 

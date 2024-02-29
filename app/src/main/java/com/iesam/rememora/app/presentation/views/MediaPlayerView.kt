@@ -75,11 +75,13 @@ class MediaPlayerView @JvmOverloads constructor(
     private fun playNextMedia() {
         currentPosition++
         playMusic()
+        pauseMedia()
     }
 
     private fun playPreviousMedia() {
         currentPosition--
         playMusic()
+        pauseMedia()
     }
 
     private fun pauseMedia() {
@@ -124,6 +126,7 @@ class MediaPlayerView @JvmOverloads constructor(
         urlMediaList = mediaList
         this.label = label
         playMusic()
+        pauseMedia()
     }
 
     override fun onDetachedFromWindow() {
