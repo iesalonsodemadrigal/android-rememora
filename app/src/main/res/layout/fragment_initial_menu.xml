@@ -36,6 +36,7 @@
                 app:layout_constraintTop_toTopOf="@id/action_photo" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/label_photo"
                 style="@style/AppTitleButton3D"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -78,6 +79,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/AppTitleButton3D"
+                android:id="@+id/label_music"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_horizontal"
@@ -117,6 +119,7 @@
                 app:layout_constraintTop_toTopOf="@id/action_video" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/label_video"
                 style="@style/AppTitleButton3D"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -158,6 +161,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/AppTitleButton3D"
+                android:id="@+id/label_audio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_horizontal"

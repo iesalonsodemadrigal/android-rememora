@@ -37,7 +37,17 @@ class InitialMenuFragment : Fragment() {
                     InitialMenuFragmentDirections.actionGlobalAudioFragment()
                 )
             }
+            labelAudio.setOnClickListener {
+                findNavController().navigate(
+                    InitialMenuFragmentDirections.actionGlobalAudioFragment()
+                )
+            }
             actionVideo.setOnClickListener {
+                findNavController().navigate(
+                    InitialMenuFragmentDirections.actionGlobalVideoFragment()
+                )
+            }
+            labelVideo.setOnClickListener {
                 findNavController().navigate(
                     InitialMenuFragmentDirections.actionGlobalVideoFragment()
                 )
@@ -47,7 +57,17 @@ class InitialMenuFragment : Fragment() {
                     InitialMenuFragmentDirections.actionGlobalImageFragment()
                 )
             }
+            labelPhoto.setOnClickListener {
+                findNavController().navigate(
+                    InitialMenuFragmentDirections.actionGlobalImageFragment()
+                )
+            }
             actionMusic.setOnClickListener {
+                findNavController().navigate(
+                    InitialMenuFragmentDirections.actionGlobalMusicFragment()
+                )
+            }
+            labelMusic.setOnClickListener {
                 findNavController().navigate(
                     InitialMenuFragmentDirections.actionGlobalMusicFragment()
                 )
