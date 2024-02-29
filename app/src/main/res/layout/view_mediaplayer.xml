@@ -71,12 +71,14 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:paddingHorizontal="@dimen/spacing_mediaplayer_buttons_horizontal">
 
                 <com.iesam.rememora.app.presentation.views.Button3dView
                     android:id="@+id/back_button"
                     android:layout_width="@dimen/button_3d_menu_2_size"
                     android:layout_height="@dimen/button_3d_menu_2_size"
+
                     android:contentDescription="@string/label_buttom_back"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -176,6 +178,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:gravity="center"
                 android:paddingHorizontal="@dimen/spacing_mediaplayer_buttons_horizontal">
 
@@ -222,6 +225,29 @@
         app:layout_constraintTop_toBottomOf="@id/bottomButtonContainer"
         tools:text="2/5" />
 
+    <FrameLayout
+        android:id="@+id/prev_image"
+        android:layout_width="@dimen/button_3d_menu_2_size"
+        android:layout_height="@dimen/button_3d_menu_2_size"
+        android:layout_marginHorizontal="@dimen/spacing_horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/media_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/media_view">
+
+        <com.iesam.rememora.app.presentation.views.Button3dView
+            android:id="@+id/action_prev_image"
+            android:layout_width="@dimen/button_3d_menu_2_size"
+            android:layout_height="@dimen/button_3d_menu_2_size"
+            android:contentDescription="@string/label_buttom_back" />
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_previous_mediaplayer" />
+
+    </FrameLayout>
+
     <androidx.media3.ui.PlayerView
         android:id="@+id/media_view"
         android:layout_width="0dp"
@@ -231,9 +257,32 @@
         app:artwork_display_mode="fill"
         app:default_artwork="@drawable/ic_voice_wave"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/next_image"
+        app:layout_constraintStart_toEndOf="@id/prev_image"
         app:layout_constraintTop_toBottomOf="@id/label_num"
         app:use_controller="false" />
+
+    <FrameLayout
+        android:id="@+id/next_image"
+        android:layout_width="@dimen/button_3d_menu_2_size"
+        android:layout_height="@dimen/button_3d_menu_2_size"
+        android:layout_marginHorizontal="@dimen/spacing_horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/media_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/media_view">
+
+        <com.iesam.rememora.app.presentation.views.Button3dView
+            android:id="@+id/action_next_image"
+            android:layout_width="@dimen/button_3d_menu_2_size"
+            android:layout_height="@dimen/button_3d_menu_2_size"
+            android:contentDescription="@string/label_buttom_back" />
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_next_mediaplayer" />
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

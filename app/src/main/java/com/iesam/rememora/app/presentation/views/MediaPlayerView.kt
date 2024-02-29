@@ -21,6 +21,8 @@ class MediaPlayerView @JvmOverloads constructor(
 
     private var exoPlayer: ExoPlayer
 
+    private var showMenu: Boolean = false;
+
     init {
         exoPlayer = ExoPlayer.Builder(context).build()
         binding.mediaView.player = exoPlayer
@@ -28,7 +30,7 @@ class MediaPlayerView @JvmOverloads constructor(
     }
 
     private fun setupView() {
-        checkList()
+        //checkList()
         exoPlayer.addListener(object : Player.Listener {
             override fun onPlaybackStateChanged(state: Int) {
                 when (state) {
@@ -46,12 +48,28 @@ class MediaPlayerView @JvmOverloads constructor(
                 menuButtonAction.visibility = GONE
             }
             backButton.setOnClickListener {
-                playPreviousMedia()
-                backToMenu()
+                if (currentPosition > 0) {
+                    playPreviousMedia()
+                    backToMenu()
+                }
+            }
+            actionPrevImage.setOnClickListener {
+                if (currentPosition > 0) {
+                    playPreviousMedia()
+                    backToMenu()
+                }
             }
             nextButton.setOnClickListener {
-                playNextMedia()
-                backToMenu()
+                if (currentPosition < urlMediaList.size - 1) {
+                    playNextMedia()
+                    backToMenu()
+                }
+            }
+            actionNextImage.setOnClickListener {
+                if (currentPosition < urlMediaList.size - 1) {
+                    playNextMedia()
+                    backToMenu()
+                }
             }
             pauseButton.setOnClickListener {
                 pauseMedia()
@@ -66,8 +84,10 @@ class MediaPlayerView @JvmOverloads constructor(
 
     private fun backToMenu() {
         binding.apply {
-            playerButtonsContainer.visibility = GONE
-            menuButtonAction.visibility = VISIBLE
+            if (showMenu) {
+                playerButtonsContainer.visibility = GONE
+                menuButtonAction.visibility = VISIBLE
+            }
         }
 
     }
@@ -98,7 +118,7 @@ class MediaPlayerView @JvmOverloads constructor(
 
     private fun playMusic() {
         bindLabelNum()
-        checkList()
+        //checkList()
         if (currentPosition < urlMediaList.size) {
             val currentMusic = urlMediaList[currentPosition]
             val mediaItem = MediaItem.fromUri(currentMusic)
@@ -119,14 +139,27 @@ class MediaPlayerView @JvmOverloads constructor(
 
     private fun checkList() {
         binding.backButton.isEnabled = currentPosition > 0
+        binding.actionPrevImage.isEnabled = currentPosition > 0
+
         binding.nextButton.isEnabled = currentPosition < urlMediaList.size - 1
+        binding.actionNextImage.isEnabled = currentPosition < urlMediaList.size - 1
+
     }
 
     fun render(mediaList: List<String>, label: String) {
         urlMediaList = mediaList
         this.label = label
+        showMenu = (label != context.getString(R.string.label_navigation_songs))
+        updateMenu()
         playMusic()
         pauseMedia()
+    }
+
+    private fun updateMenu() {
+        if (!showMenu) {
+            binding.playerButtonsContainer.visibility = VISIBLE
+            binding.menuButtonAction.visibility = GONE
+        }
     }
 
     override fun onDetachedFromWindow() {
