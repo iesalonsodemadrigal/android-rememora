@@ -5,7 +5,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
+import com.getkeepsafe.taptargetview.TapTargetView
 import com.iesam.rememora.R
+import com.iesam.rememora.app.extensions.createTarget
 import com.iesam.rememora.databinding.ActivityHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -47,5 +49,15 @@ class HomeActivity : AppCompatActivity() {
                     .navigate(R.id.fragment_logout)
             }
         }
+        tutorial()
+    }
+
+    private fun tutorial(){
+        val targetPhoto = binding.actionImage.createTarget(
+            getString(R.string.tutorial_title_photo),
+            getString(R.string.tutorial_description_photo), 100
+        )
+
+        TapTargetView.showFor(this, targetPhoto)
     }
 }
