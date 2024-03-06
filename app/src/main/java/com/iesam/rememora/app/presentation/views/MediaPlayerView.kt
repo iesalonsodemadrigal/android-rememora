@@ -30,7 +30,7 @@ class MediaPlayerView @JvmOverloads constructor(
     }
 
     private fun setupView() {
-        //checkList()
+        checkList()
         exoPlayer.addListener(object : Player.Listener {
             override fun onPlaybackStateChanged(state: Int) {
                 when (state) {
@@ -118,7 +118,7 @@ class MediaPlayerView @JvmOverloads constructor(
 
     private fun playMusic() {
         bindLabelNum()
-        //checkList()
+        checkList()
         if (currentPosition < urlMediaList.size) {
             val currentMusic = urlMediaList[currentPosition]
             val mediaItem = MediaItem.fromUri(currentMusic)
@@ -150,6 +150,13 @@ class MediaPlayerView @JvmOverloads constructor(
         urlMediaList = mediaList
         this.label = label
         showMenu = (label != context.getString(R.string.label_navigation_songs))
+        if (label == context.getString(R.string.label_navigation_songs)){
+            binding.labelPlay.text = "Escuchar música"
+        } else if (label == context.getString(R.string.label_navigation_video)){
+            binding.labelPlay.text = "Ver vídeo"
+        } else if(label == context.getString(R.string.label_navigation_audios)){
+            binding.labelPlay.text = "Escuchar audios"
+        }
         updateMenu()
         playMusic()
         pauseMedia()

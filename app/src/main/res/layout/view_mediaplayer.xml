@@ -71,14 +71,12 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:paddingHorizontal="@dimen/spacing_mediaplayer_buttons_horizontal">
 
                 <com.iesam.rememora.app.presentation.views.Button3dView
                     android:id="@+id/back_button"
                     android:layout_width="@dimen/button_3d_menu_2_size"
                     android:layout_height="@dimen/button_3d_menu_2_size"
-
                     android:contentDescription="@string/label_buttom_back"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -165,6 +163,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/AppSmallTitleButton3D"
+                    android:id="@+id/labelPlay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/label_buttom_play"
@@ -178,7 +177,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:gravity="center"
                 android:paddingHorizontal="@dimen/spacing_mediaplayer_buttons_horizontal">
 
@@ -227,6 +225,7 @@
 
     <FrameLayout
         android:id="@+id/prev_image"
+        android:visibility="gone"
         android:layout_width="@dimen/button_3d_menu_2_size"
         android:layout_height="@dimen/button_3d_menu_2_size"
         android:layout_marginHorizontal="@dimen/spacing_horizontal"
@@ -264,6 +263,7 @@
 
     <FrameLayout
         android:id="@+id/next_image"
+        android:visibility="gone"
         android:layout_width="@dimen/button_3d_menu_2_size"
         android:layout_height="@dimen/button_3d_menu_2_size"
         android:layout_marginHorizontal="@dimen/spacing_horizontal"
