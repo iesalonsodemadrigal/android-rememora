@@ -16,7 +16,7 @@
 
     <string name="label_title">REMEMORA</string>
 
-    <string name="label_buttom_ayuda">?</string>
+    <string name="label_buttom_ayuda">Ayuda</string>
 
     <!-- Errores -->
     <string name="content_description_error">Una imagen representando que hay un error</string>

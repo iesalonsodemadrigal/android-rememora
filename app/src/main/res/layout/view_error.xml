@@ -37,6 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_vertical_error"
+            app:lineHeight="40sp"
             tools:text="@tools:sample/lorem/random">
 
         </com.google.android.material.textview.MaterialTextView>
@@ -45,6 +46,8 @@
             android:id="@+id/action_retry"
             style="@style/AppFilledButton"
             android:layout_width="wrap_content"
+            android:paddingVertical="@dimen/padding_vertical_menu_button"
+            android:paddingHorizontal="32dp"
             android:layout_height="wrap_content"
             android:text="@string/title_button_error"
             android:textSize="@dimen/size_title_buttom_menu"

@@ -30,6 +30,14 @@ class ImageMockDataRepository @Inject constructor(@ApplicationContext val contex
             "Imagen 2"
         )
 
-        return mutableListOf(photo1, photo2).right()
+        //Photo 3
+        val photo3 = Image(
+            "Imagen 3",
+            "3",
+            context.getFileFromAssets("photos", "mock_photo_3.jpg").absolutePath,
+            "Imagen 3"
+        )
+
+        return mutableListOf(photo1, photo2, photo3).right()
     }
 }
