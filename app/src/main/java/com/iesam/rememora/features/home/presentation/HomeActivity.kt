@@ -21,7 +21,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.actionBackToHome.setOnClickListener {
+        binding.actionHome.setOnClickListener {
             findNavController(R.id.fragment_container).navigate(
                 InitialMenuFragmentDirections.actionToHome()
             )
@@ -30,12 +30,12 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun hideHomeButton() {
-        binding.actionBackToHome.hide()
-        binding.labelBackToHome.hide()
+        binding.actionHome.hide()
+        binding.actionHome.hide()
     }
 
     fun showHomeButton() {
-        binding.actionBackToHome.show()
-        binding.labelBackToHome.show()
+        binding.actionHome.show()
+        binding.actionHome.show()
     }
 }

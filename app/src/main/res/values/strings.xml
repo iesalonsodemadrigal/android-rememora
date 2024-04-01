@@ -12,6 +12,7 @@
     <string name="label_buttom_play">Reproducir</string>
     <string name="label_buttom_pause">Pausar</string>
     <string name="label_buttom_repeat">REPETIR</string>
+    <string name="label_button_home">Volver</string>
 
 
     <string name="label_title">REMEMORA</string>
@@ -36,7 +37,7 @@
     <string name="label_unknown_error">Se ha producido un error inesperado, por favor vuelve a intentarlo.</string>
 
     <string name="label_back_to_home">Salir</string>
-    <string name="label_navigation">%1$s / %2$s %3$s</string>
+    <string name="label_navigation">%1$s de %2$s %3$s</string>
     <string name="label_navigation_photo">fotos</string>
     <string name="label_navigation_video">vídeos</string>
     <string name="label_navigation_audios">audios</string>
