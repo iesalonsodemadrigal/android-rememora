@@ -4,6 +4,7 @@ import android.content.Context
 import com.iesam.rememora.app.Either
 import com.iesam.rememora.app.domain.ErrorApp
 import com.iesam.rememora.app.extensions.getFileFromAssets
+import com.iesam.rememora.app.left
 import com.iesam.rememora.app.right
 import com.iesam.rememora.features.audio.domain.Audio
 import com.iesam.rememora.features.audio.domain.AudiosRepository
@@ -12,6 +13,9 @@ import javax.inject.Inject
 
 class AudiosMockDataRepository @Inject constructor(@ApplicationContext val context: Context) :
     AudiosRepository {
+
+    private var retry: Int = 0
+
     override suspend fun getAudios(): Either<ErrorApp, List<Audio>> {
         val audio1 = Audio(
             "1",
@@ -47,9 +51,12 @@ class AudiosMockDataRepository @Inject constructor(@ApplicationContext val conte
             context.getFileFromAssets("audios", "mock_audio_5.mp3").absolutePath,
             "Audio 5"
         )
-
-        return mutableListOf(audio1, audio2, audio3, audio4, audio5).right()
-
+        if (retry == 0) {
+            retry += 1
+            return ErrorApp.UnknownError.left()
+        } else {
+            return mutableListOf(audio1, audio2, audio3, audio4, audio5).right()
+        }
     }
 
 }

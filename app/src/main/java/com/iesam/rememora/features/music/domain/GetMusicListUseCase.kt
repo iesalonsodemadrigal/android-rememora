@@ -7,7 +7,7 @@ import javax.inject.Inject
 class GetMusicListUseCase @Inject constructor(
     private val musicRepository: MusicRepository
 ) {
-    suspend operator fun invoke(): Either<ErrorApp, List<Song>> {
+    suspend operator fun invoke(): Either<ErrorApp, List<Music>> {
         return musicRepository.obtainMusicList()
     }
 }

@@ -24,7 +24,7 @@ class ErrorView @JvmOverloads constructor(
             labelTitleError.setText(errorUiModel.getTitle())
             labelDescriptionError.setText(errorUiModel.getDescription())
             actionRetry.setOnClickListener {
-                errorUiModel.onClickRetry()
+                errorUiModel.onClickRetry()?.invoke()
             }
         }
     }

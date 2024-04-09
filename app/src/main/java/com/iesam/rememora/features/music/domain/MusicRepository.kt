@@ -4,5 +4,5 @@ import com.iesam.rememora.app.Either
 import com.iesam.rememora.app.domain.ErrorApp
 
 interface MusicRepository {
-    suspend fun obtainMusicList(): Either<ErrorApp, List<Song>>
+    suspend fun obtainMusicList(): Either<ErrorApp, List<Music>>
 }

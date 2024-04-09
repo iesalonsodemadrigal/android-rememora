@@ -7,7 +7,7 @@ import com.iesam.rememora.app.Either
 import com.iesam.rememora.app.domain.ErrorApp
 import com.iesam.rememora.app.left
 import com.iesam.rememora.app.right
-import com.iesam.rememora.features.music.domain.Song
+import com.iesam.rememora.features.music.domain.Music
 import kotlinx.coroutines.tasks.await
 import java.net.ConnectException
 import java.net.SocketTimeoutException
@@ -20,7 +20,7 @@ class MusicRemoteDataSource @Inject constructor(
     private val auth: FirebaseAuth
 ) {
 
-    suspend fun obtainMusicList(): Either<ErrorApp, List<Song>> {
+    suspend fun obtainMusicList(): Either<ErrorApp, List<Music>> {
         return try {
             auth.uid?.let { uid ->
                 val dataSnapshot = fireBaseDB
