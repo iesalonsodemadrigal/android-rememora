@@ -53,24 +53,14 @@ class MediaPlayerView @JvmOverloads constructor(
                     backToMenu()
                 }
             }
-            actionPrevImage.setOnClickListener {
-                if (currentPosition > 0) {
-                    playPreviousMedia()
-                    backToMenu()
-                }
-            }
+
             nextButton.setOnClickListener {
                 if (currentPosition < urlMediaList.size - 1) {
                     playNextMedia()
                     backToMenu()
                 }
             }
-            actionNextImage.setOnClickListener {
-                if (currentPosition < urlMediaList.size - 1) {
-                    playNextMedia()
-                    backToMenu()
-                }
-            }
+
             pauseButton.setOnClickListener {
                 pauseMedia()
                 backToMenu()
@@ -139,11 +129,7 @@ class MediaPlayerView @JvmOverloads constructor(
 
     private fun checkList() {
         binding.backButton.isEnabled = currentPosition > 0
-        binding.actionPrevImage.isEnabled = currentPosition > 0
-
         binding.nextButton.isEnabled = currentPosition < urlMediaList.size - 1
-        binding.actionNextImage.isEnabled = currentPosition < urlMediaList.size - 1
-
     }
 
     fun render(mediaList: List<String>, label: String) {

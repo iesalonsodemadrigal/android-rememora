@@ -110,12 +110,12 @@ class ImagePlayerFragment : Fragment() {
                 getString(R.string.tutorial_description_photo_label_num),
                 100
             )
-            val targetBottomPrevious = binding.prevImage.createTarget(
+            val targetBottomPrevious = binding.imagePrevious.createTarget(
                 getString(R.string.tutorial_title_photo_bottom_previous),
                 getString(R.string.tutorial_description_photo_bottom_previous),
                 50
             )
-            val targetBottomNext = binding.nextImg.createTarget(
+            val targetBottomNext = binding.imageNext.createTarget(
                 getString(R.string.tutorial_title_photo_bottom_next),
                 getString(R.string.tutorial_description_photo_bottom_next),
                 50
