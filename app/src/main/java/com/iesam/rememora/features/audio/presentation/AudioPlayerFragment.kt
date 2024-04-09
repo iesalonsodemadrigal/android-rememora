@@ -32,7 +32,6 @@ class AudioPlayerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity() as HomeActivity).showHomeButton()
         setupObserver()
         viewModel.getListAudios()
     }
@@ -51,7 +50,7 @@ class AudioPlayerFragment : Fragment() {
                             audio.source!!
                         }
                         binding.mediaPlayer.show()
-                        binding.mediaPlayer.render(urlListAudios, getString(R.string.label_navigation_audios))
+                        binding.mediaPlayer.render(urlListAudios)
                     }
                 }
             }

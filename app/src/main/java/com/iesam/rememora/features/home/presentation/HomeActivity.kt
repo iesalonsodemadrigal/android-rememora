@@ -49,7 +49,7 @@ class HomeActivity : AppCompatActivity() {
                     .navigate(R.id.fragment_logout)
             }
         }
-        tutorial()
+        //tutorial()
     }
 
     private fun tutorial(){

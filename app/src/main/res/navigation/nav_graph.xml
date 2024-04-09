@@ -18,8 +18,8 @@
         app:destination="@id/fragment_audio" />
     <action
         android:id="@+id/action_to_home"
-        app:destination="@id/fragment_initial_menu"
-        app:popUpTo="@id/fragment_initial_menu"
+        app:destination="@id/fragment_home"
+        app:popUpTo="@id/fragment_home"
         app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/fragment_home"
@@ -47,9 +47,6 @@
         <action
             android:id="@+id/action_from_login_to_home"
             app:destination="@id/fragment_home" />
-        <action
-            android:id="@+id/action_from_login_to_initial_menu"
-            app:destination="@id/fragment_initial_menu" />
     </fragment>
     <fragment
         android:id="@+id/fragment_logout"
@@ -57,23 +54,5 @@
         <action
             android:id="@+id/action_from_logout_to_login"
             app:destination="@id/fragment_login" />
-    </fragment>
-    <!--  Initial menu  -->
-    <fragment
-        android:id="@+id/fragment_initial_menu"
-        android:name="com.iesam.rememora.features.home.presentation.menu.InitialMenuFragment">
-        <action
-            android:id="@+id/action_global_image_fragment"
-            app:destination="@id/fragment_imagen" />
-        <action
-            android:id="@+id/action_global_video_fragment"
-            app:destination="@id/fragment_video" />
-        <action
-            android:id="@+id/action_global_music_fragment"
-            app:destination="@id/fragment_music" />
-        <action
-            android:id="@+id/action_global_audio_fragment"
-            app:destination="@id/fragment_audio" />
-
     </fragment>
 </navigation>
