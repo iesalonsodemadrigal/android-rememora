@@ -22,25 +22,25 @@ class VideoMockDataRepository @Inject constructor(@ApplicationContext val contex
         val video2 = Video(
             "Vídeo 2",
             "2",
-            context.getFileFromAssets("videos", "mock_video_2.mp4").absolutePath,
+            context.getFileFromAssets("videos", "mock_video_1.mp4").absolutePath,
             "Vídeo 2"
         )
         val video3 = Video(
             "Vídeo 3",
             "3",
-            context.getFileFromAssets("videos", "mock_video_3.mp4").absolutePath,
+            context.getFileFromAssets("videos", "mock_video_1.mp4").absolutePath,
             "Vídeo 3"
         )
         val video4 = Video(
             "Vídeo 4",
             "4",
-            context.getFileFromAssets("videos", "mock_video_4.mp4").absolutePath,
+            context.getFileFromAssets("videos", "mock_video_1.mp4").absolutePath,
             "Vídeo 4"
         )
         val video5 = Video(
             "Vídeo 5",
             "5",
-            context.getFileFromAssets("videos", "mock_video_5.mp4").absolutePath,
+            context.getFileFromAssets("videos", "mock_video_1.mp4").absolutePath,
             "Vídeo 5"
         )
 
