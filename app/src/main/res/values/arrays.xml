@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="photos_synonyms">
+        <item>fotos</item>
+        <item>imagenes</item>
+        <item>retratos</item>
+        <item>fotografias</item>
+        <item>instantaneas</item>
+    </array>
+</resources>
