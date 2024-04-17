@@ -12,6 +12,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
@@ -20,36 +22,37 @@ class HomeActivity : AppCompatActivity() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<HomeViewModel>()
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupView()
-
-        if (intent !== null) {
+        setupNavigation()
+        val intent = intent
+        if (intent != null){
             handleIntent(intent)
         }
+        setupView()
+    }
+
+    private fun setupNavigation() {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
+        navController = navHostFragment.navController
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-
-        if (intent !== null) {
-            handleIntent(intent)
-        }
+        handleIntent(intent)
     }
 
-    private fun handleIntent(intent: Intent) {
-        val uri : Uri? = intent.data
-        val action: String? = intent.action
+    private fun handleIntent(intent: Intent?) {
+        val uri: Uri? = intent?.data
+        val action: String? = intent?.action
 
-        Log.d("sof", action!!)
-        Log.d("sof", uri.toString())
-
-        if (uri.toString() == "rememora://images" && action == "android.intent.action.VIEW"){
-            Navigation.findNavController(this@HomeActivity, R.id.fragment_container)
-                .navigate(R.id.fragment_imagen)
+        if (uri.toString() == "rememora://images" && action == "android.intent.action.VIEW") {
+            navController.handleDeepLink(intent)
         }
     }
 
