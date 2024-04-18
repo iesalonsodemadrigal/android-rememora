@@ -2,9 +2,9 @@
 <resources>
     <array name="photos_synonyms">
         <item>fotos</item>
-        <item>imagenes</item>
+        <item>imágenes</item>
         <item>retratos</item>
-        <item>fotografias</item>
-        <item>instantaneas</item>
+        <item>fotografías</item>
+        <item>instantáneas</item>
     </array>
 </resources>

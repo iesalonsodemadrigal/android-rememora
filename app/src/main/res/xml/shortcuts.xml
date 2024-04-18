@@ -11,7 +11,7 @@
 
     <shortcut
         android:shortcutId="images"
-        android:shortcutShortLabel="images">
+        android:shortcutShortLabel="@string/shortcut_photo_label">
         <capability-binding android:key="actions.intent.OPEN_APP_FEATURE">
             <parameter-binding
                 android:key="feature"

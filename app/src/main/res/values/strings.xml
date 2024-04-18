@@ -39,4 +39,6 @@
     <string name="tutorial_title_photo">Pulsa aquí para ver fotos.</string>
     <string name="tutorial_description_photo"> </string>
 
+    <string name="shortcut_photo_label">Fotos</string>
+
 </resources>
