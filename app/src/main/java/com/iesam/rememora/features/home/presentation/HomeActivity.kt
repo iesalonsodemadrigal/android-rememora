@@ -47,6 +47,15 @@ class HomeActivity : AppCompatActivity() {
         handleIntent(intent)
     }
 
+    override fun onResume() {
+        super.onResume()
+        val intent = intent
+
+        if (intent != null){
+            handleIntent(intent)
+        }
+    }
+
     private fun handleIntent(intent: Intent?) {
         val uri: Uri? = intent?.data
         val action: String? = intent?.action
