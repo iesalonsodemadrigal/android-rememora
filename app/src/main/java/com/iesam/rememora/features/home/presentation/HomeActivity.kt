@@ -1,5 +1,6 @@
 package com.iesam.rememora.features.home.presentation
 
+import android.Manifest
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -10,8 +11,10 @@ import com.iesam.rememora.app.extensions.createTarget
 import com.iesam.rememora.databinding.ActivityHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
-import android.util.Log
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 
@@ -24,6 +27,8 @@ class HomeActivity : AppCompatActivity() {
     private val viewModel by viewModels<HomeViewModel>()
     private lateinit var navController: NavController
 
+    private val RECORD_AUDIO_PERMISSION_CODE = 101
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -33,8 +38,21 @@ class HomeActivity : AppCompatActivity() {
         if (intent != null){
             handleIntent(intent)
         }
+
+        if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            requestAudioPermission()
+        }
+
         setupView()
     }
+
+    private fun requestAudioPermission() {
+        requestPermissions(
+            arrayOf(Manifest.permission.RECORD_AUDIO),
+            RECORD_AUDIO_PERMISSION_CODE
+        )
+    }
+
 
     private fun setupNavigation() {
         val navHostFragment =

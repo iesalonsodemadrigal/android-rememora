@@ -1,10 +1,18 @@
 package com.iesam.rememora.features.images.presentation
 
 
+import android.Manifest
+import android.app.Activity
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -28,6 +36,9 @@ class ImagePlayerFragment : Fragment() {
 
     private var numImage = 0
 
+    private val REQ_CODE_SPEECH_INPUT = 100
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,12 +58,39 @@ class ImagePlayerFragment : Fragment() {
                 nextImage()
             }
         }
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.RECORD_AUDIO
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+             binding.mediaControls.microButton.setOnClickListener {
+                promptSpeechInput()
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupObserver()
         viewModel.getImages()
+    }
+
+    private fun promptSpeechInput() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "es")
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Di algo...")
+
+        try {
+            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT)
+        } catch (a: ActivityNotFoundException) {
+            Toast.makeText(
+                requireContext(),
+                "Lo siento, tu dispositivo no admite entrada de voz",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun setupObserver() {
@@ -125,6 +163,24 @@ class ImagePlayerFragment : Fragment() {
             } else {
                 mediaControls.nextButton.isEnabled = true
                 mediaControls.backButton.isEnabled = true
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+            REQ_CODE_SPEECH_INPUT -> {
+                if (resultCode == Activity.RESULT_OK && null != data) {
+                    val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                    val spokenText = result?.get(0) ?: ""
+                    if (spokenText == "siguiente"){
+                        nextImage()
+                    }else if (spokenText == "anterior"){
+                        backImage()
+                    }
+                }
             }
         }
     }

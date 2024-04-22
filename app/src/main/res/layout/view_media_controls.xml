@@ -18,6 +18,27 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/micro_button"
+        android:layout_width="@dimen/layout_height_menu_bottom"
+        android:layout_height="@dimen/layout_height_menu_bottom"
+        app:layout_constraintStart_toEndOf="@id/back_button"
+        app:layout_constraintEnd_toStartOf="@id/next_button"
+        android:layout_marginVertical="@dimen/spacing_vertical"
+        app:layout_constraintTop_toTopOf="parent"
+         />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_mic"
+        app:layout_constraintStart_toEndOf="@id/back_button"
+        app:layout_constraintEnd_toStartOf="@id/next_button"
+        android:layout_marginVertical="@dimen/spacing_vertical"
+        app:layout_constraintTop_toTopOf="@id/micro_button"
+        app:layout_constraintBottom_toBottomOf="@id/micro_button"
+        />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/next_button"
         android:layout_width="@dimen/layout_width_menu_bottom"
         android:layout_height="@dimen/layout_height_menu_bottom"
