@@ -63,22 +63,18 @@ class ImagePlayerFragment : Fragment() {
                 Manifest.permission.RECORD_AUDIO
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-             binding.mediaControls.microButton.setOnClickListener {
+            binding.mediaControls.microButton.setOnClickListener {
                 promptSpeechInput()
             }
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupObserver()
-        viewModel.getImages()
-    }
-
     private fun promptSpeechInput() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+        intent.putExtra(
+            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+        )
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "es")
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Di algo...")
 
@@ -91,6 +87,12 @@ class ImagePlayerFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupObserver()
+        viewModel.getImages()
     }
 
     private fun setupObserver() {
@@ -175,9 +177,9 @@ class ImagePlayerFragment : Fragment() {
                 if (resultCode == Activity.RESULT_OK && null != data) {
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     val spokenText = result?.get(0) ?: ""
-                    if (spokenText == "siguiente"){
+                    if (spokenText == "siguiente") {
                         nextImage()
-                    }else if (spokenText == "anterior"){
+                    } else if (spokenText == "anterior") {
                         backImage()
                     }
                 }

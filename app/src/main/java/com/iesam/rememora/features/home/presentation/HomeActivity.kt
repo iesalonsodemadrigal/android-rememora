@@ -1,22 +1,21 @@
 package com.iesam.rememora.features.home.presentation
 
 import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import com.getkeepsafe.taptargetview.TapTargetView
 import com.iesam.rememora.R
 import com.iesam.rememora.app.extensions.createTarget
 import com.iesam.rememora.databinding.ActivityHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
+
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
@@ -34,25 +33,18 @@ class HomeActivity : AppCompatActivity() {
         _binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupNavigation()
-        val intent = intent
-        if (intent != null){
-            handleIntent(intent)
-        }
 
         if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             requestAudioPermission()
         }
 
+        val intent = intent
+        if (intent != null) {
+            handleIntent(intent)
+        }
+
         setupView()
     }
-
-    private fun requestAudioPermission() {
-        requestPermissions(
-            arrayOf(Manifest.permission.RECORD_AUDIO),
-            RECORD_AUDIO_PERMISSION_CODE
-        )
-    }
-
 
     private fun setupNavigation() {
         val navHostFragment =
@@ -60,18 +52,11 @@ class HomeActivity : AppCompatActivity() {
         navController = navHostFragment.navController
     }
 
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        handleIntent(intent)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        val intent = intent
-
-        if (intent != null){
-            handleIntent(intent)
-        }
+    private fun requestAudioPermission() {
+        requestPermissions(
+            arrayOf(Manifest.permission.RECORD_AUDIO),
+            RECORD_AUDIO_PERMISSION_CODE
+        )
     }
 
     private fun handleIntent(intent: Intent?) {
@@ -107,6 +92,18 @@ class HomeActivity : AppCompatActivity() {
             }
         }
         //tutorial()
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        handleIntent(intent)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        for (fragment in supportFragmentManager.fragments) {
+            fragment.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
     private fun tutorial() {
