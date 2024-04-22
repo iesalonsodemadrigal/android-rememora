@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -36,7 +37,21 @@ class ImagePlayerFragment : Fragment() {
 
     private var numImage = 0
 
-    private val REQ_CODE_SPEECH_INPUT = 100
+    private val resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = it.data
+                if (data != null) {
+                    val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                    val spokenText = result?.get(0) ?: ""
+                    if (spokenText == "siguiente") {
+                        nextImage()
+                    } else if (spokenText == "anterior") {
+                        backImage()
+                    }
+                }
+            }
+        }
 
 
     override fun onCreateView(
@@ -79,7 +94,7 @@ class ImagePlayerFragment : Fragment() {
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Di algo...")
 
         try {
-            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT)
+            resultLauncher.launch(intent)
         } catch (a: ActivityNotFoundException) {
             Toast.makeText(
                 requireContext(),
@@ -169,28 +184,9 @@ class ImagePlayerFragment : Fragment() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        when (requestCode) {
-            REQ_CODE_SPEECH_INPUT -> {
-                if (resultCode == Activity.RESULT_OK && null != data) {
-                    val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-                    val spokenText = result?.get(0) ?: ""
-                    if (spokenText == "siguiente") {
-                        nextImage()
-                    } else if (spokenText == "anterior") {
-                        backImage()
-                    }
-                }
-            }
-        }
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 
 }
