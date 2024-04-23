@@ -12,9 +12,11 @@ class AudioDataRepository @Inject constructor(
     private val remoteDataSource: AudioRemoteDataSource,
     private val localDataSource: AudioLocalDataSource
 ) : AudiosRepository {
+
     override suspend fun getAudios(): Either<ErrorApp, List<Audio>> {
         val localAudios = localDataSource.obtainAudios()
-        return if (localAudios.isRight() && localAudios.get().isNotEmpty()) localAudios
+        return if (localAudios.isRight() && localAudios.get().isNotEmpty())
+            localAudios
         else {
             return remoteDataSource.getAudios().map { audios ->
                 localDataSource.deleteAllAudios()

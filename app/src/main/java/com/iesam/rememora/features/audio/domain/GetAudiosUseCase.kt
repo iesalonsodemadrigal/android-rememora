@@ -9,6 +9,5 @@ class GetAudiosUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(): Either<ErrorApp, List<Audio>> {
         return repository.getAudios()
-
     }
 }

@@ -32,7 +32,6 @@ class VideoPlayerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity() as HomeActivity).showHomeButton()
         setupObserver()
         viewModel.getVideos()
     }
@@ -46,7 +45,7 @@ class VideoPlayerFragment : Fragment() {
                             it.source!!
                         }
                         binding.mediaPlayer.show()
-                        binding.mediaPlayer.render(videoList, getString(R.string.label_navigation_video))
+                        binding.mediaPlayer.render(videoList)
                     }
                 }
             }

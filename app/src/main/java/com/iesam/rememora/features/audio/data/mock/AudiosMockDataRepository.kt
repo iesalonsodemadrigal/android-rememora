@@ -12,6 +12,7 @@ import javax.inject.Inject
 
 class AudiosMockDataRepository @Inject constructor(@ApplicationContext val context: Context) :
     AudiosRepository {
+
     override suspend fun getAudios(): Either<ErrorApp, List<Audio>> {
         val audio1 = Audio(
             "1",
@@ -47,9 +48,7 @@ class AudiosMockDataRepository @Inject constructor(@ApplicationContext val conte
             context.getFileFromAssets("audios", "mock_audio_5.mp3").absolutePath,
             "Audio 5"
         )
-
         return mutableListOf(audio1, audio2, audio3, audio4, audio5).right()
-
     }
 
 }

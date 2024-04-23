@@ -4,8 +4,8 @@ import com.iesam.rememora.app.Either
 import com.iesam.rememora.app.domain.ErrorApp
 import com.iesam.rememora.features.music.data.local.MusicLocalDataSource
 import com.iesam.rememora.features.music.data.remote.MusicRemoteDataSource
-import com.iesam.rememora.features.music.domain.MusicRepository
 import com.iesam.rememora.features.music.domain.Song
+import com.iesam.rememora.features.music.domain.MusicRepository
 import javax.inject.Inject
 
 class MusicDataRepository @Inject constructor(
@@ -18,10 +18,10 @@ class MusicDataRepository @Inject constructor(
         return if (localResult.isRight() && localResult.get().isNotEmpty()) {
             localResult
         } else {
-            remoteDataSource.obtainMusicList().map { musicList ->
+            remoteDataSource.obtainMusicList().map { songList ->
                 localDataSource.deleteAllMusic()
-                localDataSource.saveMusic(musicList)
-                musicList
+                localDataSource.saveMusic(songList)
+                songList
             }
         }
     }

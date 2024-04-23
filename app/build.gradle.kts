@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -10,6 +13,10 @@ plugins {
     id("com.google.devtools.ksp")
 }
 
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+val keystoreProperties = Properties()
+keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+
 android {
     namespace = "com.iesam.rememora"
     compileSdk = 34
@@ -18,10 +25,19 @@ android {
         applicationId = "com.iesam.rememora"
         minSdk = 26
         targetSdk = 34
-        versionCode = 2
-        versionName = "0.2.0"
-
+        versionCode = 5
+        versionName = "0.5.0"
+        setProperty("archivesBaseName", "rememora-$versionName-$versionCode")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        create("release") {
+            keyAlias = keystoreProperties["keyAlias"] as String
+            keyPassword = keystoreProperties["keyPassword"] as String
+            storeFile = file(keystoreProperties["storeFile"] as String)
+            storePassword = keystoreProperties["storePassword"] as String
+        }
     }
 
     buildTypes {
@@ -31,6 +47,7 @@ android {
             isDebuggable = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             buildConfigField("boolean", "IS_LOCAL_ENV", "false")
+            signingConfig = signingConfigs.getByName("release")
         }
 
         getByName("debug") {
@@ -41,6 +58,11 @@ android {
 
         create("local") {
             initWith(getByName("debug"))
+            //applicationIdSuffix = ".debugLocal" }
+            buildConfigField("boolean", "IS_LOCAL_ENV", "true")
+        }
+        create("local-release") {
+            initWith(getByName("release"))
             //applicationIdSuffix = ".debugLocal" }
             buildConfigField("boolean", "IS_LOCAL_ENV", "true")
         }
@@ -58,6 +80,25 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
+    }
+}
+
+androidComponents {
+    onVariants(selector().all()) { variant ->
+        afterEvaluate {
+            val variantNameCapitalized = variant.name.replaceFirstChar { it.uppercase() }
+            val buildConfigTaskName = "generate${variantNameCapitalized}BuildConfig"
+
+            val buildConfigTask = this.project.tasks.named(buildConfigTaskName)
+                .get() as com.android.build.gradle.tasks.GenerateBuildConfig
+
+            project.tasks.getByName("ksp${variantNameCapitalized}Kotlin") {
+                (this as org.jetbrains.kotlin.gradle.tasks.AbstractKotlinCompileTool<*>).setSource(
+                    buildConfigTask.sourceOutputDir
+                )
+            }
+
+        }
     }
 }
 
@@ -106,6 +147,8 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     ksp("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
+    //TapTargetView
+    implementation("com.getkeepsafe.taptargetview:taptargetview:1.13.2")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

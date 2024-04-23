@@ -32,7 +32,6 @@ class AudioPlayerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity() as HomeActivity).showHomeButton()
         setupObserver()
         viewModel.getListAudios()
     }
@@ -45,12 +44,13 @@ class AudioPlayerFragment : Fragment() {
                 if (it.errorApp != null) {
                     showError(it.errorApp)
                 } else {
+                    hideError()
                     it.audios?.let { audios ->
                         val urlListAudios: List<String> = audios.map { audio ->
                             audio.source!!
                         }
                         binding.mediaPlayer.show()
-                        binding.mediaPlayer.render(urlListAudios, getString(R.string.label_navigation_audios))
+                        binding.mediaPlayer.render(urlListAudios)
                     }
                 }
             }
@@ -61,6 +61,11 @@ class AudioPlayerFragment : Fragment() {
     private fun showError(error: ErrorUiModel) {
         binding.mediaPlayer.hide()
         binding.errorView.render(error)
+    }
+
+    private fun hideError() {
+        binding.errorView.hide()
+        binding.mediaPlayer.show()
     }
 
     override fun onDestroyView() {

@@ -17,7 +17,6 @@ class MediaPlayerView @JvmOverloads constructor(
     private val binding = ViewMediaplayerBinding.inflate(LayoutInflater.from(context), this, true)
     private var urlMediaList: List<String> = mutableListOf()
     private var currentPosition = 0
-    private var label: String = ""
 
     private var exoPlayer: ExoPlayer
 
@@ -33,6 +32,7 @@ class MediaPlayerView @JvmOverloads constructor(
             override fun onPlaybackStateChanged(state: Int) {
                 when (state) {
                     Player.STATE_ENDED -> {
+                        binding.playPauseButton.text = context.getString(R.string.label_buttom_play)
                         playMusic()
                         exoPlayer.pause()
                         exoPlayer.seekTo(0)
@@ -47,11 +47,8 @@ class MediaPlayerView @JvmOverloads constructor(
             nextButton.setOnClickListener {
                 playNextMedia()
             }
-            pauseButton.setOnClickListener {
-                pauseMedia()
-            }
-            playButton.setOnClickListener {
-                playMedia()
+            playPauseButton.setOnClickListener {
+                playOrPauseMedia()
             }
         }
     }
@@ -66,20 +63,25 @@ class MediaPlayerView @JvmOverloads constructor(
         playMusic()
     }
 
-    private fun pauseMedia() {
+    private fun playOrPauseMedia() {
         exoPlayer.let {
-            it.pause()
+            if (it.isPlaying) {
+                pause()
+            } else {
+                it.play()
+                binding.playPauseButton.text = context.getString(R.string.label_buttom_pause)
+            }
         }
     }
 
-    private fun playMedia() {
+    private fun pause(){
         exoPlayer.let {
-            it.play()
+            it.pause()
+            binding.playPauseButton.text = context.getString(R.string.label_buttom_play)
         }
     }
 
     private fun playMusic() {
-        bindLabelNum()
         checkList()
         if (currentPosition < urlMediaList.size) {
             val currentMusic = urlMediaList[currentPosition]
@@ -87,16 +89,8 @@ class MediaPlayerView @JvmOverloads constructor(
             exoPlayer.setMediaItem(mediaItem)
             exoPlayer.prepare()
             exoPlayer.play()
+            binding.playPauseButton.text = context.getString(R.string.label_buttom_pause)
         }
-    }
-
-    private fun bindLabelNum() {
-        binding.labelNum.text = context.getString(
-            R.string.label_navigation,
-            (currentPosition + 1).toString(),
-            urlMediaList.size.toString(),
-            label
-        )
     }
 
     private fun checkList() {
@@ -104,10 +98,10 @@ class MediaPlayerView @JvmOverloads constructor(
         binding.nextButton.isEnabled = currentPosition < urlMediaList.size - 1
     }
 
-    fun render(mediaList: List<String>, label: String) {
+    fun render(mediaList: List<String>) {
         urlMediaList = mediaList
-        this.label = label
         playMusic()
+        pause()
     }
 
     override fun onDetachedFromWindow() {
