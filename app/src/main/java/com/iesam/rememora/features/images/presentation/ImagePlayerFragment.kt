@@ -109,7 +109,6 @@ class ImagePlayerFragment : Fragment() {
     private fun setupObserver() {
         val observer = Observer<ImagePlayerViewModel.UiState> {
             if (it.isLoading) {
-
             } else {
                 if (it.errorApp != null) {
                     showError(it.errorApp)
@@ -144,6 +143,7 @@ class ImagePlayerFragment : Fragment() {
     }
 
     private fun backImage() {
+        viewModel.saveImage(images[numImage].id, 0)
         if (numImage > 0) {
             numImage--
             binding.apply {
@@ -156,6 +156,7 @@ class ImagePlayerFragment : Fragment() {
     }
 
     private fun nextImage() {
+        viewModel.saveImage(images[numImage].id, 0)
         if (numImage < (images.size - 1)) {
             numImage++
             binding.apply {

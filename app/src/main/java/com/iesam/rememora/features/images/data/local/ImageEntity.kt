@@ -10,5 +10,6 @@ data class ImageEntity(
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "description") val description: String,
     @ColumnInfo(name = "source") val source: String,
+    @ColumnInfo(name = "reaction") val reaction: Int?,
     @ColumnInfo(name = "created_at") var createdAt: Long
 )

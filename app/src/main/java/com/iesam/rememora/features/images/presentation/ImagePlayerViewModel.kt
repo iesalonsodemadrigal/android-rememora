@@ -9,16 +9,32 @@ import com.iesam.rememora.app.presentation.error.ErrorUiModel
 import com.iesam.rememora.app.presentation.error.toErrorUiModel
 import com.iesam.rememora.features.images.domain.GetImagesUseCase
 import com.iesam.rememora.features.images.domain.Image
+import com.iesam.rememora.features.images.domain.SaveImageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ImagePlayerViewModel @Inject constructor(private val getImagesUseCase: GetImagesUseCase) :
+class ImagePlayerViewModel @Inject constructor(
+    private val getImagesUseCase: GetImagesUseCase,
+    private val saveImageUseCase: SaveImageUseCase,
+) :
     ViewModel() {
     private val _uiState = MutableLiveData<UiState>()
     val uiState: LiveData<UiState> get() = _uiState
+
+    fun saveImage(idImage: String, reaction: Int) {
+        _uiState.value = UiState(isLoading = true)
+        viewModelScope.launch(Dispatchers.IO) {
+            saveImageUseCase(
+                idImage,
+                reaction
+            )
+        }
+
+    }
+
     fun getImages() {
         _uiState.value = UiState(isLoading = true)
         viewModelScope.launch(Dispatchers.IO) {
