@@ -41,23 +41,7 @@ class ImageMockDataRepository @Inject constructor(@ApplicationContext val contex
             null
         )
 
-        val photo4 = Image(
-            "Imagen 4",
-            "4",
-            context.getFileFromAssets("photos", "mock_photo_4.jpg").absolutePath,
-            "Imagen 4",
-            null
-        )
-
-        val photo5 = Image(
-            "Imagen 5",
-            "5",
-            context.getFileFromAssets("photos", "mock_photo_5.jpg").absolutePath,
-            "Imagen 5",
-            null
-        )
-
-        return mutableListOf(photo1, photo2, photo3, photo4, photo5).right()
+        return mutableListOf(photo1, photo2, photo3).right()
     }
 
     override suspend fun saveImage(input: SaveImageUseCase.Input): Either<ErrorApp, Boolean> {
