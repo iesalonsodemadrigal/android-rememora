@@ -1,6 +1,5 @@
 package com.iesam.rememora.features.images.presentation
 
-
 import android.Manifest
 import android.app.Activity
 import android.content.ActivityNotFoundException
@@ -8,6 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.speech.RecognizerIntent
+import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,12 +18,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import com.iesam.rememora.R
 import com.iesam.rememora.app.extensions.hide
 import com.iesam.rememora.app.extensions.show
 import com.iesam.rememora.app.presentation.error.ErrorUiModel
 import com.iesam.rememora.databinding.FragmentImagesBinding
 import com.iesam.rememora.features.images.domain.Image
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 
 @AndroidEntryPoint
 class ImagePlayerFragment : Fragment() {
@@ -37,6 +39,8 @@ class ImagePlayerFragment : Fragment() {
 
     private var numImage = 0
 
+    private lateinit var textToSpeech: TextToSpeech
+
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
@@ -44,15 +48,31 @@ class ImagePlayerFragment : Fragment() {
                 if (data != null) {
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     val spokenText = result?.get(0) ?: ""
-                    if (spokenText == "siguiente") {
-                        nextImage()
-                    } else if (spokenText == "anterior") {
-                        backImage()
+                    if (spokenText == getString(R.string.command_next)) {
+                        if (numImage == (images.size-1)){
+                            val response = getString(R.string.voice_response_last_picture)
+                            speakOut(response)
+                        }else{
+                            nextImage()
+                        }
+                    } else if (spokenText == getString(R.string.command_previous)) {
+                        if(numImage == 0){
+                            val response = getString(R.string.voice_response_first_picture)
+                            speakOut(response)
+                        }else {
+                            backImage()
+                        }
+                    } else {
+                        val response = getString(R.string.voice_response_command_not_exist)
+                        speakOut(response)
                     }
                 }
             }
         }
 
+    private fun speakOut(text: String) {
+        textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -91,14 +111,14 @@ class ImagePlayerFragment : Fragment() {
             RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
         )
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "es")
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Di algo...")
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.extra_prompt_recognizer))
 
         try {
             resultLauncher.launch(intent)
         } catch (a: ActivityNotFoundException) {
             Toast.makeText(
                 requireContext(),
-                "Lo siento, tu dispositivo no admite entrada de voz",
+                getString(R.string.no_voice_permissions),
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -108,6 +128,12 @@ class ImagePlayerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupObserver()
         viewModel.getImages()
+
+        textToSpeech = TextToSpeech(requireContext()) { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                Locale("es", "ES")
+            }
+        }
     }
 
     private fun setupObserver() {
@@ -185,8 +211,10 @@ class ImagePlayerFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
+        textToSpeech.stop()
+        textToSpeech.shutdown()
+        super.onDestroyView()
     }
 
 }
