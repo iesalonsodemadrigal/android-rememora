@@ -28,7 +28,11 @@
     <fragment
         android:id="@+id/fragment_imagen"
         android:name="com.iesam.rememora.features.images.presentation.ImagePlayerFragment"
-        tools:layout="@layout/fragment_images" />
+        tools:layout="@layout/fragment_images">
+        <deepLink
+            android:id="@+id/deepLink_image"
+            app:uri="rememora://images" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_video"
         android:name="com.iesam.rememora.features.video.presentation.VideoPlayerFragment"
