@@ -92,7 +92,7 @@ class ImagePlayerFragment : Fragment() {
     }
 
     private fun backImage() {
-        viewModel.saveImage(images[numImage].id, 0)
+        viewModel.saveImage(images[numImage], 0)
         if (numImage > 0) {
             numImage--
         }
@@ -101,7 +101,7 @@ class ImagePlayerFragment : Fragment() {
     }
 
     private fun nextImage() {
-        viewModel.saveImage(images[numImage].id, 0)
+        viewModel.saveImage(images[numImage], 0)
         if (numImage < (images.size - 1)) {
             numImage++
         }

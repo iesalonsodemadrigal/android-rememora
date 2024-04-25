@@ -26,8 +26,7 @@ class ImageRemoteDataSource @Inject constructor(
                     .child("${uid}/photos/album_1/photo_$id")
                     .setValue(
                         input.toRemote()
-                    )
-                    .await()
+                    ).await()
                 return true.right()
             }
             return ErrorApp.ServerError.left()

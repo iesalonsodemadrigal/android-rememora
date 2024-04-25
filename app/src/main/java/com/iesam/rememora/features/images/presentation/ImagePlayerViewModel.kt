@@ -24,11 +24,11 @@ class ImagePlayerViewModel @Inject constructor(
     private val _uiState = MutableLiveData<UiState>()
     val uiState: LiveData<UiState> get() = _uiState
 
-    fun saveImage(idImage: String, reaction: Int) {
+    fun saveImage(image: Image, reaction: Int) {
         _uiState.value = UiState(isLoading = true)
         viewModelScope.launch(Dispatchers.IO) {
             saveImageUseCase(
-                idImage,
+                image,
                 reaction
             )
         }

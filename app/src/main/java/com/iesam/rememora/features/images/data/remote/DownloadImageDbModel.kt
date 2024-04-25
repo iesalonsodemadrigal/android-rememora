@@ -12,11 +12,15 @@ data class DownloadImageDbModel(
 )
 
 data class UploadImageDbModel(
+    val description: String,
+    val id: String,
+    var source: String,
+    val title: String,
     val reaction: Int?
 )
 
 fun DownloadImageDbModel.toModel(): Image =
-    Image(this.id!!, this.description!!, this.source!!, this.title!!, this.reaction)
+    Image(this.description!!, this.id!!, this.source!!, this.title!!, this.reaction)
 
 fun SaveImageUseCase.Input.toRemote(): UploadImageDbModel =
-    UploadImageDbModel(this.reaction)
+    UploadImageDbModel(this.description, this.id, this.image, this.title, this.reaction)

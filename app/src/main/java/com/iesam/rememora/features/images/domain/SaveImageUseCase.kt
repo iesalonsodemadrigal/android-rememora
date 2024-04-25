@@ -10,11 +10,11 @@ class SaveImageUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(
-        id: String,
-        reaction: Int?
+        image: Image?,
+        reaction: Int
     ): Either<ErrorApp, Boolean> {
-        return if (reaction != null) {
-            val input = Input(id, reaction)
+        return if (image != null) {
+            val input = Input(image.id, image.title, image.description, image.source, reaction)
             imageRepository.saveImage(input)
         } else {
             ErrorApp.UnknownError.left()
@@ -23,6 +23,9 @@ class SaveImageUseCase @Inject constructor(
 
     data class Input(
         val id: String,
+        val title: String,
+        val description: String,
+        val image: String,
         val reaction: Int
     )
 
