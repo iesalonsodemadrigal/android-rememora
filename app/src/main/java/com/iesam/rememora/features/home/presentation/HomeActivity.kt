@@ -1,19 +1,21 @@
 package com.iesam.rememora.features.home.presentation
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import com.getkeepsafe.taptargetview.TapTargetView
 import com.iesam.rememora.R
 import com.iesam.rememora.app.extensions.createTarget
 import com.iesam.rememora.databinding.ActivityHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
-import android.content.Intent
-import android.net.Uri
-import android.util.Log
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
+
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
@@ -24,15 +26,23 @@ class HomeActivity : AppCompatActivity() {
     private val viewModel by viewModels<HomeViewModel>()
     private lateinit var navController: NavController
 
+    private val RECORD_AUDIO_PERMISSION_CODE = 101
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupNavigation()
+
+        if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            requestAudioPermission()
+        }
+
         val intent = intent
-        if (intent != null){
+        if (intent != null) {
             handleIntent(intent)
         }
+
         setupView()
     }
 
@@ -42,18 +52,11 @@ class HomeActivity : AppCompatActivity() {
         navController = navHostFragment.navController
     }
 
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        handleIntent(intent)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        val intent = intent
-
-        if (intent != null){
-            handleIntent(intent)
-        }
+    private fun requestAudioPermission() {
+        requestPermissions(
+            arrayOf(Manifest.permission.RECORD_AUDIO),
+            RECORD_AUDIO_PERMISSION_CODE
+        )
     }
 
     private fun handleIntent(intent: Intent?) {
@@ -89,6 +92,11 @@ class HomeActivity : AppCompatActivity() {
             }
         }
         //tutorial()
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        handleIntent(intent)
     }
 
     private fun tutorial() {

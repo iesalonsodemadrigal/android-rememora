@@ -1,14 +1,22 @@
 package com.iesam.rememora.features.images.presentation
 
-
+import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
+import com.iesam.rememora.R
 import com.iesam.rememora.app.extensions.hide
 import com.iesam.rememora.app.extensions.show
 import com.iesam.rememora.app.presentation.error.ErrorUiModel
@@ -27,6 +35,23 @@ class ImagePlayerFragment : Fragment() {
     private var images: List<Image> = listOf()
 
     private var numImage = 0
+
+    private val resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = it.data
+                if (data != null) {
+                    val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                    val spokenText = result?.get(0) ?: ""
+                    if (spokenText == getString(R.string.command_next)) {
+                        nextImage()
+                    } else if (spokenText == getString(R.string.command_previous)) {
+                        backImage()
+                    }
+                }
+            }
+        }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,6 +72,33 @@ class ImagePlayerFragment : Fragment() {
                 nextImage()
             }
         }
+        binding.mediaControls.microButton.setOnClickListener {
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.RECORD_AUDIO
+                ) == PackageManager.PERMISSION_GRANTED
+            ){
+                promptSpeechInput()
+            }else {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.no_voice_permissions),
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    private fun promptSpeechInput() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        intent.putExtra(
+            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+        )
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "es")
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.extra_prompt_recognizer))
+
+        resultLauncher.launch(intent)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -133,6 +185,5 @@ class ImagePlayerFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 
 }
