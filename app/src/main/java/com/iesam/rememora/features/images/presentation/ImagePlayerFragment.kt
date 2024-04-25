@@ -2,7 +2,6 @@ package com.iesam.rememora.features.images.presentation
 
 import android.Manifest
 import android.app.Activity
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -11,13 +10,13 @@ import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.iesam.rememora.R
 import com.iesam.rememora.app.extensions.hide
 import com.iesam.rememora.app.extensions.show
@@ -93,13 +92,19 @@ class ImagePlayerFragment : Fragment() {
                 nextImage()
             }
         }
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.RECORD_AUDIO
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            binding.mediaControls.microButton.setOnClickListener {
+        binding.mediaControls.microButton.setOnClickListener {
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.RECORD_AUDIO
+                ) == PackageManager.PERMISSION_GRANTED
+            ){
                 promptSpeechInput()
+            }else {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.no_voice_permissions),
+                    Snackbar.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -113,15 +118,7 @@ class ImagePlayerFragment : Fragment() {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "es")
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.extra_prompt_recognizer))
 
-        try {
-            resultLauncher.launch(intent)
-        } catch (a: ActivityNotFoundException) {
-            Toast.makeText(
-                requireContext(),
-                getString(R.string.no_voice_permissions),
-                Toast.LENGTH_SHORT
-            ).show()
-        }
+        resultLauncher.launch(intent)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -211,6 +208,7 @@ class ImagePlayerFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
         textToSpeech.stop()
         textToSpeech.shutdown()
