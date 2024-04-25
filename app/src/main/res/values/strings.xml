@@ -40,10 +40,10 @@
     <string name="tutorial_description_photo"> </string>
 
     <string name="shortcut_photo_label">Fotos</string>
+
     <string name="no_voice_permissions">Lo siento, tu dispositivo no admite entrada de voz</string>
     <string name="command_next">siguiente</string>
     <string name="command_previous">anterior</string>
     <string name="extra_prompt_recognizer">Dime qué quieres hacer</string>
-
 
 </resources>
