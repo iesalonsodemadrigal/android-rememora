@@ -1,9 +1,7 @@
 package com.iesam.rememora.features.images.presentation
 
-
 import android.Manifest
 import android.app.Activity
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -11,13 +9,14 @@ import android.speech.RecognizerIntent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
+import com.iesam.rememora.R
 import com.iesam.rememora.app.extensions.hide
 import com.iesam.rememora.app.extensions.show
 import com.iesam.rememora.app.presentation.error.ErrorUiModel
@@ -44,9 +43,9 @@ class ImagePlayerFragment : Fragment() {
                 if (data != null) {
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     val spokenText = result?.get(0) ?: ""
-                    if (spokenText == "siguiente") {
+                    if (spokenText == getString(R.string.command_next)) {
                         nextImage()
-                    } else if (spokenText == "anterior") {
+                    } else if (spokenText == getString(R.string.command_previous)) {
                         backImage()
                     }
                 }
@@ -91,15 +90,15 @@ class ImagePlayerFragment : Fragment() {
             RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
         )
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "es")
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Di algo...")
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.extra_prompt_recognizer))
 
         try {
             resultLauncher.launch(intent)
-        } catch (a: ActivityNotFoundException) {
-            Toast.makeText(
-                requireContext(),
-                "Lo siento, tu dispositivo no admite entrada de voz",
-                Toast.LENGTH_SHORT
+        } catch (e : Exception) {
+            Snackbar.make(
+                binding.root,
+                getString(R.string.no_voice_permissions),
+                Snackbar.LENGTH_SHORT
             ).show()
         }
     }
