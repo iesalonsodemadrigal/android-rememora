@@ -72,13 +72,19 @@ class ImagePlayerFragment : Fragment() {
                 nextImage()
             }
         }
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.RECORD_AUDIO
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            binding.mediaControls.microButton.setOnClickListener {
+        binding.mediaControls.microButton.setOnClickListener {
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.RECORD_AUDIO
+                ) == PackageManager.PERMISSION_GRANTED
+            ){
                 promptSpeechInput()
+            }else {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.no_voice_permissions),
+                    Snackbar.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -92,15 +98,7 @@ class ImagePlayerFragment : Fragment() {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "es")
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.extra_prompt_recognizer))
 
-        try {
-            resultLauncher.launch(intent)
-        } catch (e : Exception) {
-            Snackbar.make(
-                binding.root,
-                getString(R.string.no_voice_permissions),
-                Snackbar.LENGTH_SHORT
-            ).show()
-        }
+        resultLauncher.launch(intent)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
