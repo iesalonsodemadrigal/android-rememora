@@ -47,6 +47,8 @@ class ImagePlayerFragment : Fragment() {
                 if (data != null) {
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     val spokenText = result?.get(0) ?: ""
+                    viewModel.getIntention(spokenText)
+                    /*
                     if (spokenText == getString(R.string.command_next)) {
                         if (numImage == (images.size-1)){
                             val response = getString(R.string.voice_response_last_picture)
@@ -65,6 +67,7 @@ class ImagePlayerFragment : Fragment() {
                         val response = getString(R.string.voice_response_command_not_exist)
                         speakOut(response)
                     }
+                     */
                 }
             }
         }
@@ -97,9 +100,9 @@ class ImagePlayerFragment : Fragment() {
                     requireContext(),
                     Manifest.permission.RECORD_AUDIO
                 ) == PackageManager.PERMISSION_GRANTED
-            ){
+            ) {
                 promptSpeechInput()
-            }else {
+            } else {
                 Snackbar.make(
                     binding.root,
                     getString(R.string.no_voice_permissions),
@@ -149,6 +152,9 @@ class ImagePlayerFragment : Fragment() {
                         }
                         refreshImage()
                         updateButtons()
+                    }
+                    it.intention?.apply {
+                        speakOut(this)
                     }
                 }
             }
