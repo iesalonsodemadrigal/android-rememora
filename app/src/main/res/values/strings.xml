@@ -40,6 +40,9 @@
     <string name="tutorial_description_photo"> </string>
 
     <string name="shortcut_photo_label">Fotos</string>
+    <string name="shortcut_videos_label">Videos</string>
+    <string name="shortcut_music_label">Musica</string>
+    <string name="shortcut_audios_label">Audios</string>
     <string name="no_voice_permissions">Lo siento, tu dispositivo no admite entrada de voz</string>
     <string name="extra_prompt_recognizer">Dime qué quieres hacer</string>
     <string name="voice_response_command_not_exist">Comando no disponible</string>
@@ -50,5 +53,6 @@
     <string name="command_music">música</string>
     <string name="command_audio">audios</string>
     <string name="command_video">vídeos</string>
+
 
 </resources>

@@ -63,7 +63,11 @@ class HomeActivity : AppCompatActivity() {
         val uri: Uri? = intent?.data
         val action: String? = intent?.action
 
-        if (uri.toString() == "rememora://images" && action == "android.intent.action.VIEW") {
+        if (
+            (uri.toString() == "rememora://images" || uri.toString() == "rememora://videos" ||
+                    uri.toString() == "rememora://music" || uri.toString() == "rememora://audio")
+            && action == "android.intent.action.VIEW"
+        ) {
             navController.handleDeepLink(intent)
         }
     }
