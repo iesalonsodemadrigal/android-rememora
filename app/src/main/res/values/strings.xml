@@ -47,5 +47,8 @@
     <string name="voice_response_last_picture">Estás viendo la última imagen</string>
     <string name="command_next">siguiente</string>
     <string name="command_previous">anterior</string>
+    <string name="command_music">música</string>
+    <string name="command_audio">audios</string>
+    <string name="command_video">vídeos</string>
 
 </resources>

@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.iesam.rememora.R
@@ -61,7 +62,17 @@ class ImagePlayerFragment : Fragment() {
                         }else {
                             backImage()
                         }
-                    } else {
+                    } else if (spokenText == getString(R.string.command_video)){
+                        Navigation.findNavController(requireActivity(), R.id.fragment_container)
+                            .navigate(R.id.fragment_video)
+                    } else if (spokenText == getString(R.string.command_music)){
+                        Navigation.findNavController(requireActivity(), R.id.fragment_container)
+                            .navigate(R.id.fragment_music)
+                    }else if (spokenText == getString(R.string.command_audio)){
+                        Navigation.findNavController(requireActivity(), R.id.fragment_container)
+                            .navigate(R.id.fragment_audio)
+                    }
+                    else {
                         val response = getString(R.string.voice_response_command_not_exist)
                         speakOut(response)
                     }
