@@ -26,6 +26,7 @@ class MusicPlayerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMusicBinding.inflate(inflater, container, false)
+        binding.mediaPlayer.setFragment(this)
         return binding.root
     }
 

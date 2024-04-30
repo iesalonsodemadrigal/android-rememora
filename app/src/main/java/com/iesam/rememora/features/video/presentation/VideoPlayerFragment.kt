@@ -27,8 +27,10 @@ class VideoPlayerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentVideosBinding.inflate(inflater, container, false)
+        binding.mediaPlayer.setFragment(this)
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

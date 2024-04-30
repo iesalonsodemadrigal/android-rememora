@@ -27,6 +27,7 @@ class AudioPlayerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAudioBinding.inflate(inflater, container, false)
+        binding.mediaPlayer.setFragment(this)
         return binding.root
     }
 

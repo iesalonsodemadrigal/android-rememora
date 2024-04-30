@@ -1,12 +1,23 @@
 package com.iesam.rememora.app.presentation.views
 
+import android.Manifest
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.speech.RecognizerIntent
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.navigation.Navigation
+import com.google.android.material.snackbar.Snackbar
 import com.iesam.rememora.R
 import com.iesam.rememora.databinding.ViewMediaplayerBinding
 
@@ -20,10 +31,75 @@ class MediaPlayerView @JvmOverloads constructor(
 
     private var exoPlayer: ExoPlayer
 
+    private var fragment: Fragment? = null
+
     init {
         exoPlayer = ExoPlayer.Builder(context).build()
         binding.mediaView.player = exoPlayer
         setupView()
+    }
+
+    private var resultLauncher: ActivityResultLauncher<Intent>? = null
+
+    fun setFragment(fragment: Fragment) {
+        this.fragment = fragment
+        this.resultLauncher =
+            fragment.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                if (it.resultCode == Activity.RESULT_OK) {
+                    val data: Intent? = it.data
+                    if (data != null) {
+                        val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                        val spokenText = result?.get(0) ?: ""
+                        when (spokenText) {
+                            "siguiente" -> playNextMedia()
+                            "anterior" -> playPreviousMedia()
+                            "reproducir" -> {
+                                if (!exoPlayer.isPlaying) {
+                                    playMusic()
+                                }
+                            }
+
+                            "pausar" -> {
+                                if (exoPlayer.isPlaying) {
+                                    pause()
+                                }
+                            }
+
+                            "fotos" -> {
+                                Navigation.findNavController(
+                                    fragment.requireActivity(),
+                                    R.id.fragment_container
+                                )
+                                    .navigate(R.id.fragment_imagen)
+                            }
+
+                            "música" -> {
+                                Navigation.findNavController(
+                                    fragment.requireActivity(),
+                                    R.id.fragment_container
+                                )
+                                    .navigate(R.id.fragment_music)
+                            }
+
+                            "vídeos" -> {
+                                Navigation.findNavController(
+                                    fragment.requireActivity(),
+                                    R.id.fragment_container
+                                )
+                                    .navigate(R.id.fragment_video)
+                            }
+
+                            "audios" -> {
+                                Navigation.findNavController(
+                                    fragment.requireActivity(),
+                                    R.id.fragment_container
+                                )
+                                    .navigate(R.id.fragment_audio)
+                            }
+                        }
+                    }
+                }
+            }
     }
 
     private fun setupView() {
@@ -50,6 +126,21 @@ class MediaPlayerView @JvmOverloads constructor(
             playPauseButton.setOnClickListener {
                 playOrPauseMedia()
             }
+            microButton.setOnClickListener {
+                if (ContextCompat.checkSelfPermission(
+                        context,
+                        Manifest.permission.RECORD_AUDIO
+                    ) == PackageManager.PERMISSION_GRANTED
+                ) {
+                    promptSpeechInput()
+                } else {
+                    Snackbar.make(
+                        binding.root,
+                        context.getString(R.string.no_voice_permissions),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
     }
 
@@ -74,7 +165,7 @@ class MediaPlayerView @JvmOverloads constructor(
         }
     }
 
-    private fun pause(){
+    private fun pause() {
         exoPlayer.let {
             it.pause()
             binding.playPauseButton.text = context.getString(R.string.label_buttom_play)
@@ -96,6 +187,22 @@ class MediaPlayerView @JvmOverloads constructor(
     private fun checkList() {
         binding.backButton.isEnabled = currentPosition > 0
         binding.nextButton.isEnabled = currentPosition < urlMediaList.size - 1
+    }
+
+    private fun promptSpeechInput() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        intent.putExtra(
+            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+        )
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "es")
+        intent.putExtra(
+            RecognizerIntent.EXTRA_PROMPT,
+            context.getString(R.string.extra_prompt_recognizer)
+        )
+
+        resultLauncher?.launch(intent)
+
     }
 
     fun render(mediaList: List<String>) {
