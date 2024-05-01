@@ -212,7 +212,6 @@ class ImagePlayerFragment : Fragment() {
         _binding = null
         textToSpeech.stop()
         textToSpeech.shutdown()
-        super.onDestroyView()
     }
 
 }
