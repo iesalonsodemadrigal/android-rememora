@@ -7,12 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.iesam.rememora.R
 import com.iesam.rememora.app.extensions.hide
 import com.iesam.rememora.app.extensions.show
 import com.iesam.rememora.app.presentation.error.ErrorUiModel
 import com.iesam.rememora.databinding.FragmentAudioBinding
-import com.iesam.rememora.features.home.presentation.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

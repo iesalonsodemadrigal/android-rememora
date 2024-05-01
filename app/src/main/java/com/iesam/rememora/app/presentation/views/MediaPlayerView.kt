@@ -51,21 +51,21 @@ class MediaPlayerView @JvmOverloads constructor(
                         val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                         val spokenText = result?.get(0) ?: ""
                         when (spokenText) {
-                            "siguiente" -> playNextMedia()
-                            "anterior" -> playPreviousMedia()
-                            "reproducir" -> {
+                            context.getString(R.string.command_next) -> playNextMedia()
+                            context.getString(R.string.command_previous) -> playPreviousMedia()
+                            context.getString(R.string.command_play) -> {
                                 if (!exoPlayer.isPlaying) {
                                     playMusic()
                                 }
                             }
 
-                            "pausar" -> {
+                            context.getString(R.string.command_pause) -> {
                                 if (exoPlayer.isPlaying) {
                                     pause()
                                 }
                             }
 
-                            "fotos" -> {
+                            context.getString(R.string.command_photos) -> {
                                 Navigation.findNavController(
                                     fragment.requireActivity(),
                                     R.id.fragment_container
@@ -73,7 +73,7 @@ class MediaPlayerView @JvmOverloads constructor(
                                     .navigate(R.id.fragment_imagen)
                             }
 
-                            "música" -> {
+                            context.getString(R.string.command_music) -> {
                                 Navigation.findNavController(
                                     fragment.requireActivity(),
                                     R.id.fragment_container
@@ -81,7 +81,7 @@ class MediaPlayerView @JvmOverloads constructor(
                                     .navigate(R.id.fragment_music)
                             }
 
-                            "vídeos" -> {
+                            context.getString(R.string.command_video) -> {
                                 Navigation.findNavController(
                                     fragment.requireActivity(),
                                     R.id.fragment_container
@@ -89,7 +89,7 @@ class MediaPlayerView @JvmOverloads constructor(
                                     .navigate(R.id.fragment_video)
                             }
 
-                            "audios" -> {
+                            context.getString(R.string.command_audio) -> {
                                 Navigation.findNavController(
                                     fragment.requireActivity(),
                                     R.id.fragment_container
@@ -145,13 +145,17 @@ class MediaPlayerView @JvmOverloads constructor(
     }
 
     private fun playNextMedia() {
-        currentPosition++
-        playMusic()
+        if (currentPosition < urlMediaList.size - 1) {
+            currentPosition++
+            playMusic()
+        }
     }
 
     private fun playPreviousMedia() {
-        currentPosition--
-        playMusic()
+        if (currentPosition > 0) {
+            currentPosition--
+            playMusic()
+        }
     }
 
     private fun playOrPauseMedia() {
@@ -174,14 +178,14 @@ class MediaPlayerView @JvmOverloads constructor(
 
     private fun playMusic() {
         checkList()
-        if (currentPosition < urlMediaList.size) {
-            val currentMusic = urlMediaList[currentPosition]
-            val mediaItem = MediaItem.fromUri(currentMusic)
-            exoPlayer.setMediaItem(mediaItem)
-            exoPlayer.prepare()
-            exoPlayer.play()
-            binding.playPauseButton.text = context.getString(R.string.label_buttom_pause)
-        }
+
+        val currentMusic = urlMediaList[currentPosition]
+        val mediaItem = MediaItem.fromUri(currentMusic)
+        exoPlayer.setMediaItem(mediaItem)
+        exoPlayer.prepare()
+        exoPlayer.play()
+        binding.playPauseButton.text = context.getString(R.string.label_buttom_pause)
+
     }
 
     private fun checkList() {
