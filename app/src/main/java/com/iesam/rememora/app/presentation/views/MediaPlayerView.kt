@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.speech.RecognizerIntent
+import android.speech.tts.TextToSpeech
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
@@ -20,6 +21,7 @@ import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
 import com.iesam.rememora.R
 import com.iesam.rememora.databinding.ViewMediaplayerBinding
+import java.util.Locale
 
 class MediaPlayerView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
@@ -31,18 +33,22 @@ class MediaPlayerView @JvmOverloads constructor(
 
     private var exoPlayer: ExoPlayer
 
-    private var fragment: Fragment? = null
+    private var textToSpeech: TextToSpeech
 
     init {
         exoPlayer = ExoPlayer.Builder(context).build()
         binding.mediaView.player = exoPlayer
+        textToSpeech = TextToSpeech(context) { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                Locale("es", "ES")
+            }
+        }
         setupView()
     }
 
     private var resultLauncher: ActivityResultLauncher<Intent>? = null
 
-    fun setFragment(fragment: Fragment) {
-        this.fragment = fragment
+    fun setFragment(fragment: Fragment, name: String) {
         this.resultLauncher =
             fragment.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 if (it.resultCode == Activity.RESULT_OK) {
@@ -56,12 +62,16 @@ class MediaPlayerView @JvmOverloads constructor(
                             context.getString(R.string.command_play) -> {
                                 if (!exoPlayer.isPlaying) {
                                     playMusic()
+                                } else {
+                                    speakOut(context.getString(R.string.voice_response_play))
                                 }
                             }
 
                             context.getString(R.string.command_pause) -> {
                                 if (exoPlayer.isPlaying) {
                                     pause()
+                                } else {
+                                    speakOut(context.getString(R.string.voice_response_pause))
                                 }
                             }
 
@@ -74,32 +84,51 @@ class MediaPlayerView @JvmOverloads constructor(
                             }
 
                             context.getString(R.string.command_music) -> {
-                                Navigation.findNavController(
-                                    fragment.requireActivity(),
-                                    R.id.fragment_container
-                                )
-                                    .navigate(R.id.fragment_music)
+                                if (name == context.getString(R.string.fragment_name_music)) {
+                                    speakOut(context.getString(R.string.voice_response_fragment_music))
+                                } else {
+                                    Navigation.findNavController(
+                                        fragment.requireActivity(),
+                                        R.id.fragment_container
+                                    )
+                                        .navigate(R.id.fragment_music)
+                                }
                             }
 
                             context.getString(R.string.command_video) -> {
-                                Navigation.findNavController(
-                                    fragment.requireActivity(),
-                                    R.id.fragment_container
-                                )
-                                    .navigate(R.id.fragment_video)
+                                if (name == context.getString(R.string.fragment_name_video)) {
+                                    speakOut(context.getString(R.string.voice_response_fragment_video))
+                                } else {
+                                    Navigation.findNavController(
+                                        fragment.requireActivity(),
+                                        R.id.fragment_container
+                                    )
+                                        .navigate(R.id.fragment_video)
+                                }
+
                             }
 
                             context.getString(R.string.command_audio) -> {
-                                Navigation.findNavController(
-                                    fragment.requireActivity(),
-                                    R.id.fragment_container
-                                )
-                                    .navigate(R.id.fragment_audio)
+                                if (name == context.getString(R.string.fragment_name_audio)) {
+                                    speakOut(context.getString(R.string.voice_response_fragment_audio))
+                                } else {
+                                    Navigation.findNavController(
+                                        fragment.requireActivity(),
+                                        R.id.fragment_container
+                                    )
+                                        .navigate(R.id.fragment_audio)
+                                }
                             }
+
+                            else -> speakOut(context.getString(R.string.voice_response_command_not_exist))
                         }
                     }
                 }
             }
+    }
+
+    private fun speakOut(text: String) {
+        textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 
     private fun setupView() {
@@ -148,6 +177,8 @@ class MediaPlayerView @JvmOverloads constructor(
         if (currentPosition < urlMediaList.size - 1) {
             currentPosition++
             playMusic()
+        } else {
+            speakOut(context.getString(R.string.voice_response_last))
         }
     }
 
@@ -155,6 +186,8 @@ class MediaPlayerView @JvmOverloads constructor(
         if (currentPosition > 0) {
             currentPosition--
             playMusic()
+        } else {
+            speakOut(context.getString(R.string.voice_response_first))
         }
     }
 
@@ -218,5 +251,7 @@ class MediaPlayerView @JvmOverloads constructor(
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         exoPlayer.release()
+        textToSpeech.stop()
+        textToSpeech.shutdown()
     }
 }
