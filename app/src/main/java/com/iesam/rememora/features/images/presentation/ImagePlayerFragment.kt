@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.speech.RecognizerIntent
+import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,7 @@ import com.iesam.rememora.app.presentation.error.ErrorUiModel
 import com.iesam.rememora.databinding.FragmentImagesBinding
 import com.iesam.rememora.features.images.domain.Image
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 
 @AndroidEntryPoint
 class ImagePlayerFragment : Fragment() {
@@ -36,6 +38,8 @@ class ImagePlayerFragment : Fragment() {
 
     private var numImage = 0
 
+    private lateinit var textToSpeech: TextToSpeech
+
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
@@ -44,14 +48,30 @@ class ImagePlayerFragment : Fragment() {
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     val spokenText = result?.get(0) ?: ""
                     if (spokenText == getString(R.string.command_next)) {
-                        nextImage()
+                        if (numImage == (images.size-1)){
+                            val response = getString(R.string.voice_response_last_picture)
+                            speakOut(response)
+                        }else{
+                            nextImage()
+                        }
                     } else if (spokenText == getString(R.string.command_previous)) {
-                        backImage()
+                        if(numImage == 0){
+                            val response = getString(R.string.voice_response_first_picture)
+                            speakOut(response)
+                        }else {
+                            backImage()
+                        }
+                    } else {
+                        val response = getString(R.string.voice_response_command_not_exist)
+                        speakOut(response)
                     }
                 }
             }
         }
 
+    private fun speakOut(text: String) {
+        textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -105,6 +125,12 @@ class ImagePlayerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupObserver()
         viewModel.getImages()
+
+        textToSpeech = TextToSpeech(requireContext()) { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                Locale("es", "ES")
+            }
+        }
     }
 
     private fun setupObserver() {
@@ -184,6 +210,8 @@ class ImagePlayerFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        textToSpeech.stop()
+        textToSpeech.shutdown()
     }
 
 }
