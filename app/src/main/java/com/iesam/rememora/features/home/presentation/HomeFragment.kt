@@ -32,6 +32,8 @@ class HomeFragment : Fragment() {
 
     private lateinit var speechRecognizer: SpeechRecognizer
 
+    private var destroySpeech = false
+
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
@@ -39,49 +41,55 @@ class HomeFragment : Fragment() {
                 if (data != null) {
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     val spokenText = result?.get(0) ?: ""
-                    when (spokenText) {
-                        getString(R.string.command_photos) ->
-                            Navigation.findNavController(
-                                requireActivity(),
-                                R.id.fragment_container
-                            )
-                                .navigate(R.id.fragment_imagen)
-
-                        getString(R.string.command_video) ->
-                            Navigation.findNavController(
-                                requireActivity(),
-                                R.id.fragment_container
-                            )
-                                .navigate(R.id.fragment_video)
-
-                        getString(R.string.command_music) ->
-                            Navigation.findNavController(
-                                requireActivity(),
-                                R.id.fragment_container
-                            )
-                                .navigate(R.id.fragment_music)
-
-                        getString(R.string.command_audio) ->
-                            Navigation.findNavController(
-                                requireActivity(),
-                                R.id.fragment_container
-                            )
-                                .navigate(R.id.fragment_audio)
-
-                        else -> {
-                            speakOut(getString(R.string.voice_response_command_not_exist))
-                        }
-
-                    }
+                    handleResult(spokenText)
                 }
             }
         }
+
+    private fun handleResult(command: String) {
+        if (command.contains(getString(R.string.command_photos))) {
+            speakOut(getString(R.string.voice_response_ok))
+            Navigation.findNavController(
+                requireActivity(),
+                R.id.fragment_container
+            )
+                .navigate(R.id.fragment_imagen)
+        } else if (command.contains(getString(R.string.command_video))) {
+            speakOut(getString(R.string.voice_response_ok))
+            Navigation.findNavController(
+                requireActivity(),
+                R.id.fragment_container
+            )
+                .navigate(R.id.fragment_video)
+        } else if (command.contains(getString(R.string.command_music))) {
+            speakOut(getString(R.string.voice_response_ok))
+            Navigation.findNavController(
+                requireActivity(),
+                R.id.fragment_container
+            )
+                .navigate(R.id.fragment_music)
+        } else if (command.contains(getString(R.string.command_audio))) {
+            speakOut(getString(R.string.voice_response_ok))
+            Navigation.findNavController(
+                requireActivity(),
+                R.id.fragment_container
+            )
+                .navigate(R.id.fragment_audio)
+        } else {
+            speakOut(getString(R.string.voice_response_command_not_exist))
+            startListening()
+        }
+    }
 
     private fun speakOut(text: String) {
         textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 
     private fun startListening() {
+        if (destroySpeech) {
+            createSpeechRecognizer()
+            destroySpeech = false
+        }
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         intent.putExtra(
             RecognizerIntent.EXTRA_LANGUAGE_MODEL,
@@ -109,45 +117,23 @@ class HomeFragment : Fragment() {
             override fun onBeginningOfSpeech() {}
             override fun onRmsChanged(rmsdB: Float) {}
             override fun onBufferReceived(buffer: ByteArray) {}
-            override fun onEndOfSpeech() {
+            override fun onEndOfSpeech() {}
+
+            override fun onError(error: Int) {
                 startListening()
             }
 
-            override fun onError(error: Int) {}
             override fun onResults(results: Bundle) {
                 val matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
                 if (matches != null && matches.size > 0) {
                     val command = matches[0]
-                    when (command) {
-                        getString(R.string.command_photos) ->
-                            Navigation.findNavController(
-                                requireActivity(),
-                                R.id.fragment_container
-                            )
-                                .navigate(R.id.fragment_imagen)
-
-                        getString(R.string.command_video) ->
-                            Navigation.findNavController(
-                                requireActivity(),
-                                R.id.fragment_container
-                            )
-                                .navigate(R.id.fragment_video)
-
-                        getString(R.string.command_music) ->
-                            Navigation.findNavController(
-                                requireActivity(),
-                                R.id.fragment_container
-                            )
-                                .navigate(R.id.fragment_music)
-
-                        getString(R.string.command_audio) ->
-                            Navigation.findNavController(
-                                requireActivity(),
-                                R.id.fragment_container
-                            )
-                                .navigate(R.id.fragment_audio)
-
-                        else -> startListening()
+                    if (command.contains(getString(R.string.keyword_1)) || command.contains(
+                            getString(R.string.keyword_2)
+                        )
+                    ) {
+                        handleResult(command)
+                    } else {
+                        startListening()
                     }
                 }
             }
@@ -177,7 +163,8 @@ class HomeFragment : Fragment() {
                     Manifest.permission.RECORD_AUDIO
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
-                speechRecognizer.stopListening()
+                speechRecognizer.destroy()
+                destroySpeech = true
                 promptSpeechInput()
             } else {
                 Snackbar.make(
@@ -188,7 +175,6 @@ class HomeFragment : Fragment() {
             }
         }
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -215,11 +201,11 @@ class HomeFragment : Fragment() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
+        speechRecognizer.stopListening()
         speechRecognizer.destroy()
         textToSpeech.stop()
         textToSpeech.shutdown()
-
+        super.onDestroy()
     }
 
 }
