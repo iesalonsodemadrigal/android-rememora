@@ -77,6 +77,9 @@ class ImagePlayerFragment : Fragment() {
                 backImage()
             }
             startListening()
+        } else if (command.contains(getString(R.string.command_photos))){
+            speakOut(getString(R.string.voice_response_fragment_photo))
+            startListening()
         } else if (command.contains(getString(R.string.command_video))) {
             speakOut(getString(R.string.voice_response_ok))
             Navigation.findNavController(requireActivity(), R.id.fragment_container)
@@ -105,7 +108,7 @@ class ImagePlayerFragment : Fragment() {
             RecognizerIntent.EXTRA_LANGUAGE_MODEL,
             RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
         )
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "es")
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, getString(R.string.language))
         speechRecognizer.startListening(intent)
     }
 
