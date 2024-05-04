@@ -53,6 +53,9 @@
     <string name="command_music">música</string>
     <string name="command_audio">audios</string>
     <string name="command_video">vídeos</string>
+    <string name="command_photos">fotos</string>
+    <string name="command_play">reproducir</string>
+    <string name="command_pause">pausar</string>
     <string name="deeplink_photos">rememora://images</string>
     <string name="deeplink_videos">rememora://videos</string>
     <string name="deeplink_music">rememora://music</string>
