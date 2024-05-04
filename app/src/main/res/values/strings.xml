@@ -55,6 +55,7 @@
     <string name="voice_response_fragment_music">Ya está en música</string>
     <string name="voice_response_fragment_audio">Ya está en audios</string>
     <string name="voice_response_fragment_video">Ya está en vídeos</string>
+    <string name="voice_response_fragment_photo">Ya está en fotos</string>
     <string name="command_next">siguiente</string>
     <string name="command_previous">anterior</string>
     <string name="command_music">música</string>
@@ -66,5 +67,13 @@
     <string name="fragment_name_audio">audio</string>
     <string name="fragment_name_video">video</string>
     <string name="fragment_name_music">music</string>
+    <string name="deeplink_photos">rememora://images</string>
+    <string name="deeplink_videos">rememora://videos</string>
+    <string name="deeplink_music">rememora://music</string>
+    <string name="deeplink_audio">rememora://audio</string>
+    <string name="action_deeplink">android.intent.action.VIEW</string>
+
+    <string name="language">es</string>
+    <string name="country">ES</string>
 
 </resources>

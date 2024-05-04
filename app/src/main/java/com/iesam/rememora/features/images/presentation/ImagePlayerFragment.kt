@@ -49,30 +49,31 @@ class ImagePlayerFragment : Fragment() {
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     val spokenText = result?.get(0) ?: ""
                     if (spokenText == getString(R.string.command_next)) {
-                        if (numImage == (images.size-1)){
+                        if (numImage == (images.size - 1)) {
                             val response = getString(R.string.voice_response_last_picture)
                             speakOut(response)
-                        }else{
+                        } else {
                             nextImage()
                         }
                     } else if (spokenText == getString(R.string.command_previous)) {
-                        if(numImage == 0){
+                        if (numImage == 0) {
                             val response = getString(R.string.voice_response_first_picture)
                             speakOut(response)
-                        }else {
+                        } else {
                             backImage()
                         }
-                    } else if (spokenText == getString(R.string.command_video)){
+                    } else if (spokenText == getString(R.string.command_video)) {
                         Navigation.findNavController(requireActivity(), R.id.fragment_container)
                             .navigate(R.id.fragment_video)
-                    } else if (spokenText == getString(R.string.command_music)){
+                    } else if (spokenText == getString(R.string.command_music)) {
                         Navigation.findNavController(requireActivity(), R.id.fragment_container)
                             .navigate(R.id.fragment_music)
-                    }else if (spokenText == getString(R.string.command_audio)){
+                    } else if (spokenText == getString(R.string.command_audio)) {
                         Navigation.findNavController(requireActivity(), R.id.fragment_container)
                             .navigate(R.id.fragment_audio)
-                    }
-                    else {
+                    } else if (spokenText == getString(R.string.command_photos)) {
+                        speakOut(getString(R.string.voice_response_fragment_photo))
+                    } else {
                         val response = getString(R.string.voice_response_command_not_exist)
                         speakOut(response)
                     }
@@ -108,9 +109,9 @@ class ImagePlayerFragment : Fragment() {
                     requireContext(),
                     Manifest.permission.RECORD_AUDIO
                 ) == PackageManager.PERMISSION_GRANTED
-            ){
+            ) {
                 promptSpeechInput()
-            }else {
+            } else {
                 Snackbar.make(
                     binding.root,
                     getString(R.string.no_voice_permissions),
@@ -126,7 +127,7 @@ class ImagePlayerFragment : Fragment() {
             RecognizerIntent.EXTRA_LANGUAGE_MODEL,
             RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
         )
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "es")
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, getString(R.string.language))
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.extra_prompt_recognizer))
 
         resultLauncher.launch(intent)
@@ -139,7 +140,7 @@ class ImagePlayerFragment : Fragment() {
 
         textToSpeech = TextToSpeech(requireContext()) { status ->
             if (status == TextToSpeech.SUCCESS) {
-                Locale("es", "ES")
+                Locale(getString(R.string.language), getString(R.string.country))
             }
         }
     }
@@ -223,7 +224,6 @@ class ImagePlayerFragment : Fragment() {
         _binding = null
         textToSpeech.stop()
         textToSpeech.shutdown()
-        super.onDestroyView()
     }
 
 }
