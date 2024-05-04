@@ -151,7 +151,7 @@ class HomeFragment : Fragment() {
             RecognizerIntent.EXTRA_LANGUAGE_MODEL,
             RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
         )
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "es")
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, getString(R.string.language))
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.extra_prompt_recognizer))
 
         resultLauncher.launch(intent)
@@ -183,7 +183,7 @@ class HomeFragment : Fragment() {
 
         textToSpeech = TextToSpeech(requireContext()) { status ->
             if (status == TextToSpeech.SUCCESS) {
-                Locale("es", "ES")
+                Locale(getString(R.string.language), getString(R.string.country))
             }
         }
 
