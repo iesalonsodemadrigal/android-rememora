@@ -40,7 +40,7 @@ class MediaPlayerView @JvmOverloads constructor(
         binding.mediaView.player = exoPlayer
         textToSpeech = TextToSpeech(context) { status ->
             if (status == TextToSpeech.SUCCESS) {
-                Locale("es", "ES")
+                Locale(context.getString(R.string.language), context.getString(R.string.country))
             }
         }
         setupView()
