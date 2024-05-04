@@ -232,7 +232,7 @@ class MediaPlayerView @JvmOverloads constructor(
             RecognizerIntent.EXTRA_LANGUAGE_MODEL,
             RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
         )
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "es")
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, context.getString(R.string.language))
         intent.putExtra(
             RecognizerIntent.EXTRA_PROMPT,
             context.getString(R.string.extra_prompt_recognizer)

@@ -63,8 +63,13 @@
     <string name="command_photos">fotos</string>
     <string name="command_play">reproducir</string>
     <string name="command_pause">pausar</string>
-    <string name="fragment_name_audio">audio</string>
-    <string name="fragment_name_video">video</string>
-    <string name="fragment_name_music">music</string>
+    <string name="deeplink_photos">rememora://images</string>
+    <string name="deeplink_videos">rememora://videos</string>
+    <string name="deeplink_music">rememora://music</string>
+    <string name="deeplink_audio">rememora://audio</string>
+    <string name="action_deeplink">android.intent.action.VIEW</string>
+
+    <string name="language">es</string>
+    <string name="country">ES</string>
 
 </resources>
