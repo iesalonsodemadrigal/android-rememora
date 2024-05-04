@@ -36,15 +36,27 @@
     <fragment
         android:id="@+id/fragment_video"
         android:name="com.iesam.rememora.features.video.presentation.VideoPlayerFragment"
-        tools:layaout="" />
+        tools:layaout="" >
+        <deepLink
+            android:id="@+id/deepLink_video"
+            app:uri="rememora://videos" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_music"
         android:name="com.iesam.rememora.features.music.presentation.MusicPlayerFragment"
-        tools:layaout="" />
+        tools:layaout="" >
+        <deepLink
+            android:id="@+id/deepLink_music"
+            app:uri="rememora://music" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_audio"
         android:name="com.iesam.rememora.features.audio.presentation.AudioPlayerFragment"
-        tools:layout="@layout/fragment_audio" />
+        tools:layout="@layout/fragment_audio" >
+        <deepLink
+            android:id="@+id/deepLink_audio"
+            app:uri="rememora://audio" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_login"
         android:name="com.iesam.rememora.core.account.presentation.LoginFragment">

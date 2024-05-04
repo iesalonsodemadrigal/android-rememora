@@ -40,6 +40,9 @@
 
                 <data android:scheme="rememora" />
                 <data android:path="/images" />
+                <data android:path="/videos" />
+                <data android:path="/music" />
+                <data android:path="/audio" />
             </intent-filter>
 
             <meta-data

@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.iesam.rememora.R
@@ -61,7 +62,17 @@ class ImagePlayerFragment : Fragment() {
                         }else {
                             backImage()
                         }
-                    } else {
+                    } else if (spokenText == getString(R.string.command_video)){
+                        Navigation.findNavController(requireActivity(), R.id.fragment_container)
+                            .navigate(R.id.fragment_video)
+                    } else if (spokenText == getString(R.string.command_music)){
+                        Navigation.findNavController(requireActivity(), R.id.fragment_container)
+                            .navigate(R.id.fragment_music)
+                    }else if (spokenText == getString(R.string.command_audio)){
+                        Navigation.findNavController(requireActivity(), R.id.fragment_container)
+                            .navigate(R.id.fragment_audio)
+                    }
+                    else {
                         val response = getString(R.string.voice_response_command_not_exist)
                         speakOut(response)
                     }
@@ -115,7 +126,7 @@ class ImagePlayerFragment : Fragment() {
             RecognizerIntent.EXTRA_LANGUAGE_MODEL,
             RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
         )
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "es")
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, getString(R.string.language))
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.extra_prompt_recognizer))
 
         resultLauncher.launch(intent)
@@ -128,7 +139,7 @@ class ImagePlayerFragment : Fragment() {
 
         textToSpeech = TextToSpeech(requireContext()) { status ->
             if (status == TextToSpeech.SUCCESS) {
-                Locale("es", "ES")
+                Locale(getString(R.string.language), getString(R.string.country))
             }
         }
     }
