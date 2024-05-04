@@ -65,18 +65,17 @@ class ImagePlayerFragment : Fragment() {
                 val response = getString(R.string.voice_response_last_picture)
                 speakOut(response)
             } else {
+                speakOut(getString(R.string.voice_response_ok))
                 nextImage()
             }
-            speakOut(getString(R.string.voice_response_ok))
             startListening()
         } else if (command.contains(getString(R.string.command_previous))) {
             if (numImage == 0) {
-                val response = getString(R.string.voice_response_first_picture)
-                speakOut(response)
+                speakOut(getString(R.string.voice_response_first_picture))
             } else {
+                speakOut(getString(R.string.voice_response_ok))
                 backImage()
             }
-            speakOut(getString(R.string.voice_response_ok))
             startListening()
         } else if (command.contains(getString(R.string.command_video))) {
             speakOut(getString(R.string.voice_response_ok))
@@ -144,6 +143,8 @@ class ImagePlayerFragment : Fragment() {
                     val command = matches[0]
                     if (command.contains(getString(R.string.keyword_1)) || command.contains(
                             getString(R.string.keyword_2)
+                        ) || command.contains(getString(R.string.keyword_3)) || command.contains(
+                            getString(R.string.keyword_4)
                         )
                     ) {
                         handleResult(command)

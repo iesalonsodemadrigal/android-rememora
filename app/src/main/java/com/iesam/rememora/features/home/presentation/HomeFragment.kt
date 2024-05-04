@@ -129,6 +129,8 @@ class HomeFragment : Fragment() {
                     val command = matches[0]
                     if (command.contains(getString(R.string.keyword_1)) || command.contains(
                             getString(R.string.keyword_2)
+                        ) || command.contains(getString(R.string.keyword_3)) || command.contains(
+                            getString(R.string.keyword_4)
                         )
                     ) {
                         handleResult(command)

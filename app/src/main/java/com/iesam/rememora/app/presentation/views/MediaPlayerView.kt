@@ -80,6 +80,12 @@ class MediaPlayerView @JvmOverloads constructor(
                     val command = matches[0]
                     if (command.contains(context.getString(R.string.keyword_1)) || command.contains(
                             context.getString(R.string.keyword_2)
+                        ) || command.contains(
+                            context.getString(R.string.keyword_3)
+                        ) || command.contains(
+                            context.getString(
+                                R.string.keyword_4
+                            )
                         )
                     ) {
                         handleResult(command)
@@ -326,6 +332,7 @@ class MediaPlayerView @JvmOverloads constructor(
         textToSpeech.stop()
         textToSpeech.shutdown()
         speechRecognizer.stopListening()
+        speechRecognizer.destroy()
         super.onDetachedFromWindow()
     }
 }
