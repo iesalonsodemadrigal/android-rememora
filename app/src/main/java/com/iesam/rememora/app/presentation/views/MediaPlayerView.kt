@@ -33,6 +33,8 @@ class MediaPlayerView @JvmOverloads constructor(
 
     private var exoPlayer: ExoPlayer
 
+    private var fragment: Fragment? = null
+
     private var textToSpeech: TextToSpeech
 
     init {
@@ -49,6 +51,7 @@ class MediaPlayerView @JvmOverloads constructor(
     private var resultLauncher: ActivityResultLauncher<Intent>? = null
 
     fun setFragment(fragment: Fragment, name: String) {
+        this.fragment = fragment
         this.resultLauncher =
             fragment.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 if (it.resultCode == Activity.RESULT_OK) {
