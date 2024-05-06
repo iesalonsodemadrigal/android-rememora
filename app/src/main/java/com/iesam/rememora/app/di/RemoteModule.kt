@@ -13,6 +13,9 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object RemoteModule {
+
+    const val BASE_URL_STORAGE = "gs://iesam-rememora.appspot.com/"
+
     @Singleton
     @Provides
     fun provideFirebaseDataBase(): FirebaseDatabase = FirebaseDatabase.getInstance()
