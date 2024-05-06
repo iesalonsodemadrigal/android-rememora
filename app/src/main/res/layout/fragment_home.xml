@@ -2,16 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_home"
-    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_gravity="center"
     android:gravity="center"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
 
     <ImageView
-        android:src="@mipmap/ic_launcher"
         android:layout_width="256dp"
-        android:layout_height="256dp"/>
+        android:layout_height="256dp"
+        android:src="@mipmap/ic_launcher" />
 
     <com.google.android.material.textview.MaterialTextView
         style="@style/TextAppearance.AppCompat.Display2"
@@ -22,6 +22,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/micro_button"
+            android:layout_width="@dimen/layout_height_menu_bottom"
+            android:layout_height="@dimen/layout_height_menu_bottom"
+            android:layout_marginTop="@dimen/spacing_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_mic"
+            app:layout_constraintBottom_toBottomOf="@id/micro_button"
+            app:layout_constraintEnd_toEndOf="@id/micro_button"
+            app:layout_constraintStart_toStartOf="@id/micro_button"
+            app:layout_constraintTop_toTopOf="@id/micro_button" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </LinearLayout>
 
