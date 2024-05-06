@@ -37,10 +37,12 @@ class HomeActivity : AppCompatActivity() {
     fun hideHomeButton() {
         binding.actionBackToHome.hide()
         binding.labelBackToHome.hide()
+        binding.imageBackToHome.hide()
     }
 
     fun showHomeButton() {
         binding.actionBackToHome.show()
         binding.labelBackToHome.show()
+        binding.imageBackToHome.show()
     }
 }

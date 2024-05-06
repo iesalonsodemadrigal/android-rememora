@@ -37,7 +37,7 @@ class InitialMenuFragment : Fragment() {
                     InitialMenuFragmentDirections.actionGlobalAudioFragment()
                 )
             }
-            labelAudio.setOnClickListener {
+            labelAudio?.setOnClickListener {
                 findNavController().navigate(
                     InitialMenuFragmentDirections.actionGlobalAudioFragment()
                 )
@@ -47,7 +47,7 @@ class InitialMenuFragment : Fragment() {
                     InitialMenuFragmentDirections.actionGlobalVideoFragment()
                 )
             }
-            labelVideo.setOnClickListener {
+            labelVideo?.setOnClickListener {
                 findNavController().navigate(
                     InitialMenuFragmentDirections.actionGlobalVideoFragment()
                 )
@@ -57,7 +57,7 @@ class InitialMenuFragment : Fragment() {
                     InitialMenuFragmentDirections.actionGlobalImageFragment()
                 )
             }
-            labelPhoto.setOnClickListener {
+            labelPhoto?.setOnClickListener {
                 findNavController().navigate(
                     InitialMenuFragmentDirections.actionGlobalImageFragment()
                 )
@@ -67,7 +67,7 @@ class InitialMenuFragment : Fragment() {
                     InitialMenuFragmentDirections.actionGlobalMusicFragment()
                 )
             }
-            labelMusic.setOnClickListener {
+            labelMusic?.setOnClickListener {
                 findNavController().navigate(
                     InitialMenuFragmentDirections.actionGlobalMusicFragment()
                 )
