@@ -13,25 +13,51 @@
         app:auto_show="false"
         app:artwork_display_mode="fill"
         app:default_artwork="@drawable/ic_voice_wave"
-        app:layout_constraintBottom_toTopOf="@id/bottomButtonContainer"
+        app:layout_constraintBottom_toTopOf="@id/bottom_speak"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:use_controller="false" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottom_speak"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/media_view"
+        app:layout_constraintBottom_toTopOf="@id/bottomButtonContainer"
+        android:layout_marginVertical="@dimen/spacing_vertical">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/micro_button"
+            android:layout_width="@dimen/layout_height_menu_bottom"
+            android:layout_height="@dimen/layout_height_menu_bottom"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_mic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/micro_button"
+            app:layout_constraintBottom_toBottomOf="@id/micro_button" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomButtonContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/spacing_vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/media_view">
+        app:layout_constraintTop_toBottomOf="@id/bottom_speak">
 
         <Button
             android:id="@+id/back_button"
             style="@style/MediaButtonStyle"
             android:layout_width="@dimen/layout_width_menu_bottom"
-            android:layout_height="@dimen/layout_height_menu_bottom"
+            android:layout_height="@dimen/layout_height_menu_bottom_player"
             android:text="@string/label_buttom_back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -40,7 +66,7 @@
             android:id="@+id/play_pause_button"
             style="@style/MediaButtonStyle"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/layout_height_menu_bottom"
+            android:layout_height="@dimen/layout_height_menu_bottom_player"
             android:text="@string/label_buttom_pause"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/next_button"
@@ -51,7 +77,7 @@
             android:id="@+id/next_button"
             style="@style/MediaButtonStyle"
             android:layout_width="@dimen/layout_width_menu_bottom"
-            android:layout_height="@dimen/layout_height_menu_bottom"
+            android:layout_height="@dimen/layout_height_menu_bottom_player"
             android:text="@string/label_buttom_next"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

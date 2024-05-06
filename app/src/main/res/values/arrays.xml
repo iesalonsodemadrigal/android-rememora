@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="photos_synonyms">
+        <item>fotos</item>
+        <item>imágenes</item>
+        <item>retratos</item>
+        <item>fotografías</item>
+        <item>instantáneas</item>
+    </array>
+
+    <array name="videos_synonyms">
+        <item>vídeos</item>
+        <item>películas</item>
+        <item>filmaciones</item>
+        <item>grabaciones</item>
+        <item>cintas</item>
+    </array>
+
+    <array name="music_synonyms">
+        <item>música</item>
+        <item>canciones</item>
+        <item>melodías</item>
+        <item>tonadas</item>
+        <item>temas</item>
+    </array>
+
+    <array name="audios_synonyms">
+        <item>audios</item>
+        <item>sonidos</item>
+        <item>grabaciones de sonido</item>
+        <item>voces</item>
+        <item>mensajes de voz</item>
+    </array>
+</resources>
