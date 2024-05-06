@@ -15,6 +15,8 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
 import com.iesam.rememora.R
@@ -27,6 +29,8 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel by viewModels<HomeViewModel>()
 
     private lateinit var textToSpeech: TextToSpeech
 
@@ -41,7 +45,8 @@ class HomeFragment : Fragment() {
                 if (data != null) {
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     val spokenText = result?.get(0) ?: ""
-                    handleResult(spokenText)
+                    //handleResult(spokenText)
+                    viewModel.getIntention(spokenText) //En vez de la frase del usuario se pasaría el prompt entero
                 }
             }
         }
@@ -133,7 +138,8 @@ class HomeFragment : Fragment() {
                             getString(R.string.keyword_4)
                         )
                     ) {
-                        handleResult(command)
+                        //handleResult(command)
+                        viewModel.getIntention(command) //En vez de la frase del usuario se pasaría el prompt entero
                     } else {
                         startListening()
                     }
@@ -180,6 +186,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupObserver()
 
         textToSpeech = TextToSpeech(requireContext()) { status ->
             if (status == TextToSpeech.SUCCESS) {
@@ -200,6 +207,24 @@ class HomeFragment : Fragment() {
                 Snackbar.LENGTH_SHORT
             ).show()
         }
+    }
+
+    private fun setupObserver() {
+        val observer = Observer<HomeViewModel.UiState> {
+            if (it.isLoading) {
+
+            } else {
+                if (it.errorApp != null) {
+
+                } else {
+                    it.intention?.apply {
+                        speakOut(this) //Para probarlo y saber la contestación de la IA
+                        //handleResult(this) //Comentado porque tengo que comprobar qué contesta exactamente la IA
+                    }
+                }
+            }
+        }
+        viewModel.uiState.observe(viewLifecycleOwner, observer)
     }
 
     override fun onDestroy() {
