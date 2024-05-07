@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.iesam.rememora.app.domain.ErrorApp
-import com.iesam.rememora.features.home.domain.GetIntentionIAUseCase
+import com.iesam.rememora.ia.domain.GetIntentionIAUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,10 +18,10 @@ class HomeViewModel @Inject constructor(private val getIntentionIAUseCase: GetIn
     private val _uiState = MutableLiveData<UiState>()
     val uiState: LiveData<UiState> get() = _uiState
 
-    fun getIntention(phrase: String) {
+    fun getIntention(prompt: String) {
         _uiState.value = UiState(isLoading = true)
         viewModelScope.launch(Dispatchers.IO) {
-            getIntentionIAUseCase(phrase).fold({
+            getIntentionIAUseCase(prompt).fold({
                 responseErrorIA(it)
             }, {
                 responseSuccessIA(it)

@@ -45,45 +45,26 @@ class HomeFragment : Fragment() {
                 if (data != null) {
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     val spokenText = result?.get(0) ?: ""
-                    //handleResult(spokenText)
-                    viewModel.getIntention(spokenText) //En vez de la frase del usuario se pasaría el prompt entero
+                    getIntention(spokenText)
                 }
             }
         }
 
-    private fun handleResult(command: String) {
-        if (command.contains(getString(R.string.command_photos))) {
-            speakOut(getString(R.string.voice_response_ok))
-            Navigation.findNavController(
-                requireActivity(),
-                R.id.fragment_container
-            )
-                .navigate(R.id.fragment_imagen)
-        } else if (command.contains(getString(R.string.command_video))) {
-            speakOut(getString(R.string.voice_response_ok))
-            Navigation.findNavController(
-                requireActivity(),
-                R.id.fragment_container
-            )
-                .navigate(R.id.fragment_video)
-        } else if (command.contains(getString(R.string.command_music))) {
-            speakOut(getString(R.string.voice_response_ok))
-            Navigation.findNavController(
-                requireActivity(),
-                R.id.fragment_container
-            )
-                .navigate(R.id.fragment_music)
-        } else if (command.contains(getString(R.string.command_audio))) {
-            speakOut(getString(R.string.voice_response_ok))
-            Navigation.findNavController(
-                requireActivity(),
-                R.id.fragment_container
-            )
-                .navigate(R.id.fragment_audio)
-        } else {
-            speakOut(getString(R.string.voice_response_command_not_exist))
-            startListening()
-        }
+    private fun getIntention(phrase: String) {
+        //Pasar esto a string
+        val prompt = "Quiero saber cuál es la intención del usuario en la pantalla de inicio " +
+                "de mi aplicación. Mi aplicación se llama Rememora y sirve para reproducir " +
+                "diferente contenido multimedia. En el inicio muestra un menú con las " +
+                "siguientes opciones: fotos, vídeos, imágenes y audio. Necesito que me " +
+                "digas cual es el botón que debe pulsar el usuario cuando quiere lo " +
+                "siguiente: \"${phrase}\".\n" +
+                "\n" +
+                "Tu respuesta debe ser el nombre del botón, es decir, solo la palabra " +
+                "\"fotos\" o \"vídeos\" o \"música\" o \"audios\", o una pregunta/frase " +
+                "corta si hay confusión. Cíñete a este tipo de respuesta, no me muestres " +
+                "información.\n"
+
+        viewModel.getIntention(prompt)
     }
 
     private fun speakOut(text: String) {
@@ -138,8 +119,7 @@ class HomeFragment : Fragment() {
                             getString(R.string.keyword_4)
                         )
                     ) {
-                        //handleResult(command)
-                        viewModel.getIntention(command) //En vez de la frase del usuario se pasaría el prompt entero
+                        getIntention(command)
                     } else {
                         startListening()
                     }
@@ -225,6 +205,41 @@ class HomeFragment : Fragment() {
             }
         }
         viewModel.uiState.observe(viewLifecycleOwner, observer)
+    }
+
+    private fun handleResult(command: String) {
+        if (command.contains(getString(R.string.command_photos))) {
+            speakOut(getString(R.string.voice_response_ok))
+            Navigation.findNavController(
+                requireActivity(),
+                R.id.fragment_container
+            )
+                .navigate(R.id.fragment_imagen)
+        } else if (command.contains(getString(R.string.command_video))) {
+            speakOut(getString(R.string.voice_response_ok))
+            Navigation.findNavController(
+                requireActivity(),
+                R.id.fragment_container
+            )
+                .navigate(R.id.fragment_video)
+        } else if (command.contains(getString(R.string.command_music))) {
+            speakOut(getString(R.string.voice_response_ok))
+            Navigation.findNavController(
+                requireActivity(),
+                R.id.fragment_container
+            )
+                .navigate(R.id.fragment_music)
+        } else if (command.contains(getString(R.string.command_audio))) {
+            speakOut(getString(R.string.voice_response_ok))
+            Navigation.findNavController(
+                requireActivity(),
+                R.id.fragment_container
+            )
+                .navigate(R.id.fragment_audio)
+        } else {
+            speakOut(getString(R.string.voice_response_command_not_exist))
+            startListening()
+        }
     }
 
     override fun onDestroy() {

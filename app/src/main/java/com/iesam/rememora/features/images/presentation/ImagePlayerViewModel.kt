@@ -9,13 +9,17 @@ import com.iesam.rememora.app.presentation.error.ErrorUiModel
 import com.iesam.rememora.app.presentation.error.toErrorUiModel
 import com.iesam.rememora.features.images.domain.GetImagesUseCase
 import com.iesam.rememora.features.images.domain.Image
+import com.iesam.rememora.ia.domain.GetIntentionIAUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ImagePlayerViewModel @Inject constructor(private val getImagesUseCase: GetImagesUseCase) :
+class ImagePlayerViewModel @Inject constructor(
+    private val getImagesUseCase: GetImagesUseCase,
+    private val getIntentionIAUseCase: GetIntentionIAUseCase
+) :
     ViewModel() {
     private val _uiState = MutableLiveData<UiState>()
     val uiState: LiveData<UiState> get() = _uiState
@@ -40,9 +44,29 @@ class ImagePlayerViewModel @Inject constructor(private val getImagesUseCase: Get
         _uiState.postValue(UiState(images = images))
     }
 
+    fun getIntention(phrase: String) {
+        _uiState.value = UiState(isLoading = true)
+        viewModelScope.launch(Dispatchers.IO) {
+            getIntentionIAUseCase(phrase).fold({
+                responseErrorIA(it)
+            }, {
+                responseSuccessIA(it)
+            })
+        }
+    }
+
+    private fun responseErrorIA(error: ErrorApp) {
+        _uiState.postValue(UiState(errorApp = error.toErrorUiModel()))
+    }
+
+    private fun responseSuccessIA(intention: String) {
+        _uiState.postValue(UiState(intention = intention))
+    }
+
     data class UiState(
         val errorApp: ErrorUiModel? = null,
         val isLoading: Boolean = false,
-        val images: List<Image>? = null
+        val images: List<Image>? = null,
+        val intention: String? = null
     )
 }

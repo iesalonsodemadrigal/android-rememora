@@ -16,6 +16,7 @@ import android.widget.FrameLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
@@ -41,6 +42,8 @@ class MediaPlayerView @JvmOverloads constructor(
     private var nameFragment: String = ""
 
     private var fragment: Fragment? = null
+
+    private var getIntention: ((String) -> Unit)? = null
 
     private var resultLauncher: ActivityResultLauncher<Intent>? = null
 
@@ -88,7 +91,9 @@ class MediaPlayerView @JvmOverloads constructor(
                             )
                         )
                     ) {
-                        handleResult(command)
+                        //handleResult(command)
+                        //Llamar al viewModel
+                        getIntention?.invoke(command)
                     } else {
                         startListening()
                     }
@@ -273,13 +278,19 @@ class MediaPlayerView @JvmOverloads constructor(
                     if (data != null) {
                         val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                         val spokenText = result?.get(0) ?: ""
-                        handleResult(spokenText)
+                        //handleResult(spokenText)
+                        //llamar al viewModel
+                        getIntention?.invoke(spokenText)
                     }
                 }
             }
     }
 
-    private fun speakOut(text: String) {
+    fun setOnCustomEventListener(listener: (String) -> Unit) {
+        this.getIntention = listener
+    }
+
+    /*private*/ fun speakOut(text: String) {
         textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 

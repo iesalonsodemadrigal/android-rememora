@@ -27,6 +27,22 @@ class VideoPlayerFragment : Fragment() {
     ): View {
         _binding = FragmentVideosBinding.inflate(inflater, container, false)
         binding.mediaPlayer.setFragment(this, getString(R.string.fragment_name_video))
+        binding.mediaPlayer.setOnCustomEventListener { phrase: String ->
+            //Pasar a un string
+            val prompt = "Tengo una aplicación llamada Rememora que sirve para ver ver diferente " +
+                    "contenido multimedia. A la izquierda hay un menú para navegar hacia el " +
+                    "diferente contenido con un botón para cada uno, es decir, fotos, vídeos, música o audios. En el centro" +
+                    " se visualiza el contenido y en la parte inferior hay otro menú con cuatro" +
+                    " botones: siguiente y anterior, para pasar, por ejemplo, de un video a otro" +
+                    ", un botón reproducir y otro pausar.\n" +
+                    "Quiero saber cuál es el botón que debe pulsar el usuario en la aplicación si" +
+                    " se encuentra viendo VIDEOS y quiere lo siguiente: \"${phrase}\".\n" +
+                    "Tu respuesta debe ser el nombre del botón o una pregunta o frase corta si hay" +
+                    " confusión. Es importante que te ciñas a este tipo de respuesta, no me" +
+                    " muestres más información."
+
+            viewModel.getIntention(prompt)
+        }
         return binding.root
     }
 
@@ -47,6 +63,10 @@ class VideoPlayerFragment : Fragment() {
                         }
                         binding.mediaPlayer.show()
                         binding.mediaPlayer.render(videoList)
+                    }
+                    it.intention?.let { intention ->
+                        //binding.mediaPlayer.handleResult(intention)
+                        binding.mediaPlayer.speakOut(intention)
                     }
                 }
             }
