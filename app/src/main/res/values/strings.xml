@@ -82,4 +82,34 @@
     <string name="keyword_3">oye</string>
     <string name="keyword_4">ey</string>
 
+    <string name="prompt_home">Tengo una aplicación llamada Rememora con los siguientes botones: fotos,
+        vídeos, música y audios. Si el usuario dice lo siguiente: "%s", ¿cuál es el botón que debe de pulsar?
+        Tu respuesta debe de ser el nombre del botón y, si no hay botón para lo que quiere hacer o no se
+        entiende, una frase o pregunta corta. </string>
+
+    <string name="prompt_images">Tengo una aplicación llamada Rememora con los siguientes botones: fotos,
+        vídeos, música, audios, siguiente y anterior. Si el usuario se encuentra viendo fotos y dice
+        lo siguiente: "%s", ¿cuál es el botón que debe de pulsar?
+        Tu respuesta debe de ser el nombre del botón y, si no hay botón para lo que quiere hacer o no se
+        entiende, una frase o pregunta corta. </string>
+
+    <string name="prompt_videos">Tengo una aplicación llamada Rememora con los siguientes botones: fotos,
+        vídeos, música, audios, siguiente, anterior, pausar y reproducir. Si el usuario se encuentra viendo
+        vídeos y dice lo siguiente: "%s", ¿cuál es el botón que debe de pulsar.
+        Tu respuesta debe de ser el nombre del botón y, si no hay botón para lo que quiere hacer o no se
+        entiende, una frase o pregunta corta. </string>
+
+    <string name="prompt_audios">Tengo una aplicación llamada Rememora con los siguientes botones: fotos,
+        vídeos, música, audios, siguiente, anterior, pausar y reproducir. Si el usuario se encuentra viendo
+        audios y dice lo siguiente: "%s", ¿cuál es el botón que debe de pulsar.
+        Tu respuesta debe de ser el nombre del botón y, si no hay botón para lo que quiere hacer o no se
+        entiende, una frase o pregunta corta. </string>
+
+    <string name="prompt_music">Tengo una aplicación llamada Rememora con los siguientes botones: fotos,
+        vídeos, música, audios, siguiente, anterior, pausar y reproducir. Si el usuario se encuentra viendo
+        música y dice lo siguiente: "%s", ¿cuál es el botón que debe de pulsar.
+        Tu respuesta debe de ser el nombre del botón y, si no hay botón para lo que quiere hacer o no se
+        entiende, una frase o pregunta corta. </string>
+
+
 </resources>

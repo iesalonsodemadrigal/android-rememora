@@ -51,18 +51,7 @@ class HomeFragment : Fragment() {
         }
 
     private fun getIntention(phrase: String) {
-        //Pasar esto a string
-        val prompt = "Quiero saber cuál es la intención del usuario en la pantalla de inicio " +
-                "de mi aplicación. Mi aplicación se llama Rememora y sirve para reproducir " +
-                "diferente contenido multimedia. En el inicio muestra un menú con las " +
-                "siguientes opciones: fotos, vídeos, imágenes y audio. Necesito que me " +
-                "digas cual es el botón que debe pulsar el usuario cuando quiere lo " +
-                "siguiente: \"${phrase}\".\n" +
-                "\n" +
-                "Tu respuesta debe ser el nombre del botón, es decir, solo la palabra " +
-                "\"fotos\" o \"vídeos\" o \"música\" o \"audios\", o una pregunta/frase " +
-                "corta si hay confusión. Cíñete a este tipo de respuesta, no me muestres " +
-                "información.\n"
+        val prompt = getString(R.string.prompt_home, phrase)
 
         viewModel.getIntention(prompt)
     }
@@ -198,8 +187,7 @@ class HomeFragment : Fragment() {
 
                 } else {
                     it.intention?.apply {
-                        speakOut(this) //Para probarlo y saber la contestación de la IA
-                        //handleResult(this) //Comentado porque tengo que comprobar qué contesta exactamente la IA
+                        handleResult(this.lowercase())
                     }
                 }
             }
@@ -207,29 +195,29 @@ class HomeFragment : Fragment() {
         viewModel.uiState.observe(viewLifecycleOwner, observer)
     }
 
-    private fun handleResult(command: String) {
-        if (command.contains(getString(R.string.command_photos))) {
+    private fun handleResult(intention: String) {
+        if (intention.contains(getString(R.string.command_photos))) {
             speakOut(getString(R.string.voice_response_ok))
             Navigation.findNavController(
                 requireActivity(),
                 R.id.fragment_container
             )
                 .navigate(R.id.fragment_imagen)
-        } else if (command.contains(getString(R.string.command_video))) {
+        } else if (intention.contains(getString(R.string.command_video))) {
             speakOut(getString(R.string.voice_response_ok))
             Navigation.findNavController(
                 requireActivity(),
                 R.id.fragment_container
             )
                 .navigate(R.id.fragment_video)
-        } else if (command.contains(getString(R.string.command_music))) {
+        } else if (intention.contains(getString(R.string.command_music))) {
             speakOut(getString(R.string.voice_response_ok))
             Navigation.findNavController(
                 requireActivity(),
                 R.id.fragment_container
             )
                 .navigate(R.id.fragment_music)
-        } else if (command.contains(getString(R.string.command_audio))) {
+        } else if (intention.contains(getString(R.string.command_audio))) {
             speakOut(getString(R.string.voice_response_ok))
             Navigation.findNavController(
                 requireActivity(),
@@ -237,7 +225,7 @@ class HomeFragment : Fragment() {
             )
                 .navigate(R.id.fragment_audio)
         } else {
-            speakOut(getString(R.string.voice_response_command_not_exist))
+            speakOut(intention)
             startListening()
         }
     }
