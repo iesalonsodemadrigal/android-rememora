@@ -186,7 +186,7 @@ class MediaPlayerView @JvmOverloads constructor(
                     .navigate(R.id.fragment_audio)
             }
         } else {
-            speakOut(intention)
+            speakOut(context.getString(R.string.voice_response_command_not_exist))
             startListening()
         }
     }

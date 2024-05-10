@@ -263,7 +263,7 @@ class ImagePlayerFragment : Fragment() {
             Navigation.findNavController(requireActivity(), R.id.fragment_container)
                 .navigate(R.id.fragment_audio)
         } else {
-            speakOut(intention)
+            speakOut(getString(R.string.voice_response_command_not_exist))
             startListening()
         }
     }
