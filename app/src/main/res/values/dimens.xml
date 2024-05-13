@@ -16,7 +16,7 @@
     <dimen name="margin_bottom_ayuda">10dp</dimen>
 
     <dimen name="size_padding_horizontal_menu_bottom">25dp</dimen>
-    <dimen name="layout_width_menu_bottom">250dp</dimen>
+    <dimen name="layout_width_menu_bottom">210dp</dimen>
     <dimen name="layout_height_menu_bottom">100dp</dimen>
 
     <dimen name="width_image">768dp</dimen>
@@ -35,5 +35,5 @@
     <!-- New Dimens -->
     <dimen name="padding_vertical_menu_button">16dp</dimen>
     <dimen name="width_size_menu_button">200dp</dimen>
-    <dimen name="margin_vertial_menu_button">20dp</dimen>
+    <dimen name="margin_vertial_menu_button">15dp</dimen>
 </resources>

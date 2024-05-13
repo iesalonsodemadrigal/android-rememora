@@ -3,7 +3,6 @@ package com.iesam.rememora.features.home.presentation
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.getkeepsafe.taptargetview.TapTargetView
 import com.iesam.rememora.R
@@ -48,11 +47,13 @@ class HomeActivity : AppCompatActivity() {
                 Navigation.findNavController(this@HomeActivity, R.id.fragment_container)
                     .navigate(R.id.fragment_logout)
             }
+            actionAyuda.setOnClickListener {
+                tutorial()
+            }
         }
-        tutorial()
     }
 
-    private fun tutorial(){
+    private fun tutorial() {
         val targetPhoto = binding.actionImage.createTarget(
             getString(R.string.tutorial_title_photo),
             getString(R.string.tutorial_description_photo), 100
