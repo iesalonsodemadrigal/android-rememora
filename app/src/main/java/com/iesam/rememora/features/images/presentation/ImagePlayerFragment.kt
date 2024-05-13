@@ -45,7 +45,7 @@ class ImagePlayerFragment : Fragment() {
     ): View {
         _binding = FragmentImagesBinding.inflate(inflater, container, false)
         setupView()
-        setupTutorial()
+        //setupTutorial()
         return binding.root
     }
 

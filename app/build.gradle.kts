@@ -42,6 +42,7 @@ android {
         create("local") {
             initWith(getByName("debug"))
             buildConfigField("boolean", "IS_LOCAL_ENV", "true")
+            applicationIdSuffix = ".v4"
         }
     }
 

@@ -25,7 +25,6 @@ class InitialMenuFragment : Fragment() {
     ): View {
         _binding = FragmentInitialMenuBinding.inflate(inflater, container, false)
         setupView()
-        setupTutorial()
         return binding.root
     }
 
@@ -71,6 +70,12 @@ class InitialMenuFragment : Fragment() {
                 findNavController().navigate(
                     InitialMenuFragmentDirections.actionGlobalMusicFragment()
                 )
+            }
+            actionHelp?.setOnClickListener {
+                setupTutorial()
+            }
+            labelHelp?.setOnClickListener {
+                setupTutorial()
             }
         }
     }
