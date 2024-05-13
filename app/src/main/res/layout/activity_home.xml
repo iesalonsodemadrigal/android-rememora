@@ -18,6 +18,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <androidx.camera.view.PreviewView
+            android:id="@+id/viewFinder"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/action_image"
             android:layout_width="@dimen/width_size_menu_button"
