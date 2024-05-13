@@ -8,7 +8,8 @@ La aplicación permite visualizar los siguientes medios multimedia:
 
 ## Rememora CMS
 Este proyecto cuenta con otra aplicación llamada **Rememora CMS** la cual permite gestionar todo el contenido que visualiza el usuario de la tablet con otra aplicación, desde el móvil 
-y de forma remota.  
+y de forma remota.    
+  
 **Nota:** Este proyecto es privado ya que como almacenamiento se usa Firebase y su tamaño está limitado. Si estás interesado, ponte en contacto con nosotros.
 
 ## Trabajo de Investigación
