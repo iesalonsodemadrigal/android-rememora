@@ -62,7 +62,7 @@
     </style>
 
     <style name="AppLabNum" parent="TextAppearance.AppCompat.Body1" >
-        <item name="android:textSize">40sp</item>
+        <item name="android:textSize">@dimen/small_title_button_3d</item>
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>
 
