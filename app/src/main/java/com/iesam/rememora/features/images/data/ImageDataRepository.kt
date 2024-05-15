@@ -6,6 +6,7 @@ import com.iesam.rememora.features.images.data.local.ImageLocalDataSource
 import com.iesam.rememora.features.images.data.remote.ImageRemoteDataSource
 import com.iesam.rememora.features.images.domain.Image
 import com.iesam.rememora.features.images.domain.ImageRepository
+import com.iesam.rememora.features.images.domain.SaveImageUseCase
 import javax.inject.Inject
 
 class ImageDataRepository @Inject constructor(
@@ -25,5 +26,11 @@ class ImageDataRepository @Inject constructor(
             }
             remote
         }
+    }
+
+    override suspend fun saveImage(
+        input: SaveImageUseCase.Input
+    ): Either<ErrorApp, Boolean> {
+        return imageRemoteDataSource.saveImage(input)
     }
 }

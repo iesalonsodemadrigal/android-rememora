@@ -1,11 +1,15 @@
 package com.iesam.rememora.features.home.presentation
 
 import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.annotation.OptIn
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageAnalysis
@@ -15,6 +19,7 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import com.getkeepsafe.taptargetview.TapTargetView
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.FaceDetection
@@ -32,6 +37,7 @@ import java.util.concurrent.Executors
 typealias LumaListener = (luma: Double) -> Unit
 
 
+
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
@@ -39,6 +45,9 @@ class HomeActivity : AppCompatActivity() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<HomeViewModel>()
+    private lateinit var navController: NavController
+
+    private val RECORD_AUDIO_PERMISSION_CODE = 101
 
     private lateinit var cameraExecutor: ExecutorService
 
@@ -50,12 +59,49 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setupNavigation()
+
+        if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            requestAudioPermission()
+        }
+
+        val intent = intent
+        if (intent != null) {
+            handleIntent(intent)
+        }
+
         setupView()
         requestPermissionCamera()
         setupCamera()
         //setupML()
         cameraExecutor = Executors.newSingleThreadExecutor()
 
+    }
+
+    private fun setupNavigation() {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
+        navController = navHostFragment.navController
+    }
+
+    private fun requestAudioPermission() {
+        requestPermissions(
+            arrayOf(Manifest.permission.RECORD_AUDIO),
+            RECORD_AUDIO_PERMISSION_CODE
+        )
+    }
+
+    private fun handleIntent(intent: Intent?) {
+        val uri: Uri? = intent?.data
+        val action: String? = intent?.action
+
+        if (
+            (uri.toString() == getString(R.string.deeplink_photos) || uri.toString() == getString(R.string.deeplink_videos) ||
+                    uri.toString() == getString(R.string.deeplink_music) || uri.toString() == getString(R.string.deeplink_audio))
+            && action == getString(R.string.action_deeplink)
+        ) {
+            navController.handleDeepLink(intent)
+        }
     }
 
     private fun setupView() {
@@ -82,6 +128,11 @@ class HomeActivity : AppCompatActivity() {
             }
         }
         //tutorial()
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        handleIntent(intent)
     }
 
     private fun tutorial() {
