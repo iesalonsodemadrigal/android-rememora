@@ -7,10 +7,19 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.speech.tts.TextToSpeech
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.OptIn
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ExperimentalGetImage
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageProxy
+import androidx.camera.core.Preview
+import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,6 +27,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.face.FaceDetection
+import com.google.mlkit.vision.face.FaceDetectorOptions
 import com.iesam.rememora.R
 import com.iesam.rememora.app.extensions.hide
 import com.iesam.rememora.app.extensions.show
@@ -26,6 +38,8 @@ import com.iesam.rememora.databinding.FragmentImagesBinding
 import com.iesam.rememora.features.images.domain.Image
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 @AndroidEntryPoint
 class ImagePlayerFragment : Fragment() {
@@ -40,6 +54,12 @@ class ImagePlayerFragment : Fragment() {
     private var numImage = 0
 
     private lateinit var textToSpeech: TextToSpeech
+
+    private lateinit var cameraExecutor: ExecutorService
+
+    private lateinit var preview: Preview
+
+    private lateinit var cameraProvider: ProcessCameraProvider
 
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -163,6 +183,11 @@ class ImagePlayerFragment : Fragment() {
                     }
                 }
             }
+            if (it.emotion != null) {
+                //viewModel.saveImage(images[numImage], it.emotion)
+                //it.emotion=null
+                binding.emotion.text = it.emotion
+            }
         }
         viewModel.uiState.observe(viewLifecycleOwner, observer)
     }
@@ -182,7 +207,6 @@ class ImagePlayerFragment : Fragment() {
     }
 
     private fun backImage() {
-        viewModel.saveImage(images[numImage], 0)
         if (numImage > 0) {
             numImage--
         }
@@ -191,7 +215,6 @@ class ImagePlayerFragment : Fragment() {
     }
 
     private fun nextImage() {
-        viewModel.saveImage(images[numImage], 0)
         if (numImage < (images.size - 1)) {
             numImage++
         }
@@ -203,6 +226,9 @@ class ImagePlayerFragment : Fragment() {
         Glide.with(this)
             .load(images[numImage].source)
             .into(binding.image)
+        setupCamera()           //Funciona, falta decidir si metemos esto en el viewModel para el delay e hilo secundario o creamos un hilo aqui
+        //setupML()
+        cameraExecutor = Executors.newSingleThreadExecutor()
     }
 
     private fun updateButtons() {
@@ -227,4 +253,88 @@ class ImagePlayerFragment : Fragment() {
         textToSpeech.shutdown()
     }
 
+    private fun setupCamera() {
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+
+        cameraProviderFuture.addListener({
+            // Used to bind the lifecycle of cameras to the lifecycle owner
+            cameraProvider = cameraProviderFuture.get()
+
+            // Preview
+            preview = Preview.Builder()
+                .build()
+                .also {
+                    it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
+                }
+
+            val imageCapture = ImageCapture.Builder().build()
+
+            val imageAnalyzer = ImageAnalysis.Builder()
+                .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                .build()
+                .also {
+                    it.setAnalyzer(cameraExecutor, EmotionAnalyzer())
+                }
+
+            // Select back camera as a default
+            val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
+
+            try {
+                // Unbind use cases before rebinding
+                cameraProvider.unbindAll()
+
+                // Bind use cases to camera
+                cameraProvider.bindToLifecycle(
+                    this, cameraSelector, preview, imageCapture, imageAnalyzer
+                )
+            } catch (exc: Exception) {
+                Log.e("dev", "Use case binding failed", exc)
+            }
+
+        }, ContextCompat.getMainExecutor(requireContext()))
+
+    }
+
+    private inner class EmotionAnalyzer :
+        ImageAnalysis.Analyzer {
+        // Real-time contour detection
+        val realTimeOpts = FaceDetectorOptions.Builder()
+            .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_FAST)
+            .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_NONE)
+            .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_ALL)
+            .setContourMode(FaceDetectorOptions.CONTOUR_MODE_NONE)
+            .build()
+
+        val faceDetector = FaceDetection.getClient(realTimeOpts)
+
+        @OptIn(ExperimentalGetImage::class)
+        override fun analyze(imageProxy: ImageProxy) {
+            val mediaImage = imageProxy.image
+
+            if (mediaImage != null) {
+                val image =
+                    InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
+                // Pass image to an ML Kit Vision API
+                faceDetector.process(image)
+                    .addOnSuccessListener { faces ->
+                        if (faces.size > 0) {
+                            viewModel.setFaceEmotion(
+                                faces.first().smilingProbability ?: 0f,
+                                faces.first().leftEyeOpenProbability ?: 0f,
+                                faces.first().rightEyeOpenProbability ?: 0f
+                            )
+                            cameraExecutor.shutdown()
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        e.message
+                    }
+                    .addOnCompleteListener {
+                        imageProxy.close()
+                    }
+            } else {
+                imageProxy.close()
+            }
+        }
+    }
 }

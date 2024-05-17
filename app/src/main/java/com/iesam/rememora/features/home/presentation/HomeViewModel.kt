@@ -29,13 +29,18 @@ class HomeViewModel @Inject constructor(private val checkFaceEmotionUseCase: Che
                     leftEyeOpenProbability,
                     rightEyeOpenProbability
                 )
-            )
+            ).fold({
+
+            }, {
+
+            })
         }
     }
 
     data class UiState(
         val errorApp: ErrorApp? = null,
         val isLoading: Boolean = false,
+        val emotion: String? = null
     )
 
 

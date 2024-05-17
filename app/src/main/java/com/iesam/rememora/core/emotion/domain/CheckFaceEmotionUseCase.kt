@@ -8,8 +8,13 @@ import javax.inject.Inject
 class CheckFaceEmotionUseCase @Inject  constructor(){
 
 
-    suspend operator fun invoke(input: Input): Either<ErrorApp, Boolean> {
-        return true.right()
+    suspend operator fun invoke(input: Input): Either<ErrorApp, String> {
+        val faceEmotion = FaceEmotion(
+            input.smilingProbability,
+            input.leftEyeOpenProbability,
+            input.rightEyeOpenProbability
+        )
+        return faceEmotion.analize().right()
     }
 
     data class Input(

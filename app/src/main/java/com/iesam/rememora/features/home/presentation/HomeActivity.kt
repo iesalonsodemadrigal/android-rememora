@@ -5,34 +5,20 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
-import androidx.annotation.OptIn
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ExperimentalGetImage
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.getkeepsafe.taptargetview.TapTargetView
-import com.google.mlkit.vision.common.InputImage
-import com.google.mlkit.vision.face.FaceDetection
-import com.google.mlkit.vision.face.FaceDetectorOptions
-import com.google.mlkit.vision.face.FaceDetectorOptions.CLASSIFICATION_MODE_ALL
-import com.google.mlkit.vision.face.FaceDetectorOptions.LANDMARK_MODE_NONE
 import com.iesam.rememora.R
 import com.iesam.rememora.app.extensions.createTarget
 import com.iesam.rememora.databinding.ActivityHomeBinding
 import com.permissionx.guolindev.PermissionX
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
 
 typealias LumaListener = (luma: Double) -> Unit
 
@@ -72,9 +58,9 @@ class HomeActivity : AppCompatActivity() {
 
         setupView()
         requestPermissionCamera()
-        setupCamera()
+        //setupCamera()
         //setupML()
-        cameraExecutor = Executors.newSingleThreadExecutor()
+        //cameraExecutor = Executors.newSingleThreadExecutor()
 
     }
 
@@ -166,14 +152,14 @@ class HomeActivity : AppCompatActivity() {
             }
             .request { allGranted, grantedList, deniedList ->
                 if (allGranted) {
-                    setupCamera()
+                    //setupCamera()
                 } else {
 
                 }
             }
     }
 
-    private fun setupCamera() {
+    /*private fun setupCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
         cameraProviderFuture.addListener({
@@ -250,13 +236,15 @@ class HomeActivity : AppCompatActivity() {
                         e.message
                     }
                     .addOnCompleteListener {
+                        binding.emotion.text="Adios"
+                        viewModel.uiState
                         imageProxy.close()
                     }
             } else {
                 imageProxy.close()
             }
         }
-    }
+    }*/
 
     private fun startCameraX() {
 
