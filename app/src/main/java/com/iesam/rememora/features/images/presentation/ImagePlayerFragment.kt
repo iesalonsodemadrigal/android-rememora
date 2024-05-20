@@ -5,6 +5,8 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.speech.RecognizerIntent
 import android.speech.tts.TextToSpeech
 import android.util.Log
@@ -41,6 +43,7 @@ import java.util.Locale
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
+
 @AndroidEntryPoint
 class ImagePlayerFragment : Fragment() {
     private var _binding: FragmentImagesBinding? = null
@@ -60,6 +63,10 @@ class ImagePlayerFragment : Fragment() {
     private lateinit var preview: Preview
 
     private lateinit var cameraProvider: ProcessCameraProvider
+
+    private lateinit var imageAnalyzer: ImageAnalysis
+
+    private val MS_DELAY_TAKE_PHOTO: Long = 2000 //Milisegundos
 
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -141,6 +148,7 @@ class ImagePlayerFragment : Fragment() {
         }
     }
 
+
     private fun promptSpeechInput() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         intent.putExtra(
@@ -155,9 +163,9 @@ class ImagePlayerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        attachCamera()
         setupObserver()
         viewModel.getImages()
-
         textToSpeech = TextToSpeech(requireContext()) { status ->
             if (status == TextToSpeech.SUCCESS) {
                 Locale(getString(R.string.language), getString(R.string.country))
@@ -220,13 +228,14 @@ class ImagePlayerFragment : Fragment() {
         }
         refreshImage()
         updateButtons()
+        attachCamera()
     }
 
     private fun refreshImage() {
         Glide.with(this)
             .load(images[numImage].source)
             .into(binding.image)
-        setupCamera()           //Funciona, falta decidir si metemos esto en el viewModel para el delay e hilo secundario o creamos un hilo aqui
+        //setupCamera()           //Funciona, falta decidir si metemos esto en el viewModel para el delay e hilo secundario o creamos un hilo aqui
         //setupML()
         cameraExecutor = Executors.newSingleThreadExecutor()
     }
@@ -253,50 +262,52 @@ class ImagePlayerFragment : Fragment() {
         textToSpeech.shutdown()
     }
 
-    private fun setupCamera() {
+    private fun attachCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+        val handler = Handler(Looper.getMainLooper())
+        handler.postDelayed({
+            cameraProviderFuture.addListener({
+                // Used to bind the lifecycle of cameras to the lifecycle owner
+                cameraProvider = cameraProviderFuture.get()
 
-        cameraProviderFuture.addListener({
-            // Used to bind the lifecycle of cameras to the lifecycle owner
-            cameraProvider = cameraProviderFuture.get()
+                // Preview
+                preview = Preview.Builder()
+                    .build()
+                    .also {
+                        it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
+                    }
 
-            // Preview
-            preview = Preview.Builder()
-                .build()
-                .also {
-                    it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
+                imageAnalyzer = ImageAnalysis.Builder()
+                    //.setResolutionSelector(ResolutionSelector.PREFER_CAPTURE_RATE_OVER_HIGHER_RESOLUTION)
+                    .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                    .build()
+                    .also {
+                        it.setAnalyzer(cameraExecutor, EmotionAnalyzer())
+                    }
+
+                try {
+                    // Unbind use cases before rebinding
+                    cameraProvider.unbindAll()
+
+                    // Bind use cases to camera
+                    cameraProvider.bindToLifecycle(
+                        this,
+                        CameraSelector.DEFAULT_FRONT_CAMERA,
+                        preview,
+                        ImageCapture.Builder().build(),
+                        imageAnalyzer
+                    )
+
+                } catch (exc: Exception) {
+                    Log.e("dev", "Use case binding failed", exc)
                 }
 
-            val imageCapture = ImageCapture.Builder().build()
-
-            val imageAnalyzer = ImageAnalysis.Builder()
-                .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                .build()
-                .also {
-                    it.setAnalyzer(cameraExecutor, EmotionAnalyzer())
-                }
-
-            // Select back camera as a default
-            val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
-
-            try {
-                // Unbind use cases before rebinding
-                cameraProvider.unbindAll()
-
-                // Bind use cases to camera
-                cameraProvider.bindToLifecycle(
-                    this, cameraSelector, preview, imageCapture, imageAnalyzer
-                )
-            } catch (exc: Exception) {
-                Log.e("dev", "Use case binding failed", exc)
-            }
-
-        }, ContextCompat.getMainExecutor(requireContext()))
-
+            }, ContextCompat.getMainExecutor(requireContext()))
+        }, MS_DELAY_TAKE_PHOTO)
     }
 
-    private inner class EmotionAnalyzer :
-        ImageAnalysis.Analyzer {
+    private inner class EmotionAnalyzer : ImageAnalysis.Analyzer {
+
         // Real-time contour detection
         val realTimeOpts = FaceDetectorOptions.Builder()
             .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_FAST)
@@ -331,9 +342,11 @@ class ImagePlayerFragment : Fragment() {
                     }
                     .addOnCompleteListener {
                         imageProxy.close()
+                        imageAnalyzer.clearAnalyzer()
                     }
             } else {
                 imageProxy.close()
+                imageAnalyzer.clearAnalyzer()
             }
         }
     }
