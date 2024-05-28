@@ -163,6 +163,7 @@ class ImagePlayerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        cameraExecutor = Executors.newSingleThreadExecutor()
         attachCamera()
         setupObserver()
         viewModel.getImages()
@@ -192,9 +193,8 @@ class ImagePlayerFragment : Fragment() {
                 }
             }
             if (it.emotion != null) {
-                //viewModel.saveImage(images[numImage], it.emotion)
-                //it.emotion=null
-                binding.emotion.text = it.emotion
+                viewModel.saveImage(images[numImage], it.emotion!!)
+                it.emotion = null
             }
         }
         viewModel.uiState.observe(viewLifecycleOwner, observer)
@@ -220,6 +220,7 @@ class ImagePlayerFragment : Fragment() {
         }
         refreshImage()
         updateButtons()
+        attachCamera()
     }
 
     private fun nextImage() {
@@ -235,7 +236,6 @@ class ImagePlayerFragment : Fragment() {
         Glide.with(this)
             .load(images[numImage].source)
             .into(binding.image)
-        //setupCamera()           //Funciona, falta decidir si metemos esto en el viewModel para el delay e hilo secundario o creamos un hilo aqui
         //setupML()
         cameraExecutor = Executors.newSingleThreadExecutor()
     }

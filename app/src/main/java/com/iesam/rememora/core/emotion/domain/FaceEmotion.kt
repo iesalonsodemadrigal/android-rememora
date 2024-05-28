@@ -6,17 +6,17 @@ data class FaceEmotion(
     val rightEyeOpenProbability: Float = 0.0f
 ) {
 
-    fun analize(): String {
+    fun analize(): Int {
         if (isHappy()) {
-            return "Happy"
+            return 0
         } else if (isSad()) {
-            return "Sad"
+            return 1
         } else {
-            return "Neutral"
+            return 2
         }
     }
 
-    fun isHappy() = smilingProbability >= 0.75.toFloat()
+    fun isHappy() = smilingProbability >= 0.60.toFloat()
 
     fun isSad() = smilingProbability < 0.20.toFloat()
             && (leftEyeOpenProbability <= 0.50.toFloat())

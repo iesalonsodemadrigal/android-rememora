@@ -82,6 +82,6 @@ class ImagePlayerViewModel @Inject constructor(
         val errorApp: ErrorUiModel? = null,
         val isLoading: Boolean = false,
         val images: List<Image>? = null,
-        var emotion: String? = null
+        var emotion: Int? = null
     )
 }
