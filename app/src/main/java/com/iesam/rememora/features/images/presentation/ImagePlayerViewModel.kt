@@ -8,10 +8,10 @@ import com.iesam.rememora.app.domain.ErrorApp
 import com.iesam.rememora.app.presentation.error.ErrorUiModel
 import com.iesam.rememora.app.presentation.error.toErrorUiModel
 import com.iesam.rememora.core.emotion.domain.CheckFaceEmotionUseCase
-import com.iesam.rememora.core.emotion.domain.CheckFaceEmotionUseCase
 import com.iesam.rememora.features.images.domain.GetImagesUseCase
 import com.iesam.rememora.features.images.domain.Image
 import com.iesam.rememora.features.images.domain.SaveImageUseCase
+import com.iesam.rememora.ia.domain.GetIntentionIAUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,7 +21,8 @@ import javax.inject.Inject
 class ImagePlayerViewModel @Inject constructor(
     private val getImagesUseCase: GetImagesUseCase,
     private val saveImageUseCase: SaveImageUseCase,
-    private val checkFaceEmotionUseCase: CheckFaceEmotionUseCase
+    private val checkFaceEmotionUseCase: CheckFaceEmotionUseCase,
+    private val getIntentionIAUseCase: GetIntentionIAUseCase
 ) :
     ViewModel() {
     private val _uiState = MutableLiveData<UiState>()
