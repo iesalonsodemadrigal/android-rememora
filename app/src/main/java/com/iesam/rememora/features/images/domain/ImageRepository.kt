@@ -5,4 +5,6 @@ import com.iesam.rememora.app.domain.ErrorApp
 
 interface ImageRepository {
     suspend fun getImages(): Either<ErrorApp, List<Image>>
+
+    suspend fun saveImage(input: SaveImageUseCase.Input): Either<ErrorApp, Boolean>
 }

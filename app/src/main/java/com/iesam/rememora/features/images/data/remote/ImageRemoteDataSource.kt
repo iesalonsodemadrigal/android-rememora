@@ -8,6 +8,7 @@ import com.iesam.rememora.app.domain.ErrorApp
 import com.iesam.rememora.app.left
 import com.iesam.rememora.app.right
 import com.iesam.rememora.features.images.domain.Image
+import com.iesam.rememora.features.images.domain.SaveImageUseCase
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -15,6 +16,27 @@ class ImageRemoteDataSource @Inject constructor(
     private val dataBase: FirebaseDatabase,
     private val auth: FirebaseAuth
 ) {
+
+    suspend fun saveImage(input: SaveImageUseCase.Input): Either<ErrorApp, Boolean> {
+        try {
+            auth.uid?.let { uid ->
+                var id = input.id.toLong()
+                dataBase
+                    .getReference("users")
+                    .child("${uid}/photos/album_1/photo_$id")
+                    .setValue(
+                        input.toRemote()
+                    ).await()
+                return true.right()
+            }
+            return ErrorApp.ServerError.left()
+        } catch (ex: Exception) {
+            ex.message?.let {
+                //FirebaseCrashlytics.getInstance().log(it)
+            }
+            return ErrorApp.ServerError.left()
+        }
+    }
 
     suspend fun getImages(): Either<ErrorApp, List<Image>> {
         return try {
@@ -24,7 +46,7 @@ class ImageRemoteDataSource @Inject constructor(
                     .get()
                     .await()
                 val imagesDb = dataSnapshot.children.map {
-                    it.getValue(ImageDbModel::class.java)!!
+                    it.getValue(DownloadImageDbModel::class.java)!!
                 }
                 imagesDb.map { image ->
                     if (!image.source.isNullOrEmpty() && image.source?.get(0) == 'g') {
