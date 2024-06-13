@@ -15,6 +15,8 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
 import com.iesam.rememora.R
@@ -27,6 +29,8 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel by viewModels<HomeViewModel>()
 
     private lateinit var textToSpeech: TextToSpeech
 
@@ -41,44 +45,15 @@ class HomeFragment : Fragment() {
                 if (data != null) {
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     val spokenText = result?.get(0) ?: ""
-                    handleResult(spokenText)
+                    getIntention(spokenText)
                 }
             }
         }
 
-    private fun handleResult(command: String) {
-        if (command.contains(getString(R.string.command_photos))) {
-            speakOut(getString(R.string.voice_response_ok))
-            Navigation.findNavController(
-                requireActivity(),
-                R.id.fragment_container
-            )
-                .navigate(R.id.fragment_imagen)
-        } else if (command.contains(getString(R.string.command_video))) {
-            speakOut(getString(R.string.voice_response_ok))
-            Navigation.findNavController(
-                requireActivity(),
-                R.id.fragment_container
-            )
-                .navigate(R.id.fragment_video)
-        } else if (command.contains(getString(R.string.command_music))) {
-            speakOut(getString(R.string.voice_response_ok))
-            Navigation.findNavController(
-                requireActivity(),
-                R.id.fragment_container
-            )
-                .navigate(R.id.fragment_music)
-        } else if (command.contains(getString(R.string.command_audio))) {
-            speakOut(getString(R.string.voice_response_ok))
-            Navigation.findNavController(
-                requireActivity(),
-                R.id.fragment_container
-            )
-                .navigate(R.id.fragment_audio)
-        } else {
-            speakOut(getString(R.string.voice_response_command_not_exist))
-            startListening()
-        }
+    private fun getIntention(phrase: String) {
+        val prompt = getString(R.string.prompt_home, phrase)
+
+        viewModel.getIntention(prompt)
     }
 
     private fun speakOut(text: String) {
@@ -133,7 +108,7 @@ class HomeFragment : Fragment() {
                             getString(R.string.keyword_4)
                         )
                     ) {
-                        handleResult(command)
+                        getIntention(command)
                     } else {
                         startListening()
                     }
@@ -180,6 +155,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupObserver()
 
         textToSpeech = TextToSpeech(requireContext()) { status ->
             if (status == TextToSpeech.SUCCESS) {
@@ -199,6 +175,58 @@ class HomeFragment : Fragment() {
                 getString(R.string.no_voice_permissions),
                 Snackbar.LENGTH_SHORT
             ).show()
+        }
+    }
+
+    private fun setupObserver() {
+        val observer = Observer<HomeViewModel.UiState> {
+            if (it.isLoading) {
+
+            } else {
+                if (it.errorApp != null) {
+
+                } else {
+                    it.intention?.apply {
+                        handleResult(this.lowercase())
+                    }
+                }
+            }
+        }
+        viewModel.uiState.observe(viewLifecycleOwner, observer)
+    }
+
+    private fun handleResult(intention: String) {
+        if (intention.contains(getString(R.string.command_photos))) {
+            speakOut(getString(R.string.voice_response_ok))
+            Navigation.findNavController(
+                requireActivity(),
+                R.id.fragment_container
+            )
+                .navigate(R.id.fragment_imagen)
+        } else if (intention.contains(getString(R.string.command_video))) {
+            speakOut(getString(R.string.voice_response_ok))
+            Navigation.findNavController(
+                requireActivity(),
+                R.id.fragment_container
+            )
+                .navigate(R.id.fragment_video)
+        } else if (intention.contains(getString(R.string.command_music))) {
+            speakOut(getString(R.string.voice_response_ok))
+            Navigation.findNavController(
+                requireActivity(),
+                R.id.fragment_container
+            )
+                .navigate(R.id.fragment_music)
+        } else if (intention.contains(getString(R.string.command_audio))) {
+            speakOut(getString(R.string.voice_response_ok))
+            Navigation.findNavController(
+                requireActivity(),
+                R.id.fragment_container
+            )
+                .navigate(R.id.fragment_audio)
+        } else {
+            speakOut(getString(R.string.voice_response_command_not_exist))
+            startListening()
         }
     }
 

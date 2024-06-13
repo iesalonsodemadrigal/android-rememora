@@ -54,48 +54,15 @@ class ImagePlayerFragment : Fragment() {
                 if (data != null) {
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     val spokenText = result?.get(0) ?: ""
-                    handleResult(spokenText)
+                    getIntention(spokenText)
                 }
             }
         }
 
-    private fun handleResult(command: String) {
-        if (command.contains(getString(R.string.command_next))) {
-            if (numImage == (images.size - 1)) {
-                val response = getString(R.string.voice_response_last_picture)
-                speakOut(response)
-            } else {
-                speakOut(getString(R.string.voice_response_ok))
-                nextImage()
-            }
-            startListening()
-        } else if (command.contains(getString(R.string.command_previous))) {
-            if (numImage == 0) {
-                speakOut(getString(R.string.voice_response_first_picture))
-            } else {
-                speakOut(getString(R.string.voice_response_ok))
-                backImage()
-            }
-            startListening()
-        } else if (command.contains(getString(R.string.command_photos))){
-            speakOut(getString(R.string.voice_response_fragment_photo))
-            startListening()
-        } else if (command.contains(getString(R.string.command_video))) {
-            speakOut(getString(R.string.voice_response_ok))
-            Navigation.findNavController(requireActivity(), R.id.fragment_container)
-                .navigate(R.id.fragment_video)
-        } else if (command.contains(getString(R.string.command_music))) {
-            speakOut(getString(R.string.voice_response_ok))
-            Navigation.findNavController(requireActivity(), R.id.fragment_container)
-                .navigate(R.id.fragment_music)
-        } else if (command.contains(getString(R.string.command_audio))) {
-            speakOut(getString(R.string.voice_response_ok))
-            Navigation.findNavController(requireActivity(), R.id.fragment_container)
-                .navigate(R.id.fragment_audio)
-        } else {
-            speakOut(getString(R.string.voice_response_command_not_exist))
-            startListening()
-        }
+    private fun getIntention(phrase: String) {
+        val prompt = getString(R.string.prompt_images, phrase)
+
+        viewModel.getIntention(prompt)
     }
 
     private fun startListening() {
@@ -150,7 +117,7 @@ class ImagePlayerFragment : Fragment() {
                             getString(R.string.keyword_4)
                         )
                     ) {
-                        handleResult(command)
+                        getIntention(command)
                     } else {
                         startListening()
                     }
@@ -231,6 +198,7 @@ class ImagePlayerFragment : Fragment() {
     private fun setupObserver() {
         val observer = Observer<ImagePlayerViewModel.UiState> {
             if (it.isLoading) {
+
             } else {
                 if (it.errorApp != null) {
                     showError(it.errorApp)
@@ -243,6 +211,9 @@ class ImagePlayerFragment : Fragment() {
                         }
                         refreshImage()
                         updateButtons()
+                    }
+                    it.intention?.apply {
+                        handleResult(this.lowercase())
                     }
                 }
             }
@@ -258,6 +229,45 @@ class ImagePlayerFragment : Fragment() {
         binding.errorView.render(error)
     }
 
+    private fun handleResult(intention: String) {
+        if (intention.contains(getString(R.string.command_next))) {
+            if (numImage == (images.size - 1)) {
+                val response = getString(R.string.voice_response_last_picture)
+                speakOut(response)
+            } else {
+                speakOut(getString(R.string.voice_response_ok))
+                nextImage()
+            }
+            startListening()
+        } else if (intention.contains(getString(R.string.command_previous))) {
+            if (numImage == 0) {
+                speakOut(getString(R.string.voice_response_first_picture))
+            } else {
+                speakOut(getString(R.string.voice_response_ok))
+                backImage()
+            }
+            startListening()
+        } else if (intention.contains(getString(R.string.command_photos))) {
+            speakOut(getString(R.string.voice_response_fragment_photo))
+            startListening()
+        } else if (intention.contains(getString(R.string.command_video))) {
+            speakOut(getString(R.string.voice_response_ok))
+            Navigation.findNavController(requireActivity(), R.id.fragment_container)
+                .navigate(R.id.fragment_video)
+        } else if (intention.contains(getString(R.string.command_music))) {
+            speakOut(getString(R.string.voice_response_ok))
+            Navigation.findNavController(requireActivity(), R.id.fragment_container)
+                .navigate(R.id.fragment_music)
+        } else if (intention.contains(getString(R.string.command_audio))) {
+            speakOut(getString(R.string.voice_response_ok))
+            Navigation.findNavController(requireActivity(), R.id.fragment_container)
+                .navigate(R.id.fragment_audio)
+        } else {
+            speakOut(getString(R.string.voice_response_command_not_exist))
+            startListening()
+        }
+    }
+
     private fun firstImage() {
         numImage = 0
         refreshImage()
@@ -265,7 +275,6 @@ class ImagePlayerFragment : Fragment() {
     }
 
     private fun backImage() {
-        viewModel.saveImage(images[numImage], 0)
         if (numImage > 0) {
             numImage--
         }
@@ -274,7 +283,6 @@ class ImagePlayerFragment : Fragment() {
     }
 
     private fun nextImage() {
-        viewModel.saveImage(images[numImage], 0)
         if (numImage < (images.size - 1)) {
             numImage++
         }

@@ -27,6 +27,11 @@ class VideoPlayerFragment : Fragment() {
     ): View {
         _binding = FragmentVideosBinding.inflate(inflater, container, false)
         binding.mediaPlayer.setFragment(this, getString(R.string.fragment_name_video))
+        binding.mediaPlayer.setOnCustomEventListener { phrase: String ->
+            val prompt = getString(R.string.prompt_videos, phrase)
+
+            viewModel.getIntention(prompt)
+        }
         return binding.root
     }
 
@@ -47,6 +52,9 @@ class VideoPlayerFragment : Fragment() {
                         }
                         binding.mediaPlayer.show()
                         binding.mediaPlayer.render(videoList)
+                    }
+                    it.intention?.let { intention ->
+                        binding.mediaPlayer.handleResult(intention.lowercase())
                     }
                 }
             }

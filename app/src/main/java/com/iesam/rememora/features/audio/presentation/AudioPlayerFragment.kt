@@ -27,6 +27,11 @@ class AudioPlayerFragment : Fragment() {
     ): View {
         _binding = FragmentAudioBinding.inflate(inflater, container, false)
         binding.mediaPlayer.setFragment(this, getString(R.string.fragment_name_audio))
+        binding.mediaPlayer.setOnCustomEventListener { phrase: String ->
+            val prompt = getString(R.string.prompt_audios, phrase)
+
+            viewModel.getIntention(prompt)
+        }
         return binding.root
     }
 
@@ -51,6 +56,9 @@ class AudioPlayerFragment : Fragment() {
                         }
                         binding.mediaPlayer.show()
                         binding.mediaPlayer.render(urlListAudios)
+                    }
+                    it.intention?.let { intention ->
+                        binding.mediaPlayer.handleResult(intention.lowercase())
                     }
                 }
             }

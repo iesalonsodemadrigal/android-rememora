@@ -28,6 +28,11 @@ class MusicPlayerFragment : Fragment() {
     ): View {
         _binding = FragmentMusicBinding.inflate(inflater, container, false)
         binding.mediaPlayer.setFragment(this, getString(R.string.fragment_name_music))
+        binding.mediaPlayer.setOnCustomEventListener { phrase: String ->
+            val prompt = getString(R.string.prompt_music, phrase)
+
+            viewModel.getIntention(prompt)
+        }
         return binding.root
     }
 
@@ -40,16 +45,25 @@ class MusicPlayerFragment : Fragment() {
 
     private fun setupObserver() {
         val observer = Observer<MusicPlayerViewModel.UiState> { uiState ->
-            uiState.musicList?.let { musicList ->
-                val urlList: List<String> = musicList.map {
-                    it.source
-                }
-                binding.mediaPlayer.show()
-                binding.mediaPlayer.render(urlList)
+            if (uiState.isLoading) {
 
-            }
-            uiState.errorApp?.let {
-                showError(it)
+            } else {
+                if (uiState.errorApp != null) {
+                    showError(uiState.errorApp)
+                } else {
+                    hideError()
+                    uiState.musicList?.let { musicList ->
+                        val urlList: List<String> = musicList.map {
+                            it.source
+                        }
+                        binding.mediaPlayer.show()
+                        binding.mediaPlayer.render(urlList)
+
+                    }
+                    uiState.intention?.let { intention ->
+                        binding.mediaPlayer.handleResult(intention.lowercase())
+                    }
+                }
             }
         }
         viewModel.uiState.observe(viewLifecycleOwner, observer)
@@ -58,6 +72,11 @@ class MusicPlayerFragment : Fragment() {
     private fun showError(error: ErrorUiModel) {
         binding.mediaPlayer.hide()
         binding.errorView.render(error)
+    }
+
+    private fun hideError() {
+        binding.errorView.hide()
+        binding.mediaPlayer.show()
     }
 
     override fun onDestroyView() {

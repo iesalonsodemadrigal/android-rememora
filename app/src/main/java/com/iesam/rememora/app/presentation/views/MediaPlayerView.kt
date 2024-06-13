@@ -16,6 +16,7 @@ import android.widget.FrameLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
@@ -41,6 +42,8 @@ class MediaPlayerView @JvmOverloads constructor(
     private var nameFragment: String = ""
 
     private var fragment: Fragment? = null
+
+    private var getIntention: ((String) -> Unit)? = null
 
     private var resultLauncher: ActivityResultLauncher<Intent>? = null
 
@@ -88,7 +91,7 @@ class MediaPlayerView @JvmOverloads constructor(
                             )
                         )
                     ) {
-                        handleResult(command)
+                        getIntention?.invoke(command)
                     } else {
                         startListening()
                     }
@@ -114,16 +117,16 @@ class MediaPlayerView @JvmOverloads constructor(
         speechRecognizer.startListening(intent)
     }
 
-    fun handleResult(command: String) {
-        if (command.contains(context.getString(R.string.command_next))) {
+    fun handleResult(intention: String) {
+        if (intention.contains(context.getString(R.string.command_next))) {
             speakOut(context.getString(R.string.voice_response_ok))
             playNextMedia()
             startListening()
-        } else if (command.contains(context.getString(R.string.command_previous))) {
+        } else if (intention.contains(context.getString(R.string.command_previous))) {
             speakOut(context.getString(R.string.voice_response_ok))
             playPreviousMedia()
             startListening()
-        } else if (command.contains(context.getString(R.string.command_play))) {
+        } else if (intention.contains(context.getString(R.string.command_play))) {
             if (!exoPlayer.isPlaying) {
                 speakOut(context.getString(R.string.voice_response_ok))
                 playMusic()
@@ -131,7 +134,7 @@ class MediaPlayerView @JvmOverloads constructor(
                 speakOut(context.getString(R.string.voice_response_play))
             }
             startListening()
-        } else if (command.contains(context.getString(R.string.command_pause))) {
+        } else if (intention.contains(context.getString(R.string.command_pause))) {
             if (exoPlayer.isPlaying) {
                 speakOut(context.getString(R.string.voice_response_ok))
                 pause()
@@ -139,14 +142,14 @@ class MediaPlayerView @JvmOverloads constructor(
                 speakOut(context.getString(R.string.voice_response_pause))
             }
             startListening()
-        } else if (command.contains(context.getString(R.string.command_photos))) {
+        } else if (intention.contains(context.getString(R.string.command_photos))) {
             speakOut(context.getString(R.string.voice_response_ok))
             Navigation.findNavController(
                 fragment!!.requireActivity(),
                 R.id.fragment_container
             )
                 .navigate(R.id.fragment_imagen)
-        } else if (command.contains(context.getString(R.string.command_music))) {
+        } else if (intention.contains(context.getString(R.string.command_music))) {
             if (nameFragment == context.getString(R.string.fragment_name_music)) {
                 speakOut(context.getString(R.string.voice_response_fragment_music))
                 startListening()
@@ -158,7 +161,7 @@ class MediaPlayerView @JvmOverloads constructor(
                 )
                     .navigate(R.id.fragment_music)
             }
-        } else if (command.contains(context.getString(R.string.command_video))) {
+        } else if (intention.contains(context.getString(R.string.command_video))) {
             if (nameFragment == context.getString(R.string.fragment_name_video)) {
                 speakOut(context.getString(R.string.voice_response_fragment_video))
                 startListening()
@@ -170,7 +173,7 @@ class MediaPlayerView @JvmOverloads constructor(
                 )
                     .navigate(R.id.fragment_video)
             }
-        } else if (command.contains(context.getString(R.string.command_audio))) {
+        } else if (intention.contains(context.getString(R.string.command_audio))) {
             if (nameFragment == context.getString(R.string.fragment_name_audio)) {
                 speakOut(context.getString(R.string.voice_response_fragment_audio))
                 startListening()
@@ -273,10 +276,14 @@ class MediaPlayerView @JvmOverloads constructor(
                     if (data != null) {
                         val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                         val spokenText = result?.get(0) ?: ""
-                        handleResult(spokenText)
+                        getIntention?.invoke(spokenText)
                     }
                 }
             }
+    }
+
+    fun setOnCustomEventListener(listener: (String) -> Unit) {
+        this.getIntention = listener
     }
 
     private fun speakOut(text: String) {
