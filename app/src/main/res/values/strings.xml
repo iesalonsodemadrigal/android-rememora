@@ -56,6 +56,7 @@
     <string name="voice_response_fragment_audio">Ya está en audios</string>
     <string name="voice_response_fragment_video">Ya está en vídeos</string>
     <string name="voice_response_fragment_photo">Ya está en fotos</string>
+    <string name="voice_response_ok">vale</string>
     <string name="command_next">siguiente</string>
     <string name="command_previous">anterior</string>
     <string name="command_music">música</string>
@@ -75,5 +76,10 @@
 
     <string name="language">es</string>
     <string name="country">ES</string>
+
+    <string name="keyword_1">rememora</string>
+    <string name="keyword_2">hola</string>
+    <string name="keyword_3">oye</string>
+    <string name="keyword_4">ey</string>
 
 </resources>

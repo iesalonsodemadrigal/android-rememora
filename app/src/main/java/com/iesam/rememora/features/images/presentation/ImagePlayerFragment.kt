@@ -5,7 +5,9 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
@@ -41,6 +43,10 @@ class ImagePlayerFragment : Fragment() {
 
     private lateinit var textToSpeech: TextToSpeech
 
+    private lateinit var speechRecognizer: SpeechRecognizer
+
+    private var destroySpeech = false
+
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
@@ -48,38 +54,63 @@ class ImagePlayerFragment : Fragment() {
                 if (data != null) {
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     val spokenText = result?.get(0) ?: ""
-                    if (spokenText == getString(R.string.command_next)) {
-                        if (numImage == (images.size - 1)) {
-                            val response = getString(R.string.voice_response_last_picture)
-                            speakOut(response)
-                        } else {
-                            nextImage()
-                        }
-                    } else if (spokenText == getString(R.string.command_previous)) {
-                        if (numImage == 0) {
-                            val response = getString(R.string.voice_response_first_picture)
-                            speakOut(response)
-                        } else {
-                            backImage()
-                        }
-                    } else if (spokenText == getString(R.string.command_video)) {
-                        Navigation.findNavController(requireActivity(), R.id.fragment_container)
-                            .navigate(R.id.fragment_video)
-                    } else if (spokenText == getString(R.string.command_music)) {
-                        Navigation.findNavController(requireActivity(), R.id.fragment_container)
-                            .navigate(R.id.fragment_music)
-                    } else if (spokenText == getString(R.string.command_audio)) {
-                        Navigation.findNavController(requireActivity(), R.id.fragment_container)
-                            .navigate(R.id.fragment_audio)
-                    } else if (spokenText == getString(R.string.command_photos)) {
-                        speakOut(getString(R.string.voice_response_fragment_photo))
-                    } else {
-                        val response = getString(R.string.voice_response_command_not_exist)
-                        speakOut(response)
-                    }
+                    handleResult(spokenText)
                 }
             }
         }
+
+    private fun handleResult(command: String) {
+        if (command.contains(getString(R.string.command_next))) {
+            if (numImage == (images.size - 1)) {
+                val response = getString(R.string.voice_response_last_picture)
+                speakOut(response)
+            } else {
+                speakOut(getString(R.string.voice_response_ok))
+                nextImage()
+            }
+            startListening()
+        } else if (command.contains(getString(R.string.command_previous))) {
+            if (numImage == 0) {
+                speakOut(getString(R.string.voice_response_first_picture))
+            } else {
+                speakOut(getString(R.string.voice_response_ok))
+                backImage()
+            }
+            startListening()
+        } else if (command.contains(getString(R.string.command_photos))){
+            speakOut(getString(R.string.voice_response_fragment_photo))
+            startListening()
+        } else if (command.contains(getString(R.string.command_video))) {
+            speakOut(getString(R.string.voice_response_ok))
+            Navigation.findNavController(requireActivity(), R.id.fragment_container)
+                .navigate(R.id.fragment_video)
+        } else if (command.contains(getString(R.string.command_music))) {
+            speakOut(getString(R.string.voice_response_ok))
+            Navigation.findNavController(requireActivity(), R.id.fragment_container)
+                .navigate(R.id.fragment_music)
+        } else if (command.contains(getString(R.string.command_audio))) {
+            speakOut(getString(R.string.voice_response_ok))
+            Navigation.findNavController(requireActivity(), R.id.fragment_container)
+                .navigate(R.id.fragment_audio)
+        } else {
+            speakOut(getString(R.string.voice_response_command_not_exist))
+            startListening()
+        }
+    }
+
+    private fun startListening() {
+        if (destroySpeech) {
+            createSpeechRecognizer()
+            destroySpeech = false
+        }
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        intent.putExtra(
+            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+        )
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, getString(R.string.language))
+        speechRecognizer.startListening(intent)
+    }
 
     private fun speakOut(text: String) {
         textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
@@ -91,8 +122,44 @@ class ImagePlayerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentImagesBinding.inflate(inflater, container, false)
+        createSpeechRecognizer()
         setupView()
         return binding.root
+    }
+
+    private fun createSpeechRecognizer() {
+        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(requireContext())
+        speechRecognizer.setRecognitionListener(object : RecognitionListener {
+            override fun onReadyForSpeech(params: Bundle) {}
+            override fun onBeginningOfSpeech() {}
+            override fun onRmsChanged(rmsdB: Float) {}
+            override fun onBufferReceived(buffer: ByteArray) {}
+            override fun onEndOfSpeech() {}
+
+            override fun onError(error: Int) {
+                startListening()
+            }
+
+            override fun onResults(results: Bundle) {
+                val matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+                if (matches != null && matches.size > 0) {
+                    val command = matches[0]
+                    if (command.contains(getString(R.string.keyword_1)) || command.contains(
+                            getString(R.string.keyword_2)
+                        ) || command.contains(getString(R.string.keyword_3)) || command.contains(
+                            getString(R.string.keyword_4)
+                        )
+                    ) {
+                        handleResult(command)
+                    } else {
+                        startListening()
+                    }
+                }
+            }
+
+            override fun onPartialResults(partialResults: Bundle) {}
+            override fun onEvent(eventType: Int, params: Bundle) {}
+        })
     }
 
     private fun setupView() {
@@ -110,6 +177,8 @@ class ImagePlayerFragment : Fragment() {
                     Manifest.permission.RECORD_AUDIO
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
+                speechRecognizer.destroy()
+                destroySpeech = true
                 promptSpeechInput()
             } else {
                 Snackbar.make(
@@ -142,6 +211,20 @@ class ImagePlayerFragment : Fragment() {
             if (status == TextToSpeech.SUCCESS) {
                 Locale(getString(R.string.language), getString(R.string.country))
             }
+        }
+
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.RECORD_AUDIO
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            startListening()
+        } else {
+            Snackbar.make(
+                binding.root,
+                getString(R.string.no_voice_permissions),
+                Snackbar.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -221,10 +304,12 @@ class ImagePlayerFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
         textToSpeech.stop()
         textToSpeech.shutdown()
+        speechRecognizer.stopListening()
+        speechRecognizer.destroy()
+        super.onDestroyView()
     }
 
 }
