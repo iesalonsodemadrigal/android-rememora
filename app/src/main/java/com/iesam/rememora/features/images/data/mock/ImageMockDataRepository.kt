@@ -45,6 +45,7 @@ class ImageMockDataRepository @Inject constructor(@ApplicationContext val contex
     }
 
     override suspend fun saveImage(input: SaveImageUseCase.Input): Either<ErrorApp, Boolean> {
-        TODO("Not yet implemented")
+        //this is a mock, the return is always true.
+        return true.right()
     }
 }
