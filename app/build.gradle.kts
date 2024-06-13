@@ -150,6 +150,10 @@ dependencies {
     implementation("androidx.room:room-ktx:$room_version")
     //TapTargetView
     implementation("com.getkeepsafe.taptargetview:taptargetview:1.13.2")
+    //OpenAI
+    implementation(platform("com.aallam.openai:openai-client-bom:3.7.1"))
+    implementation("com.aallam.openai:openai-client")
+    runtimeOnly("io.ktor:ktor-client-okhttp")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
