@@ -34,3 +34,5 @@ app/google-services.json
 *.hprof
 /keystore-rememora
 /app/keystore-rememora
+/app/src/main/java/com/iesam/rememora/ia/Key.kt
+/app/src/main/google-services.json

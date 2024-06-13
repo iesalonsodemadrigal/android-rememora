@@ -6,13 +6,24 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.speech.RecognitionListener
+import android.os.Handler
+import android.os.Looper
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.OptIn
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ExperimentalGetImage
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageProxy
+import androidx.camera.core.Preview
+import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -20,6 +31,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.face.FaceDetection
+import com.google.mlkit.vision.face.FaceDetectorOptions
 import com.iesam.rememora.R
 import com.iesam.rememora.app.extensions.hide
 import com.iesam.rememora.app.extensions.show
@@ -28,6 +42,9 @@ import com.iesam.rememora.databinding.FragmentImagesBinding
 import com.iesam.rememora.features.images.domain.Image
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+
 
 @AndroidEntryPoint
 class ImagePlayerFragment : Fragment() {
@@ -47,6 +64,17 @@ class ImagePlayerFragment : Fragment() {
 
     private var destroySpeech = false
 
+    private lateinit var cameraExecutor: ExecutorService
+
+    private lateinit var preview: Preview
+
+    private lateinit var cameraProvider: ProcessCameraProvider
+
+    private lateinit var imageAnalyzer: ImageAnalysis
+
+    private val MS_DELAY_TAKE_PHOTO: Long = 2000 //Milisegundos
+
+
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
@@ -61,7 +89,6 @@ class ImagePlayerFragment : Fragment() {
 
     private fun getIntention(phrase: String) {
         val prompt = getString(R.string.prompt_images, phrase)
-
         viewModel.getIntention(prompt)
     }
 
@@ -171,9 +198,10 @@ class ImagePlayerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        cameraExecutor = Executors.newSingleThreadExecutor()
+        attachCamera()
         setupObserver()
         viewModel.getImages()
-
         textToSpeech = TextToSpeech(requireContext()) { status ->
             if (status == TextToSpeech.SUCCESS) {
                 Locale(getString(R.string.language), getString(R.string.country))
@@ -216,6 +244,10 @@ class ImagePlayerFragment : Fragment() {
                         handleResult(this.lowercase())
                     }
                 }
+            }
+            if (it.emotion != null) {
+                viewModel.saveImage(images[numImage], it.emotion!!)
+                it.emotion = null
             }
         }
         viewModel.uiState.observe(viewLifecycleOwner, observer)
@@ -280,6 +312,7 @@ class ImagePlayerFragment : Fragment() {
         }
         refreshImage()
         updateButtons()
+        attachCamera()
     }
 
     private fun nextImage() {
@@ -288,12 +321,15 @@ class ImagePlayerFragment : Fragment() {
         }
         refreshImage()
         updateButtons()
+        attachCamera()
     }
 
     private fun refreshImage() {
         Glide.with(this)
             .load(images[numImage].source)
             .into(binding.image)
+        //setupML()
+        cameraExecutor = Executors.newSingleThreadExecutor()
     }
 
     private fun updateButtons() {
@@ -320,4 +356,92 @@ class ImagePlayerFragment : Fragment() {
         super.onDestroyView()
     }
 
+    private fun attachCamera() {
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+        val handler = Handler(Looper.getMainLooper())
+        handler.postDelayed({
+            cameraProviderFuture.addListener({
+                // Used to bind the lifecycle of cameras to the lifecycle owner
+                cameraProvider = cameraProviderFuture.get()
+
+                // Preview
+                preview = Preview.Builder()
+                    .build()
+                    .also {
+                        it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
+                    }
+
+                imageAnalyzer = ImageAnalysis.Builder()
+                    //.setResolutionSelector(ResolutionSelector.PREFER_CAPTURE_RATE_OVER_HIGHER_RESOLUTION)
+                    .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                    .build()
+                    .also {
+                        it.setAnalyzer(cameraExecutor, EmotionAnalyzer())
+                    }
+
+                try {
+                    // Unbind use cases before rebinding
+                    cameraProvider.unbindAll()
+
+                    // Bind use cases to camera
+                    cameraProvider.bindToLifecycle(
+                        this,
+                        CameraSelector.DEFAULT_FRONT_CAMERA,
+                        preview,
+                        ImageCapture.Builder().build(),
+                        imageAnalyzer
+                    )
+
+                } catch (exc: Exception) {
+                    Log.e("dev", "Use case binding failed", exc)
+                }
+
+            }, ContextCompat.getMainExecutor(requireContext()))
+        }, MS_DELAY_TAKE_PHOTO)
+    }
+
+    private inner class EmotionAnalyzer : ImageAnalysis.Analyzer {
+
+        // Real-time contour detection
+        val realTimeOpts = FaceDetectorOptions.Builder()
+            .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_FAST)
+            .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_NONE)
+            .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_ALL)
+            .setContourMode(FaceDetectorOptions.CONTOUR_MODE_NONE)
+            .build()
+
+        val faceDetector = FaceDetection.getClient(realTimeOpts)
+
+        @OptIn(ExperimentalGetImage::class)
+        override fun analyze(imageProxy: ImageProxy) {
+            val mediaImage = imageProxy.image
+
+            if (mediaImage != null) {
+                val image =
+                    InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
+                // Pass image to an ML Kit Vision API
+                faceDetector.process(image)
+                    .addOnSuccessListener { faces ->
+                        if (faces.size > 0) {
+                            viewModel.setFaceEmotion(
+                                faces.first().smilingProbability ?: 0f,
+                                faces.first().leftEyeOpenProbability ?: 0f,
+                                faces.first().rightEyeOpenProbability ?: 0f
+                            )
+                            cameraExecutor.shutdown()
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        e.message
+                    }
+                    .addOnCompleteListener {
+                        imageProxy.close()
+                        imageAnalyzer.clearAnalyzer()
+                    }
+            } else {
+                imageProxy.close()
+                imageAnalyzer.clearAnalyzer()
+            }
+        }
+    }
 }
