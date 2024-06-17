@@ -5,6 +5,8 @@ La aplicación permite visualizar los siguientes medios multimedia:
 - Vídeos
 - Música
 - Audios
+  
+Toda la información sobre el desarrollo de este proyecto se encuentra en la [página web de Rememora](https://siadenlab.iesalonsodemadrigal.es/rememora)  
 
 ## Rememora CMS
 Este proyecto cuenta con otra aplicación llamada **Rememora CMS** la cual permite gestionar todo el contenido que visualiza el usuario de la tablet con otra aplicación, desde el móvil 
